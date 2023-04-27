@@ -26,11 +26,15 @@ export default function App() {
 
   return (
     <Container>
+      <center>
+        <h1>Categorias</h1>
+      </center>
       <Table
         striped
         bordered
         hover
         variant="dark"
+        responsive
       >
         <thead>
           <tr>
@@ -52,6 +56,9 @@ export default function App() {
           ))}
         </tbody>
       </Table>
+      <center>
+        <Button variant="info" size="lg">Nova categoria</Button>
+      </center>
     </Container>
   );
 }
