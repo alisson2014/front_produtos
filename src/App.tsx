@@ -1,23 +1,16 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Container, Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import "./css/app.css";
 
 export default function App() {
   const [data, setData] = useState([]);
 
   const requester = async () => {
-    fetch("http://localhost/produtosLike/index.php")
+    await fetch("http://localhost/produtosLike/index.php")
       .then((response) => response.json())
-      .then((data) => (
-        setData(data["categorias"])
-      ))
-      .catch((e) => (
-        console.log(e)
-      ))
-      .finally(() => (
-        console.log("Fim da requisição.")
-      ))
+      .then((data) => setData(data["categorias"]))
+      .catch((e) => console.log(e))
+      .finally(() => console.log("Fim da requisição."))
   }
 
   useEffect(() => {
