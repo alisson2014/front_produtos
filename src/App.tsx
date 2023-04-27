@@ -19,9 +19,7 @@ export default function App() {
 
   return (
     <Container>
-      <center>
-        <h1>Categorias</h1>
-      </center>
+      <h1 style={{ textAlign: "center" }}>Categorias</h1>
       <Table
         striped
         bordered
@@ -33,7 +31,7 @@ export default function App() {
           <tr>
             <th>#</th>
             <th>Categoria</th>
-            <th className="actions">Ações</th>
+            <th style={{ textAlign: "center" }}>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +39,14 @@ export default function App() {
             <tr key={categorie["id"]}>
               <td>{categorie["id"]}</td>
               <td>{categorie["nomeCategoria"]}</td>
-              <td className="actions">
+              <td
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "16px"
+                }}
+              >
                 <Button variant="primary">Editar</Button>
                 <Button variant="danger">Excluir</Button>
               </td>
