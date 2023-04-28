@@ -1,18 +1,31 @@
+import { Button } from "react-bootstrap";
+import Field from "../../components/Field";
+import { Form } from "./styles";
+
 export default function Register() {
     const id = 5;
     return (
-        <>
+        <center>
             <h2>Registrar</h2>
-            <form action="">
-                <div className="field">
-                    <label htmlFor="id"></label>
-                    <input type="text" name="id" id="id" value={id} readOnly />
-                </div>
-                <div className="field">
-                    <label htmlFor="categoria"></label>
-                    <input type="text" name="categoria" id="id" required />
-                </div>
-            </form>
-        </>
+            <Form action="">
+                <Field
+                    fieldLabel="ID"
+                    fieldId="id"
+                    fieldValue="5"
+                    readonly
+                />
+                <Field
+                    fieldLabel="Categoria"
+                    fieldId="categoria"
+                    fieldValue="5"
+                    required
+                />
+            </Form>
+            <center>
+                <Button variant="success" size="lg">
+                    Salvar
+                </Button>
+            </center>
+        </center>
     );
 };
