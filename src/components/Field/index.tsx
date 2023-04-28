@@ -7,6 +7,7 @@ interface IFieldProps {
     fieldType?: string
     required?: boolean,
     readonly?: boolean
+    onChange?: (e: any) => void
 }
 
 export default function Field({
@@ -15,7 +16,8 @@ export default function Field({
     fieldId,
     fieldType = "text",
     required = false,
-    readonly = false
+    readonly = false,
+    onChange
 }: IFieldProps) {
     return (
         <F.Container>
@@ -27,6 +29,7 @@ export default function Field({
                 value={fieldValue}
                 readOnly={readonly}
                 required={required}
+                onChange={onChange}
             />
         </F.Container>
     );
