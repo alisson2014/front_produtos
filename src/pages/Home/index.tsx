@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Container, Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
+import BodyRow from "../../components/BodyRow/index.";
 
 export default function Home() {
     const [data, setData] = useState([]);
@@ -35,23 +36,12 @@ export default function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.values(data).map((categorie) => (
-                        <tr key={categorie["id"]}>
-                            <td>{categorie["id"]}</td>
-                            <td>{categorie["nomeCategoria"]}</td>
-                            <td
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    gap: "16px"
-                                }}
-                            >
-                                <Button variant="primary">Editar</Button>
-                                <Button variant="danger">Excluir</Button>
-                            </td>
-                        </tr>
-                    ))}
+                    {Object.values(data).map((categorie) => {
+                        const id = categorie["id"];
+                        const name = categorie["nomeCategoria"];
+                        const atributes = [id, name];
+                        return <BodyRow key={id} col={atributes} />;
+                    })}
                 </tbody>
             </Table>
             <center>
