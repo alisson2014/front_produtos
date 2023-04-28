@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Container, Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import BodyRow from "../../components/BodyRow/index.";
+import Row from "../../components/Row";
 
 export default function Home() {
     const [data, setData] = useState([]);
@@ -32,7 +32,8 @@ export default function Home() {
                     <tr>
                         <th>#</th>
                         <th>Categoria</th>
-                        <th style={{ textAlign: "center" }}>Ações</th>
+                        <th style={{ textAlign: "center" }}>Editar</th>
+                        <th style={{ textAlign: "center" }}>Deletar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +41,12 @@ export default function Home() {
                         const id = categorie["id"];
                         const name = categorie["nomeCategoria"];
                         const atributes = [id, name];
-                        return <BodyRow key={id} col={atributes} />;
+                        return (
+                            <Row
+                                key={id}
+                                col={atributes}
+                            />
+                        );
                     })}
                 </tbody>
             </Table>
