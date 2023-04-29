@@ -2,7 +2,7 @@ import * as F from "./styles";
 
 interface IFieldProps {
     fieldLabel: string,
-    fieldValue: string,
+    fieldValue?: string,
     fieldId: string,
     fieldType?: string
     required?: boolean,
@@ -12,7 +12,7 @@ interface IFieldProps {
 
 export default function Field({
     fieldLabel,
-    fieldValue,
+    fieldValue = "",
     fieldId,
     fieldType = "text",
     required = false,
