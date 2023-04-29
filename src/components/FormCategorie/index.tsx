@@ -4,7 +4,7 @@ import Field from "../Field";
 import { Form } from "./styles";
 
 interface IResponseApi {
-    status: boolean
+    type: string
     message: string
 }
 
@@ -16,7 +16,7 @@ interface IFormProps {
 export default function FormCategorie({ show, handleClose }: IFormProps) {
     const [nomeCategoria, setNomeCategoria] = useState<string>("");
     const [responseApi, setResponseApi] = useState<IResponseApi>({
-        status: true,
+        type: "",
         message: ""
     });
 
@@ -32,7 +32,17 @@ export default function FormCategorie({ show, handleClose }: IFormProps) {
         })
             .then((res) => res.json())
             .then((resJson) => {
-                setResponseApi(resJson);
+                if (resJson.status) {
+                    setResponseApi({
+                        type: "success",
+                        message: "Categoria cadastrada com sucesso."
+                    });
+                } else {
+                    setResponseApi({
+                        type: "error",
+                        message: "Erro ao cadastrar categoria."
+                    });
+                }
             })
             .catch((error) => console.error(error))
             .finally(() => console.log(responseApi));
@@ -73,7 +83,10 @@ export default function FormCategorie({ show, handleClose }: IFormProps) {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={handleClose}>
+                    <Button variant="danger" onClick={() => {
+                        setNomeCategoria("");
+                        handleClose();
+                    }}>
                         Cancelar
                     </Button>
                     <Button variant="success" type="submit">Salvar</Button>
