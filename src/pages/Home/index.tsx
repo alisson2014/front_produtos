@@ -6,13 +6,13 @@ import Row from "../../components/Row";
 export default function Home() {
     const [data, setData] = useState([]);
 
-    const requester = async () => {
+    async function requester(): Promise<void> {
         await fetch("http://localhost/produtosLike/index.php")
-            .then((response) => response.json())
+            .then((res) => res.json())
             .then((data) => setData(data["categorias"]))
-            .catch((e) => console.log(e))
+            .catch((error) => console.log(error))
             .finally(() => console.log("Fim da requisição."))
-    }
+    };
 
     useEffect(() => {
         requester();
