@@ -34,7 +34,7 @@ export default function FormCategorie({ show, handleClose }: IFormProps) {
             .then((resJson) => {
                 setResponseApi(resJson);
             })
-            .catch((error) => console.log(error))
+            .catch((error) => console.error(error))
             .finally(() => console.log(responseApi));
     };
 
@@ -49,17 +49,26 @@ export default function FormCategorie({ show, handleClose }: IFormProps) {
                 <Modal.Title>Cadastrar categoria</Modal.Title>
             </Modal.Header>
             <Form onSubmit={handleSubmit} method="POST">
-                <Modal.Body>
+                <Modal.Body style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px"
+                }}>
                     <Field
                         fieldLabel="ID"
                         fieldId="id"
                         readonly
                     />
                     <Field
-                        onChange={(e: any) => setNomeCategoria(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => (
+                            setNomeCategoria(e.target.value)
+                        )}
                         fieldLabel="Categoria"
                         fieldId="categoria"
                         fieldValue={nomeCategoria}
+                        fieldHolder="Digite o nome da categoria"
+                        minLength={3}
+                        maxLength={50}
                         required
                     />
                 </Modal.Body>

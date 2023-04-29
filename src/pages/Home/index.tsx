@@ -4,17 +4,22 @@ import Row from "../../components/Row";
 import FormCategorie from "../../components/FormCategorie";
 import { Title } from "./styles";
 
+interface Categorias {
+    id: number
+    nomeCategoria: string
+}
+
 export default function Home() {
-    const [data, setData] = useState([]);
-    const [show, setShow] = useState(false);
+    const [data, setData] = useState<Categorias[]>([]);
+    const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
 
     async function requester(): Promise<void> {
-        await fetch("http://localhost/produtosLike/index.php")
-            .then((res) => res.json())
+        await fetch("http://localhost/produtosLike/")
+            .then((response) => response.json())
             .then((data) => setData(data["categorias"]))
-            .catch((error) => console.log(error))
-            .finally(() => console.log("Fim da requisição."))
+            .catch((error) => console.error(error))
+            .finally(() => console.info("Fim da requisição."))
     };
 
     useEffect(() => {
