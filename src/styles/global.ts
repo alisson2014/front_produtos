@@ -5,11 +5,12 @@ export const ResetCss = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-size: 18px;
     }
 
     html,
     body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-family: 'Roboto Slab', serif;
         background-color: antiquewhite;
     }
 `;

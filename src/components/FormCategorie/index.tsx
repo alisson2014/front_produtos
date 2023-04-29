@@ -11,13 +11,12 @@ interface IResponseApi {
 interface IFormProps {
     show: boolean
     handleClose: () => void
-    handleShow: () => void
 }
 
-export default function FormCategorie({ show, handleClose, handleShow }: IFormProps) {
+export default function FormCategorie({ show, handleClose }: IFormProps) {
     const [nomeCategoria, setNomeCategoria] = useState<string>("");
     const [responseApi, setResponseApi] = useState<IResponseApi>({
-        status: false,
+        status: true,
         message: ""
     });
 
@@ -33,15 +32,10 @@ export default function FormCategorie({ show, handleClose, handleShow }: IFormPr
         })
             .then((res) => res.json())
             .then((resJson) => {
-                setResponseApi({
-                    status: resJson.status,
-                    message: resJson.message
-                });
+                setResponseApi(resJson);
             })
             .catch((error) => console.log(error))
-            .finally(() => (
-                alert(responseApi.message)
-            ));
+            .finally(() => console.log(responseApi));
     };
 
     return (
