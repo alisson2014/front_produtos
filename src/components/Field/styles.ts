@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 8px;
 `;
@@ -15,10 +15,10 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  font-size: 1.25rem;
-  font-weight: 300;
+  font-size: 1.35rem;
+  font-weight: 400;
   line-height: 20px;
-  background-color: #fff;
+  background-color: #dfedff;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.06);
   width: 100%;
   border: none;

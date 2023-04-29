@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react"
-import { Container, Button } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
+import { Container, Button, Table, Modal } from "react-bootstrap";
 import Row from "../../components/Row";
+import FormCategorie from "../../components/FormCategorie";
 
 export default function Home() {
     const [data, setData] = useState([]);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     async function requester(): Promise<void> {
         await fetch("http://localhost/produtosLike/index.php")
@@ -51,8 +54,19 @@ export default function Home() {
                 </tbody>
             </Table>
             <center>
-                <Button variant="info" size="lg">Nova categoria</Button>
+                <Button
+                    variant="info"
+                    size="lg"
+                    onClick={() => setShow(true)}
+                >
+                    Nova categoria
+                </Button>
             </center>
+            <FormCategorie
+                show={show}
+                handleClose={handleClose}
+                handleShow={handleShow}
+            />
         </Container>
     );
 };
