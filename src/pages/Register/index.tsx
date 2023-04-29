@@ -3,8 +3,17 @@ import { Button } from "react-bootstrap";
 import Field from "../../components/Field";
 import { Form } from "./styles";
 
+interface IResponseApi {
+    status: boolean
+    message: string
+}
+
 export default function Register() {
     const [nomeCategoria, setNomeCategoria] = useState<string>("");
+    const [responseApi, setResponseApi] = useState<IResponseApi>({
+        status: false,
+        message: ""
+    });
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
@@ -17,9 +26,16 @@ export default function Register() {
             body: JSON.stringify({ nomeCategoria })
         })
             .then((res) => res.json())
-            .then((data) => console.log(data))
+            .then((resJson) => {
+                setResponseApi({
+                    status: resJson.status,
+                    message: resJson.message
+                });
+            })
             .catch((error) => console.log(error))
-            .finally(() => console.log("Fim da requisição"));
+            .finally(() => (
+                alert(responseApi.message)
+            ));
     };
 
     return (
