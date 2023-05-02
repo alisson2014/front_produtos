@@ -6,7 +6,7 @@ import { Buttons } from "./styles";
 export default function Row({ col }: any) {
     return (
         <tr>
-            {col.map((atr: never[], i: number) => (
+            {col.map((atr: string[], i: number) => (
                 <td key={i}>{atr}</td>
             ))}
             <Buttons>

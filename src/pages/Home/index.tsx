@@ -50,13 +50,11 @@ export default function Home() {
                 </thead>
                 <tbody>
                     {Object.values(data).map((categorie) => {
-                        const id = categorie["id"];
-                        const name = categorie["nomeCategoria"];
-                        const atributes = [id, name];
+                        const { id, nomeCategoria } = categorie;
                         return (
                             <Row
                                 key={id}
-                                col={atributes}
+                                col={[id, nomeCategoria]}
                             />
                         );
                     })}

@@ -45,7 +45,7 @@ export default function FormCategorie({ show, handleClose }: IFormProps) {
                 }
             })
             .catch((error) => console.error(error))
-            .finally(() => console.log(responseApi));
+            .finally(() => console.info("Fim da requisição"));
     };
 
     return (
@@ -70,7 +70,7 @@ export default function FormCategorie({ show, handleClose }: IFormProps) {
                         readonly
                     />
                     <Field
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => (
+                        onChange={(e) => (
                             setNomeCategoria(e.target.value)
                         )}
                         fieldLabel="Categoria"
@@ -79,6 +79,7 @@ export default function FormCategorie({ show, handleClose }: IFormProps) {
                         fieldHolder="Digite o nome da categoria"
                         minLength={3}
                         maxLength={50}
+                        fieldType="text"
                         required
                     />
                 </Modal.Body>

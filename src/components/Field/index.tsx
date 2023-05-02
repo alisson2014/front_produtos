@@ -1,16 +1,18 @@
+import { ChangeEvent } from "react";
 import * as F from "./styles";
 
+type typeFields = "text" | "date" | "number";
 interface IFieldProps {
     fieldHolder?: string
-    fieldLabel: string,
-    fieldValue?: string | undefined,
-    fieldId: string,
-    fieldType?: string
-    required?: boolean,
+    fieldLabel: string
+    fieldValue?: string | undefined | number
+    fieldId: string
+    fieldType?: typeFields
+    required?: boolean
     readonly?: boolean
     minLength?: number | undefined
     maxLength?: number | undefined
-    onChange?: (e: any) => void
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 };
 
 export default function Field({
