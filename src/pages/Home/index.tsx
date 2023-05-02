@@ -65,7 +65,7 @@ export default function Home() {
                                         }} />
                                     </Button>
                                     <Button variant="danger">
-                                        <RiDeleteBin2Fill size="20px" />
+                                        <RiDeleteBin2Fill size="20px" onClick={() => console.log("Delete", id)} />
                                     </Button>
                                 </Buttons>
                             </tr>
