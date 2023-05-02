@@ -10,10 +10,11 @@ interface IResponseApi {
 
 interface IFormProps {
     show: boolean
+    id?: number
     handleClose: () => void
 }
 
-export default function FormCategorie({ show, handleClose }: IFormProps) {
+export default function FormCategorie({ show, id, handleClose }: IFormProps) {
     const [nomeCategoria, setNomeCategoria] = useState<string>("");
     const [responseApi, setResponseApi] = useState<IResponseApi>({
         status: undefined,
@@ -60,6 +61,7 @@ export default function FormCategorie({ show, handleClose }: IFormProps) {
                     <Field
                         fieldLabel="ID"
                         fieldId="id"
+                        fieldValue={id}
                         readonly
                     />
                     <Field

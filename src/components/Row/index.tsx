@@ -10,7 +10,7 @@ export default function Row({ col }: any) {
                 <td key={i}>{atr}</td>
             ))}
             <Buttons>
-                <Button variant="primary">
+                <Button variant="primary" onClick={() => console.log(col["id"])}>
                     <BiEdit size="20px" />
                 </Button>
                 <Button variant="danger">

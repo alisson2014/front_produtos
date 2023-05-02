@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
 import { Container, Button, Table } from "react-bootstrap";
-import Row from "../../components/Row";
+import { BiEdit } from "react-icons/bi";
+import { RiDeleteBin2Fill } from "react-icons/ri";
+import { Buttons, Title } from "./styles";
 import FormCategorie from "../../components/FormCategorie";
-import { Title } from "./styles";
 
 interface Categories {
     id: number
@@ -11,6 +12,7 @@ interface Categories {
 
 export default function Home() {
     const [data, setData] = useState<Categories[]>([]);
+    const [idCategorie, setIdCategorie] = useState<number>(0);
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
 
@@ -50,12 +52,23 @@ export default function Home() {
                 </thead>
                 <tbody>
                     {Object.values(data).map((categorie) => {
-                        const { id, nomeCategoria } = categorie;
+                        const { id, nomeCategoria } = categorie
                         return (
-                            <Row
-                                key={id}
-                                col={[id, nomeCategoria]}
-                            />
+                            <tr key={id}>
+                                <td>{id}</td>
+                                <td>{nomeCategoria}</td>
+                                <Buttons>
+                                    <Button variant="primary">
+                                        <BiEdit size="20px" onClick={() => {
+                                            setIdCategorie(id);
+                                            setShow(true);
+                                        }} />
+                                    </Button>
+                                    <Button variant="danger">
+                                        <RiDeleteBin2Fill size="20px" />
+                                    </Button>
+                                </Buttons>
+                            </tr>
                         );
                     })}
                 </tbody>
@@ -71,6 +84,7 @@ export default function Home() {
             </center>
             <FormCategorie
                 show={show}
+                id={idCategorie}
                 handleClose={handleClose}
             />
         </Container>
