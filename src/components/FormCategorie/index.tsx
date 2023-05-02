@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Field from "../Field";
 import { Form } from "./styles";
 
 interface IResponseApi {
-    type: string
+    status: boolean | undefined
     message: string
 }
 
@@ -16,7 +16,7 @@ interface IFormProps {
 export default function FormCategorie({ show, handleClose }: IFormProps) {
     const [nomeCategoria, setNomeCategoria] = useState<string>("");
     const [responseApi, setResponseApi] = useState<IResponseApi>({
-        type: "",
+        status: undefined,
         message: ""
     });
 
@@ -32,20 +32,13 @@ export default function FormCategorie({ show, handleClose }: IFormProps) {
         })
             .then((res) => res.json())
             .then((resJson) => {
-                if (resJson.status) {
-                    setResponseApi({
-                        type: "success",
-                        message: "Categoria cadastrada com sucesso."
-                    });
-                } else {
-                    setResponseApi({
-                        type: "error",
-                        message: "Erro ao cadastrar categoria."
-                    });
-                }
+                setResponseApi({
+                    status: resJson.status,
+                    message: resJson.message
+                })
             })
             .catch((error) => console.error(error))
-            .finally(() => console.info("Fim da requisição"));
+            .finally(() => alert(responseApi.message));
     };
 
     return (
