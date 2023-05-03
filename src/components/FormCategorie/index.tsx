@@ -52,7 +52,10 @@ export default function FormCategorie({
                 })
             })
             .catch((error) => console.error(error))
-            .finally(() => alert(responseApi.message));
+            .finally(() => {
+                alert(responseApi.message);
+                window.location.reload();
+            });
     };
 
     return (

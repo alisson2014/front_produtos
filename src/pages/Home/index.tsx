@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Container, Button, Table } from "react-bootstrap";
-import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import { BiEdit } from "react-icons/bi"
 import { Buttons, Title } from "./styles";
 import FormCategorie from "../../components/FormCategorie";
 
@@ -11,12 +11,16 @@ interface Categories {
 }
 
 export default function Home() {
+    //Estado que guarda os dados da api
     const [data, setData] = useState<Categories[]>([]);
+    //Estados que guardam o id e nome da categoria
     const [idCategorie, setIdCategorie] = useState<number | undefined>(0);
     const [nameCategorie, setNameCategorie] = useState<string>("");
+    //Estado do modal
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
 
+    //Função assíncrona que recupera os dados da api
     async function getCategories(): Promise<void> {
         await fetch("http://localhost/produtosLike/")
             .then((response) => response.json())
@@ -24,6 +28,7 @@ export default function Home() {
             .catch((error) => console.error(error))
             .finally(() => console.info("Fim da requisição."))
     };
+
 
     useEffect(() => {
         getCategories();
