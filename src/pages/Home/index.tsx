@@ -12,7 +12,8 @@ interface Categories {
 
 export default function Home() {
     const [data, setData] = useState<Categories[]>([]);
-    const [idCategorie, setIdCategorie] = useState<number>(0);
+    const [idCategorie, setIdCategorie] = useState<number | undefined>(0);
+    const [nameCategorie, setNameCategorie] = useState<string>("");
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
 
@@ -61,6 +62,7 @@ export default function Home() {
                                     <Button variant="primary">
                                         <BiEdit size="20px" onClick={() => {
                                             setIdCategorie(id);
+                                            setNameCategorie(nomeCategoria);
                                             setShow(true);
                                         }} />
                                     </Button>
@@ -77,7 +79,11 @@ export default function Home() {
                 <Button
                     variant="info"
                     size="lg"
-                    onClick={() => setShow(true)}
+                    onClick={() => {
+                        setIdCategorie(undefined);
+                        setNameCategorie("");
+                        setShow(true);
+                    }}
                 >
                     Nova categoria
                 </Button>
@@ -85,6 +91,8 @@ export default function Home() {
             <FormCategorie
                 show={show}
                 id={idCategorie}
+                nomeCategoria={nameCategorie}
+                setNomeCategoria={setNameCategorie}
                 handleClose={handleClose}
             />
         </Container>

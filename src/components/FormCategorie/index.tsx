@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Field from "../Field";
 import { Form } from "./styles";
@@ -10,12 +10,19 @@ interface IResponseApi {
 
 interface IFormProps {
     show: boolean
-    id?: number
+    id?: number | undefined
+    nomeCategoria: string
+    setNomeCategoria: (e: string) => void
     handleClose: () => void
 }
 
-export default function FormCategorie({ show, id, handleClose }: IFormProps) {
-    const [nomeCategoria, setNomeCategoria] = useState<string>("");
+export default function FormCategorie({
+    show,
+    id,
+    nomeCategoria,
+    setNomeCategoria,
+    handleClose
+}: IFormProps) {
     const [responseApi, setResponseApi] = useState<IResponseApi>({
         status: undefined,
         message: ""
@@ -23,13 +30,19 @@ export default function FormCategorie({ show, id, handleClose }: IFormProps) {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
-        await fetch("http://localhost/produtosLike/register.php", {
+        let fetchApi = "http://localhost/produtosLike/register.php";
+
+        if (id !== undefined) {
+            fetchApi = "http://localhost/produtosLike/update.php";
+        }
+
+        await fetch(fetchApi, {
             method: "POST",
             headers: {
                 "Content-Type": "applications/json; charset=UTF-8",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({ nomeCategoria })
+            body: JSON.stringify({ id, nomeCategoria })
         })
             .then((res) => res.json())
             .then((resJson) => {
