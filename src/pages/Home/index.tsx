@@ -13,9 +13,11 @@ interface Categories {
 export default function Home() {
     //Estado que guarda os dados da api
     const [data, setData] = useState<Categories[]>([]);
+
     //Estados que guardam o id e nome da categoria
-    const [idCategorie, setIdCategorie] = useState<number | undefined>(0);
+    const [idCategorie, setIdCategorie] = useState<number | undefined>(undefined);
     const [nameCategorie, setNameCategorie] = useState<string>("");
+
     //Estado do modal
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
@@ -29,6 +31,21 @@ export default function Home() {
             .finally(() => console.info("Fim da requisição."))
     };
 
+    const editCategorie = (id: number, categorie: string) => {
+        setIdCategorie(id);
+        setNameCategorie(categorie);
+        setShow(true);
+    }
+
+    const deleteCategorie = (id: number) => {
+        console.log("Deletando: " + id);
+    }
+
+    const registerCategorie = () => {
+        setIdCategorie(undefined);
+        setNameCategorie("");
+        setShow(true);
+    }
 
     useEffect(() => {
         getCategories();
@@ -65,14 +82,10 @@ export default function Home() {
                                 <td>{nomeCategoria}</td>
                                 <Buttons>
                                     <Button variant="primary">
-                                        <BiEdit size="20px" onClick={() => {
-                                            setIdCategorie(id);
-                                            setNameCategorie(nomeCategoria);
-                                            setShow(true);
-                                        }} />
+                                        <BiEdit size="20px" onClick={() => editCategorie(id, nomeCategoria)} />
                                     </Button>
                                     <Button variant="danger">
-                                        <RiDeleteBin2Fill size="20px" onClick={() => console.log("Delete", id)} />
+                                        <RiDeleteBin2Fill size="20px" onClick={() => deleteCategorie(id)} />
                                     </Button>
                                 </Buttons>
                             </tr>
@@ -84,11 +97,7 @@ export default function Home() {
                 <Button
                     variant="info"
                     size="lg"
-                    onClick={() => {
-                        setIdCategorie(undefined);
-                        setNameCategorie("");
-                        setShow(true);
-                    }}
+                    onClick={registerCategorie}
                 >
                     Nova categoria
                 </Button>
