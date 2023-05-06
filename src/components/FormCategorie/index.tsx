@@ -8,19 +8,25 @@ interface IResponseApi {
     message: string
 }
 
+interface Iprops {
+    id: number | undefined
+    nomeCategoria: string
+}
+
 interface IFormProps {
     show: boolean
-    id?: number | undefined
-    nomeCategoria: string
-    setNomeCategoria: (e: string) => void
+    props: Iprops
     handleClose: () => void
+    setProps: ({
+        id,
+        nomeCategoria
+    }: Iprops) => void
 }
 
 export default function FormCategorie({
     show,
-    id,
-    nomeCategoria,
-    setNomeCategoria,
+    props,
+    setProps,
     handleClose
 }: IFormProps) {
     const [responseApi, setResponseApi] = useState<IResponseApi>({
@@ -32,7 +38,7 @@ export default function FormCategorie({
         e.preventDefault();
         let fetchApi = "http://localhost/produtosLike/register.php";
 
-        if (id !== undefined) {
+        if (props.id !== undefined) {
             fetchApi = "http://localhost/produtosLike/update.php";
         }
 
@@ -42,7 +48,7 @@ export default function FormCategorie({
                 "Content-Type": "applications/json; charset=UTF-8",
                 "Access-Control-Allow-Origin": "*"
             },
-            body: JSON.stringify({ id, nomeCategoria })
+            body: JSON.stringify(props)
         })
             .then((res) => res.json())
             .then((resJson) => {
@@ -77,16 +83,19 @@ export default function FormCategorie({
                     <Field
                         fieldLabel="ID"
                         fieldId="id"
-                        fieldValue={id}
+                        fieldValue={props.id}
                         readonly
                     />
                     <Field
-                        onChange={(e) => (
-                            setNomeCategoria(e.target.value)
-                        )}
                         fieldLabel="Categoria"
                         fieldId="categoria"
-                        fieldValue={nomeCategoria}
+                        fieldValue={props.nomeCategoria}
+                        onChange={(e) => (
+                            setProps({
+                                id: props.id,
+                                nomeCategoria: e.target.value
+                            })
+                        )}
                         fieldHolder="Digite o nome da categoria"
                         minLength={3}
                         maxLength={50}
@@ -96,7 +105,10 @@ export default function FormCategorie({
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={() => {
-                        setNomeCategoria("");
+                        setProps({
+                            id: undefined,
+                            nomeCategoria: ""
+                        })
                         handleClose();
                     }}>
                         Cancelar

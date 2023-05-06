@@ -5,8 +5,10 @@ import { BiEdit } from "react-icons/bi"
 import { Buttons, Title } from "./styles";
 import FormCategorie from "../../components/FormCategorie";
 
+type idType = undefined | number;
+
 interface Categories {
-    id: number
+    id: idType
     nomeCategoria: string
 }
 
@@ -14,9 +16,11 @@ export default function Home() {
     //Estado que guarda os dados da api
     const [data, setData] = useState<Categories[]>([]);
 
-    //Estados que guardam o id e nome da categoria
-    const [idCategorie, setIdCategorie] = useState<number | undefined>(undefined);
-    const [nameCategorie, setNameCategorie] = useState<string>("");
+    //Estado que guarda o id e nome da categoria
+    const [propsCategorie, setPropsCategorie] = useState<Categories>({
+        id: undefined,
+        nomeCategoria: ""
+    });
 
     //Estado do modal
     const [show, setShow] = useState<boolean>(false);
@@ -26,24 +30,31 @@ export default function Home() {
     async function getCategories(): Promise<void> {
         await fetch("http://localhost/produtosLike/")
             .then((response) => response.json())
-            .then((data) => setData(data["categorias"]))
+            .then((data) => {
+                console.log(data);
+                setData(data["categorias"])
+            })
             .catch((error) => console.error(error))
-            .finally(() => console.info("Fim da requisição."))
+            .finally(() => console.info("Fim da requisição."));
     };
 
-    const editCategorie = (id: number, categorie: string) => {
-        setIdCategorie(id);
-        setNameCategorie(categorie);
+    const editCategorie = (id: idType, categorie: string) => {
+        setPropsCategorie({
+            id: id,
+            nomeCategoria: categorie
+        });
         setShow(true);
     }
 
-    const deleteCategorie = (id: number) => {
+    const deleteCategorie = (id: idType) => {
         console.log("Deletando: " + id);
     }
 
     const registerCategorie = () => {
-        setIdCategorie(undefined);
-        setNameCategorie("");
+        setPropsCategorie({
+            id: undefined,
+            nomeCategoria: ""
+        });
         setShow(true);
     }
 
@@ -104,9 +115,8 @@ export default function Home() {
             </center>
             <FormCategorie
                 show={show}
-                id={idCategorie}
-                nomeCategoria={nameCategorie}
-                setNomeCategoria={setNameCategorie}
+                props={propsCategorie}
+                setProps={setPropsCategorie}
                 handleClose={handleClose}
             />
         </Container>
