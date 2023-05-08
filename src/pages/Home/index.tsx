@@ -26,13 +26,14 @@ export default function Home() {
     //Estado do modal
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
 
     const editCategorie = (id: idType, categorie: string) => {
         setPropsCategorie({
             id: id,
             nomeCategoria: categorie
         });
-        setShow(true);
+        handleOpen();
     }
 
     const deleteCategorie = (id: idType) => {
@@ -44,7 +45,7 @@ export default function Home() {
             id: undefined,
             nomeCategoria: ""
         });
-        setShow(true);
+        handleOpen();
     }
 
     useEffect(() => {
