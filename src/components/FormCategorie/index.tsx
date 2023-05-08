@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Field from "../Field";
 import { Form } from "./styles";
+import { register } from "../../service";
+import { setEngine } from "crypto";
 
 interface IResponseApi {
     status: boolean | undefined
@@ -42,26 +44,11 @@ export default function FormCategorie({
             fetchApi = "http://localhost/produtosLike/update.php";
         }
 
-        await fetch(fetchApi, {
-            method: "POST",
-            headers: {
-                "Content-Type": "applications/json; charset=UTF-8",
-                "Access-Control-Allow-Origin": "*"
-            },
-            body: JSON.stringify(props)
-        })
-            .then((res) => res.json())
-            .then((resJson) => {
-                setResponseApi({
-                    status: resJson.status,
-                    message: resJson.message
-                })
-            })
-            .catch((error) => console.error(error))
-            .finally(() => {
-                alert(responseApi.message);
-                window.location.reload();
-            });
+        register(fetchApi, props)
+            .then((response) => setResponseApi({
+                status: response.status,
+                message: response.message
+            }))
     };
 
     return (
