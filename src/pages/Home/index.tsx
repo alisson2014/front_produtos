@@ -51,7 +51,7 @@ export default function Home() {
     useEffect(() => {
         getData("http://localhost/produtosLike/")
             .then((result) => {
-                setData(result["categorias"]);
+                setData(result);
             });
     }, []);
 
