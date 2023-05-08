@@ -3,6 +3,7 @@ import { Container, Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Buttons, Title } from "./styles";
+import { getData } from "../../service";
 import FormCategorie from "../../components/FormCategorie";
 
 type idType = undefined | number;
@@ -26,18 +27,6 @@ export default function Home() {
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
 
-    //Função assíncrona que recupera os dados da api
-    async function getCategories(): Promise<void> {
-        await fetch("http://localhost/produtosLike/")
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                setData(data["categorias"])
-            })
-            .catch((error) => console.error(error))
-            .finally(() => console.info("Fim da requisição."));
-    };
-
     const editCategorie = (id: idType, categorie: string) => {
         setPropsCategorie({
             id: id,
@@ -59,7 +48,10 @@ export default function Home() {
     }
 
     useEffect(() => {
-        getCategories();
+        getData("http://localhost/produtosLike/")
+            .then((result) => {
+                setData(result["categorias"]);
+            });
     }, []);
 
     return (
