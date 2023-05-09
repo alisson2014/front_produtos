@@ -3,7 +3,6 @@ import { Modal, Button } from "react-bootstrap";
 import Field from "../Field";
 import { Form } from "./styles";
 import { register } from "../../service";
-import { setEngine } from "crypto";
 
 interface IResponseApi {
     status: boolean | undefined
@@ -38,18 +37,15 @@ export default function FormCategorie({
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
-        let fetchApi = "http://localhost/produtosLike/register.php";
 
-        if (props.id !== undefined) {
-            fetchApi = "http://localhost/produtosLike/update.php";
-        }
-
-        register(fetchApi, props)
+        register("categories", props)
             .then((response) => setResponseApi({
                 status: response.status,
                 message: response.message
-            }))
+            }));
     };
+
+
 
     return (
         <Modal

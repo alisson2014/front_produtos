@@ -1,6 +1,16 @@
-export async function register(url: string, props: any): Promise<any> {
+export async function register(file: string, props: any): Promise<any> {
+  var method = "POST";
+  var action = "register";
+
+  if (props.id !== undefined) {
+    method = "UPDATE";
+    action = method.toLowerCase();
+  }
+
+  let url = `http://localhost/produtosLike/${action}/${file}.php`;
+
   const requester = {
-    method: "POST",
+    method: method,
     headers: {
       "Content-Type": "applications/json; charset=UTF-8",
       "Access-Control-Allow-Origin": "*",

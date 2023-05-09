@@ -37,7 +37,9 @@ export default function Home() {
     }
 
     const deleteCategorie = async (id: idType): Promise<void> => {
-        await fetch(`http://localhost/produtosLike/delete.php?id=${id}`)
+        const url = `http://localhost/produtosLike/delete/categories.php?id=${id}`;
+
+        await fetch(url)
             .then((res) => res.json())
             .then((data) => console.log(data))
             .catch((error) => console.error(error))
@@ -53,7 +55,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        getData("http://localhost/produtosLike/")
+        getData("categories")
             .then((result) => {
                 setData(result);
             });
@@ -94,8 +96,9 @@ export default function Home() {
                                     </Button>
                                     <Button variant="danger">
                                         <RiDeleteBin2Fill size="20px" onClick={() => {
-                                            if (confirm(`Deseja excluir a categoria ${nomeCategoria}?`)) {
+                                            if (window.confirm(`Deseja excluir a categoria ${nomeCategoria}?`)) {
                                                 deleteCategorie(id);
+                                                window.location.reload();
                                             }
                                         }} />
                                     </Button>
