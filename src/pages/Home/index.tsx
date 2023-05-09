@@ -36,8 +36,12 @@ export default function Home() {
         handleOpen();
     }
 
-    const deleteCategorie = (id: idType) => {
-        console.log("Deletando: " + id);
+    const deleteCategorie = async (id: idType): Promise<void> => {
+        await fetch(`http://localhost/produtosLike/delete.php?id=${id}`)
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+            .catch((error) => console.error(error))
+            .finally(() => console.info("Fim"));
     }
 
     const registerCategorie = () => {
@@ -89,7 +93,11 @@ export default function Home() {
                                         <BiEdit size="20px" onClick={() => editCategorie(id, nomeCategoria)} />
                                     </Button>
                                     <Button variant="danger">
-                                        <RiDeleteBin2Fill size="20px" onClick={() => deleteCategorie(id)} />
+                                        <RiDeleteBin2Fill size="20px" onClick={() => {
+                                            if (confirm(`Deseja excluir a categoria ${nomeCategoria}?`)) {
+                                                deleteCategorie(id);
+                                            }
+                                        }} />
                                     </Button>
                                 </Buttons>
                             </tr>
