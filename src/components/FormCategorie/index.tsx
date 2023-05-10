@@ -11,7 +11,7 @@ interface IResponseApi {
 
 interface Iprops {
     id: number | undefined
-    nomeCategoria: string
+    nome: string
 }
 
 interface IFormProps {
@@ -20,7 +20,7 @@ interface IFormProps {
     handleClose: () => void
     setProps: ({
         id,
-        nomeCategoria
+        nome
     }: Iprops) => void
 }
 
@@ -72,11 +72,11 @@ export default function FormCategorie({
                     <Field
                         fieldLabel="Categoria"
                         fieldId="categoria"
-                        fieldValue={props.nomeCategoria}
+                        fieldValue={props.nome}
                         onChange={(e) => (
                             setProps({
                                 id: props.id,
-                                nomeCategoria: e.target.value
+                                nome: e.target.value
                             })
                         )}
                         fieldHolder="Digite o nome da categoria"
@@ -90,7 +90,7 @@ export default function FormCategorie({
                     <Button variant="danger" onClick={() => {
                         setProps({
                             id: undefined,
-                            nomeCategoria: ""
+                            nome: ""
                         })
                         handleClose();
                     }}>

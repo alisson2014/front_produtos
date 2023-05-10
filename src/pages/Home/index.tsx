@@ -10,7 +10,7 @@ type idType = undefined | number;
 
 interface Categories {
     id: idType
-    nomeCategoria: string
+    nome: string
 }
 
 export default function Home() {
@@ -20,7 +20,7 @@ export default function Home() {
     //Estado que guarda o id e nome da categoria
     const [propsCategorie, setPropsCategorie] = useState<Categories>({
         id: undefined,
-        nomeCategoria: ""
+        nome: ""
     });
 
     //Estado do modal
@@ -31,7 +31,7 @@ export default function Home() {
     const editCategorie = (id: idType, categorie: string) => {
         setPropsCategorie({
             id: id,
-            nomeCategoria: categorie
+            nome: categorie
         });
         handleOpen();
     }
@@ -49,7 +49,7 @@ export default function Home() {
     const registerCategorie = () => {
         setPropsCategorie({
             id: undefined,
-            nomeCategoria: ""
+            nome: ""
         });
         handleOpen();
     }
@@ -84,19 +84,19 @@ export default function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.values(data).map((categorie) => {
-                        const { id, nomeCategoria } = categorie
+                    {data.map((categorie) => {
+                        const { id, nome } = categorie;
                         return (
                             <tr key={id}>
                                 <td>{id}</td>
-                                <td>{nomeCategoria}</td>
+                                <td>{nome}</td>
                                 <Buttons>
                                     <Button variant="primary">
-                                        <BiEdit size="20px" onClick={() => editCategorie(id, nomeCategoria)} />
+                                        <BiEdit size="20px" onClick={() => editCategorie(id, nome)} />
                                     </Button>
                                     <Button variant="danger">
                                         <RiDeleteBin2Fill size="20px" onClick={() => {
-                                            if (window.confirm(`Deseja excluir a categoria ${nomeCategoria}?`)) {
+                                            if (window.confirm(`Deseja excluir a categoria ${nome}?`)) {
                                                 deleteCategorie(id);
                                                 window.location.reload();
                                             }
