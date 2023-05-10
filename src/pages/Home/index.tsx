@@ -98,7 +98,9 @@ export default function Home() {
                                         <RiDeleteBin2Fill size="20px" onClick={() => {
                                             if (window.confirm(`Deseja excluir a categoria ${nome}?`)) {
                                                 deleteCategorie(id);
-                                                window.location.reload();
+                                                setInterval(() => {
+                                                    window.location.reload();
+                                                }, 1500);
                                             }
                                         }} />
                                     </Button>
