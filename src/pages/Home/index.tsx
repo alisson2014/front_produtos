@@ -3,7 +3,7 @@ import { Container, Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Buttons, Title } from "./styles";
-import { getData } from "../../service";
+import { getData, deleteData } from "../../service";
 import FormCategorie from "../../components/FormCategorie";
 
 type idType = undefined | number;
@@ -34,16 +34,6 @@ export default function Home() {
             nome: categorie
         });
         handleOpen();
-    }
-
-    const deleteCategorie = async (id: idType): Promise<void> => {
-        const url = `http://localhost/produtosLike/delete/categories.php?id=${id}`;
-
-        await fetch(url)
-            .then((res) => res.json())
-            .then((data) => console.log(data))
-            .catch((error) => console.error(error))
-            .finally(() => console.info("Fim"));
     }
 
     const registerCategorie = () => {
@@ -96,11 +86,8 @@ export default function Home() {
                                     </Button>
                                     <Button variant="danger">
                                         <RiDeleteBin2Fill size="20px" onClick={() => {
-                                            if (window.confirm(`Deseja excluir a categoria ${nome}?`)) {
-                                                deleteCategorie(id);
-                                                setInterval(() => {
-                                                    window.location.reload();
-                                                }, 1500);
+                                            if (window.confirm("Deseja realmente exclui a categoria " + nome)) {
+                                                deleteData("categories", id);
                                             }
                                         }} />
                                     </Button>

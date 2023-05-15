@@ -8,7 +8,5 @@ export async function getData(file: string): Promise<any> {
   } catch (error) {
     console.error("Erro encontrado: ", error);
     return [];
-  } finally {
-    console.info("Fim da requisição");
   }
 }
