@@ -6,10 +6,8 @@ import { Buttons, Title } from "./styles";
 import { getData, deleteData } from "../../service";
 import FormCategorie from "../../components/FormCategorie";
 
-type idType = undefined | number;
-
 interface Categories {
-    id: idType
+    id: string
     nome: string
 }
 
@@ -19,7 +17,7 @@ export default function Home() {
 
     //Estado que guarda o id e nome da categoria
     const [propsCategorie, setPropsCategorie] = useState<Categories>({
-        id: undefined,
+        id: "",
         nome: ""
     });
 
@@ -28,7 +26,7 @@ export default function Home() {
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editCategorie = (id: idType, categorie: string) => {
+    const editCategorie = (id: string, categorie: string) => {
         setPropsCategorie({
             id: id,
             nome: categorie
@@ -38,7 +36,7 @@ export default function Home() {
 
     const registerCategorie = () => {
         setPropsCategorie({
-            id: undefined,
+            id: "",
             nome: ""
         });
         handleOpen();
@@ -109,7 +107,6 @@ export default function Home() {
             <FormCategorie
                 show={show}
                 props={propsCategorie}
-                setProps={setPropsCategorie}
                 handleClose={handleClose}
             />
         </Container>

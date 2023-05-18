@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { Modal, Button } from "react-bootstrap";
-import Field from "../Field";
-import { Form } from "./styles";
-import { register } from "../../service";
+import { save } from "../../service";
+import * as F from "./styles";
 
 interface IResponseApi {
     status: boolean | undefined
@@ -10,7 +10,7 @@ interface IResponseApi {
 }
 
 interface Iprops {
-    id: number | undefined
+    id: string
     nome: string
 }
 
@@ -18,16 +18,11 @@ interface IFormProps {
     show: boolean
     props: Iprops
     handleClose: () => void
-    setProps: ({
-        id,
-        nome
-    }: Iprops) => void
 }
 
 export default function FormCategorie({
     show,
     props,
-    setProps,
     handleClose
 }: IFormProps) {
     const [responseApi, setResponseApi] = useState<IResponseApi>({
@@ -35,17 +30,25 @@ export default function FormCategorie({
         message: ""
     });
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>): Promise<void> {
-        e.preventDefault();
+    const {
+        handleSubmit,
+        register,
+        setValue,
+        formState: { errors }
+    } = useForm<Iprops>();
 
-        register("categories", props)
+    useEffect(() => {
+        setValue("id", props?.id);
+        setValue("nome", props?.nome);
+    }, [props, setValue]);
+
+    const onSubmit = (data: Iprops) => {
+        save("categories", data)
             .then((response) => setResponseApi({
-                status: response.status,
-                message: response.message
+                status: response?.status,
+                message: response?.message
             }));
     };
-
-
 
     return (
         <Modal
@@ -57,48 +60,45 @@ export default function FormCategorie({
             <Modal.Header closeButton>
                 <Modal.Title>Cadastrar categoria</Modal.Title>
             </Modal.Header>
-            <Form onSubmit={handleSubmit} method="POST">
+            <F.Form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Body style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: "16px"
                 }}>
-                    <Field
-                        fieldLabel="ID"
-                        fieldId="id"
-                        fieldValue={props.id}
-                        readonly
-                    />
-                    <Field
-                        fieldLabel="Categoria"
-                        fieldId="categoria"
-                        fieldValue={props.nome}
-                        onChange={(e) => (
-                            setProps({
-                                id: props.id,
-                                nome: e.target.value
-                            })
+                    <F.Container>
+                        <F.Label htmlFor="id">ID</F.Label>
+                        <F.Input
+                            id="id"
+                            defaultValue={props?.id}
+                            {...register("id")}
+                            readOnly
+                        />
+                    </F.Container>
+                    <F.Container>
+                        <F.Label htmlFor="categorie">Categoria</F.Label>
+                        <F.Input
+                            id="categorie"
+                            defaultValue={props?.nome}
+                            placeholder="Digite o nome da categoria"
+                            {...register("nome", { required: true, minLength: 3 })}
+                            className={errors?.nome && "input-error"}
+                        />
+                        {errors?.nome?.type === "required" && (
+                            <F.Error className="error-message">Categoria é obrigatório</F.Error>
                         )}
-                        fieldHolder="Digite o nome da categoria"
-                        minLength={3}
-                        maxLength={50}
-                        fieldType="text"
-                        required
-                    />
+                        {errors?.nome?.type === "minLength" && (
+                            <F.Error className="error-message">Digite 3 ou mais caracteres</F.Error>
+                        )}
+                    </F.Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={() => {
-                        setProps({
-                            id: undefined,
-                            nome: ""
-                        })
-                        handleClose();
-                    }}>
+                    <Button variant="danger" onClick={() => handleClose()}>
                         Cancelar
                     </Button>
                     <Button variant="success" type="submit">Salvar</Button>
                 </Modal.Footer>
-            </Form>
+            </F.Form>
         </Modal>
     );
 };

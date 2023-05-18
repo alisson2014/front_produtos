@@ -1,4 +1,4 @@
-import { register } from ".";
+import { save } from ".";
 
 describe("HTTP POST DATA API", () => {
   test("Deve trazer status true da api", async () => {
@@ -8,7 +8,7 @@ describe("HTTP POST DATA API", () => {
       nomeCategoria: "testeJest",
     };
 
-    const data = await register(mockUrlApi, mockData);
+    const data = await save(mockUrlApi, mockData);
     expect(data).toBeDefined();
   });
 
@@ -19,7 +19,7 @@ describe("HTTP POST DATA API", () => {
       nomeCategoria: "testeJest",
     };
 
-    const data = await register(mockUrlApi, mockData);
+    const data = await save(mockUrlApi, mockData);
     expect(data).toEqual([]);
   });
 });

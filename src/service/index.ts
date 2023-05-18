@@ -1,5 +1,5 @@
 import { getData } from "./getData";
-import { register } from "./register";
+import { save } from "./save";
 import { deleteData } from "./delete";
 
-export { getData, register, deleteData };
+export { getData, save, deleteData };
