@@ -32,6 +32,15 @@ export default function Home() {
             nome: categorie
         });
         handleOpen();
+    };
+
+    const deleteCategorie = (id: string, category: string) => {
+        if (window.confirm(`Deseja excluir a categoira ${category}?`)) {
+            deleteData("categories", id);
+            setInterval(() => {
+                window.location.reload();
+            }, 1500);
+        }
     }
 
     const registerCategorie = () => {
@@ -40,7 +49,7 @@ export default function Home() {
             nome: ""
         });
         handleOpen();
-    }
+    };
 
     useEffect(() => {
         getData("categories")
@@ -83,11 +92,7 @@ export default function Home() {
                                         <BiEdit size="20px" onClick={() => editCategorie(id, nome)} />
                                     </Button>
                                     <Button variant="danger">
-                                        <RiDeleteBin2Fill size="20px" onClick={() => {
-                                            if (window.confirm("Deseja realmente exclui a categoria " + nome)) {
-                                                deleteData("categories", id);
-                                            }
-                                        }} />
+                                        <RiDeleteBin2Fill size="20px" onClick={() => deleteCategorie(id, nome)} />
                                     </Button>
                                 </Buttons>
                             </tr>
