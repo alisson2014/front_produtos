@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react"
 import { Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
-import Swal from "sweetalert2";
 import { BiEdit } from "react-icons/bi"
 import { Buttons, Title, Box } from "./styles";
-import { getData, deleteData } from "../../service";
+import { getData, deleteFn } from "../../service";
 import FormCategorie from "../../components/FormCategorie";
 
 interface Categories {
@@ -28,42 +27,6 @@ export default function Home() {
             nome: categorie
         });
         handleOpen();
-    };
-
-    const deleteCategorie = (id: string, category: string) => {
-        Swal.fire({
-            title: `Deseja excluir ${category}?`,
-            text: "Você não poderá reverter isso!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Sim, Deletar!",
-            cancelButtonText: "Cancelar"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                deleteData("categories", id)
-                    .then((res) => {
-                        if (res?.status) {
-                            Swal.fire(
-                                "Deletado!",
-                                "Categoria deletada da base de dados.",
-                                "success"
-                            ).then((res) => {
-                                if (res.isConfirmed) window.location.reload();
-                            });
-                        } else {
-                            Swal.fire(
-                                "Erro!",
-                                "Erro ao deletar na base de dados.",
-                                "error"
-                            ).then((res) => {
-                                if (res.isConfirmed) window.location.reload();
-                            });
-                        }
-                    });
-            }
-        });
     };
 
     const registerCategorie = () => {
@@ -114,7 +77,7 @@ export default function Home() {
                                     <Button variant="primary" onClick={() => editCategorie(id, nome)}>
                                         <BiEdit size="20px" />
                                     </Button>
-                                    <Button variant="danger" onClick={() => deleteCategorie(id, nome)}>
+                                    <Button variant="danger" onClick={() => deleteFn(id, nome, "Categoria")}>
                                         <RiDeleteBin2Fill size="20px" />
                                     </Button>
                                 </Buttons>

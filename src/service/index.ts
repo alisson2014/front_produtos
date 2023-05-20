@@ -1,5 +1,5 @@
 import { getData } from "./getData";
 import { save } from "./save";
-import { deleteData } from "./delete";
+import { deleteFn } from "./deleteFn";
 
-export { getData, save, deleteData };
+export { getData, save, deleteFn };
