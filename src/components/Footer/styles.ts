@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Footer = styled.footer`
-  padding: 18px 6px;
+  padding: 18px 9px;
   display: flex;
   align-items: center;
   justify-content: space-between;

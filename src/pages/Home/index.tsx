@@ -111,11 +111,11 @@ export default function Home() {
                                 <td>{id}</td>
                                 <td>{nome}</td>
                                 <Buttons>
-                                    <Button variant="primary">
-                                        <BiEdit size="20px" onClick={() => editCategorie(id, nome)} />
+                                    <Button variant="primary" onClick={() => editCategorie(id, nome)}>
+                                        <BiEdit size="20px" />
                                     </Button>
-                                    <Button variant="danger">
-                                        <RiDeleteBin2Fill size="20px" onClick={() => deleteCategorie(id, nome)} />
+                                    <Button variant="danger" onClick={() => deleteCategorie(id, nome)}>
+                                        <RiDeleteBin2Fill size="20px" />
                                     </Button>
                                 </Buttons>
                             </tr>
