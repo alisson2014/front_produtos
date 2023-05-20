@@ -87,7 +87,7 @@ export default function FormCategorie({
                             id="categorie"
                             defaultValue={props?.nome}
                             placeholder="Digite o nome da categoria"
-                            {...register("nome", { required: true, minLength: 3 })}
+                            {...register("nome", { required: true, minLength: 3, maxLength: 50 })}
                             className={errors?.nome && "input-error"}
                         />
                         {errors?.nome?.type === "required" && (
@@ -95,6 +95,9 @@ export default function FormCategorie({
                         )}
                         {errors?.nome?.type === "minLength" && (
                             <F.Error className="error-message">Digite 3 ou mais caracteres</F.Error>
+                        )}
+                        {errors?.nome?.type === "maxLength" && (
+                            <F.Error className="error-message">Digite no maximo 50 caracteres</F.Error>
                         )}
                     </F.Container>
                 </Modal.Body>
