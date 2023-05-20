@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import { Modal, Button } from "react-bootstrap";
 import { save } from "../../service";
 import * as F from "./styles";
@@ -34,10 +35,25 @@ export default function FormCategorie({
 
     const onSubmit = (data: Iprops) => {
         save("categories", data)
-            .then((res) => window.alert(res?.message));
-        setInterval(() => {
-            window.location.reload();
-        }, 1500);
+            .then((res) => {
+                if (res?.status) {
+                    Swal.fire(
+                        "Sucesso!",
+                        res?.message,
+                        "success"
+                    ).then((res) => {
+                        if (res.isConfirmed) window.location.reload();
+                    });
+                } else {
+                    Swal.fire(
+                        "Erro!",
+                        res?.message,
+                        "error"
+                    ).then((res) => {
+                        if (res.isConfirmed) window.location.reload();
+                    });
+                }
+            });
     };
 
     return (

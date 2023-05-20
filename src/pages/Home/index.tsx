@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Container, Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import Swal from "sweetalert2";
 import { BiEdit } from "react-icons/bi"
 import { Buttons, Title } from "./styles";
 import { getData, deleteData } from "../../service";
@@ -30,13 +31,39 @@ export default function Home() {
     };
 
     const deleteCategorie = (id: string, category: string) => {
-        if (window.confirm(`Deseja excluir a categoira ${category}?`)) {
-            deleteData("categories", id)
-                .then((response) => window.alert(response?.message));
-            setInterval(() => {
-                window.location.reload();
-            }, 1500);
-        };
+        Swal.fire({
+            title: `Deseja excluir ${category}?`,
+            text: "Você não poderá reverter isso!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sim, Deletar!",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteData("categories", id)
+                    .then((res) => {
+                        if (res?.status) {
+                            Swal.fire(
+                                "Deletado!",
+                                "Categoria deletada da base de dados.",
+                                "success"
+                            ).then((res) => {
+                                if (res.isConfirmed) window.location.reload();
+                            });
+                        } else {
+                            Swal.fire(
+                                "Erro!",
+                                "Erro ao deletar na base de dados.",
+                                "error"
+                            ).then((res) => {
+                                if (res.isConfirmed) window.location.reload();
+                            });
+                        }
+                    });
+            }
+        });
     };
 
     const registerCategorie = () => {
