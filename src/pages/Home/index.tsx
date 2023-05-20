@@ -12,16 +12,11 @@ interface Categories {
 }
 
 export default function Home() {
-    //Estado que guarda os dados da api
     const [data, setData] = useState<Categories[]>([]);
-
-    //Estado que guarda o id e nome da categoria
     const [propsCategorie, setPropsCategorie] = useState<Categories>({
         id: "",
         nome: ""
     });
-
-    //Estado do modal
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
@@ -36,12 +31,13 @@ export default function Home() {
 
     const deleteCategorie = (id: string, category: string) => {
         if (window.confirm(`Deseja excluir a categoira ${category}?`)) {
-            deleteData("categories", id);
+            deleteData("categories", id)
+                .then((response) => window.alert(response?.message));
             setInterval(() => {
                 window.location.reload();
             }, 1500);
-        }
-    }
+        };
+    };
 
     const registerCategorie = () => {
         setPropsCategorie({

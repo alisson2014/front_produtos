@@ -4,11 +4,6 @@ import { Modal, Button } from "react-bootstrap";
 import { save } from "../../service";
 import * as F from "./styles";
 
-interface IResponseApi {
-    status: boolean | undefined
-    message: string
-}
-
 interface Iprops {
     id: string
     nome: string
@@ -25,11 +20,6 @@ export default function FormCategorie({
     props,
     handleClose
 }: IFormProps) {
-    const [responseApi, setResponseApi] = useState<IResponseApi>({
-        status: undefined,
-        message: ""
-    });
-
     const {
         handleSubmit,
         register,
@@ -44,10 +34,10 @@ export default function FormCategorie({
 
     const onSubmit = (data: Iprops) => {
         save("categories", data)
-            .then((response) => setResponseApi({
-                status: response?.status,
-                message: response?.message
-            }));
+            .then((res) => window.alert(res?.message));
+        setInterval(() => {
+            window.location.reload();
+        }, 1500);
     };
 
     return (
