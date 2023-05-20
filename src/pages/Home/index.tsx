@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
-import { Container, Button, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import { BiEdit } from "react-icons/bi"
-import { Buttons, Title } from "./styles";
+import { Buttons, Title, Box } from "./styles";
 import { getData, deleteData } from "../../service";
 import FormCategorie from "../../components/FormCategorie";
 
@@ -82,7 +82,7 @@ export default function Home() {
     }, []);
 
     return (
-        <Container>
+        <Box>
             <Title>Categorias</Title>
             <Table
                 striped
@@ -123,20 +123,19 @@ export default function Home() {
                     })}
                 </tbody>
             </Table>
-            <center>
-                <Button
-                    variant="info"
-                    size="lg"
-                    onClick={registerCategorie}
-                >
-                    Nova categoria
-                </Button>
-            </center>
+            <Button
+                variant="info"
+                size="lg"
+                onClick={registerCategorie}
+                style={{ alignSelf: "center" }}
+            >
+                Nova categoria
+            </Button>
             <FormCategorie
                 show={show}
                 props={propsCategorie}
                 handleClose={handleClose}
             />
-        </Container>
+        </Box>
     );
 };

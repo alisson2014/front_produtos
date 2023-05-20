@@ -1,4 +1,12 @@
+import { Container } from "react-bootstrap";
 import styled from "styled-components";
+
+export const Box = styled(Container)`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 90px;
+`;
 
 export const Title = styled.h1`
   font-size: 2.5em;
