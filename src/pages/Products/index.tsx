@@ -4,9 +4,47 @@ import { deleteFn, getData } from "../../service";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Box, Title, Buttons } from "./styles";
+import FormProducts from "../../components/FormProducts";
+
+interface IProducts {
+    id: string
+    nome: string
+    nomeCategoria: string
+    valor: string
+}
 
 export default function Products() {
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<IProducts[]>([]);
+    const [propsProduct, setPropsProduct] = useState<IProducts>({
+        id: "",
+        nome: "",
+        nomeCategoria: "",
+        valor: ""
+    });
+
+    const [show, setShow] = useState<boolean>(false);
+    const handleClose = () => setShow(false);
+    const handleOpen = () => setShow(true);
+
+    const editProduct = (id: string, categorie: string, product: string, value: string) => {
+        setPropsProduct({
+            id: id,
+            nome: product,
+            nomeCategoria: categorie,
+            valor: value
+        });
+        handleOpen();
+    };
+
+    const registerProduct = () => {
+        setPropsProduct({
+            id: "",
+            nome: "",
+            nomeCategoria: "",
+            valor: ""
+        });
+        handleOpen();
+    };
 
     useEffect(() => {
         getData("products")
@@ -47,13 +85,13 @@ export default function Products() {
                                 <td>{id}</td>
                                 <td>{nome}</td>
                                 <td>{nomeCategoria}</td>
-                                <td>{valor}</td>
+                                <td>R$ {valor.replace(".", ",")}</td>
                                 <Buttons>
-                                    <Button variant="primary" onClick={() => console.log("Edit")}>
-                                        <BiEdit size="20px" />
+                                    <Button variant="primary" onClick={() => editProduct(id, nomeCategoria, nome, valor)}>
+                                        <BiEdit size={20} />
                                     </Button>
                                     <Button variant="danger" onClick={() => deleteFn(id, nome, "Categoria")}>
-                                        <RiDeleteBin2Fill size="20px" />
+                                        <RiDeleteBin2Fill size={20} />
                                     </Button>
                                 </Buttons>
                             </tr>
@@ -61,6 +99,11 @@ export default function Products() {
                     })}
                 </tbody>
             </Table>
+            <FormProducts
+                show={show}
+                handleClose={handleClose}
+                props={propsProduct}
+            />
         </Box>
     );
 };
