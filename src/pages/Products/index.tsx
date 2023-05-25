@@ -10,7 +10,7 @@ interface IProducts {
     id: string
     nome: string
     nomeCategoria: string
-    valor: string
+    valor: number
 }
 
 export default function Products() {
@@ -19,20 +19,22 @@ export default function Products() {
         id: "",
         nome: "",
         nomeCategoria: "",
-        valor: ""
+        valor: 0
     });
+    const [idCategoria, setIdCategoria] = useState<string>("");
 
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editProduct = (id: string, categorie: string, product: string, value: string) => {
+    const editProduct = (id: string, categorie: string, idCategorie: string, product: string, value: number) => {
         setPropsProduct({
             id: id,
             nome: product,
             nomeCategoria: categorie,
             valor: value
         });
+        setIdCategoria(idCategoria)
         handleOpen();
     };
 
@@ -41,16 +43,14 @@ export default function Products() {
             id: "",
             nome: "",
             nomeCategoria: "",
-            valor: ""
+            valor: 0
         });
         handleOpen();
     };
 
     useEffect(() => {
-        getData("products")
-            .then((result) => {
-                setData(result);
-            });
+        getData("products").then((result) => setData(result));
+        getData("categories").then((result) => setIdCategoria(result?.id));
     }, []);
 
     return (
@@ -85,9 +85,11 @@ export default function Products() {
                                 <td>{id}</td>
                                 <td>{nome}</td>
                                 <td>{nomeCategoria}</td>
-                                <td>R$ {valor.replace(".", ",")}</td>
+                                <td>R$ {valor.toString().replace(".", ",")}</td>
                                 <Buttons>
-                                    <Button variant="primary" onClick={() => editProduct(id, nomeCategoria, nome, valor)}>
+                                    <Button variant="primary" onClick={() => {
+                                        editProduct(id, nomeCategoria, idCategoria, nome, valor);
+                                    }}>
                                         <BiEdit size={20} />
                                     </Button>
                                     <Button variant="danger" onClick={() => deleteFn(id, nome, "Categoria")}>
@@ -99,10 +101,21 @@ export default function Products() {
                     })}
                 </tbody>
             </Table>
+            <Button
+                variant="info"
+                size="lg"
+                onClick={registerProduct}
+                style={{ alignSelf: "center" }}
+            >
+                Nova categoria
+            </Button>
             <FormProducts
                 show={show}
                 handleClose={handleClose}
-                props={propsProduct}
+                id={propsProduct.id}
+                nome={propsProduct.nome}
+                valor={propsProduct.valor}
+                idCategoria={idCategoria}
             />
         </Box>
     );

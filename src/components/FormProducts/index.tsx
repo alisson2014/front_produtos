@@ -8,8 +8,8 @@ import { TextError } from "./styles";
 interface Iprops {
     id: string
     nome: string
-    nomeCategoria: string
-    valor: string
+    idCategoria: string
+    valor: number
 }
 
 interface Categories {
@@ -19,13 +19,19 @@ interface Categories {
 
 interface IFormProps {
     show: boolean
-    props: Iprops
+    id: string
+    nome: string
+    valor: number
+    idCategoria: string
     handleClose: () => void
 }
 
 export default function FormProducts({
     show,
-    props,
+    id,
+    nome,
+    idCategoria,
+    valor,
     handleClose
 }: IFormProps) {
     const {
@@ -34,17 +40,16 @@ export default function FormProducts({
         setValue,
         formState: { errors }
     } = useForm<Iprops>();
-
     const [categories, setCategories] = useState<Categories[]>([]);
 
     useEffect(() => {
-        setValue("id", props?.id);
-        setValue("nome", props?.nome);
-        setValue("nomeCategoria", props?.nomeCategoria);
-        setValue("valor", props?.valor);
+        setValue("id", id);
+        setValue("nome", nome);
+        setValue("idCategoria", idCategoria);
+        setValue("valor", valor);
 
         getData("categories").then((result) => setCategories(result));
-    }, [props, setValue]);
+    }, [id, nome, idCategoria, valor, setValue]);
 
     const onSubmit = (data: Iprops) => {
         save("products", data)
@@ -89,7 +94,7 @@ export default function FormProducts({
                         <Form.Group controlId="id">
                             <Form.Label>ID</Form.Label>
                             <Form.Control
-                                defaultValue={props?.id}
+                                defaultValue={id}
                                 {...register("id")}
                                 readOnly
                             />
@@ -97,7 +102,7 @@ export default function FormProducts({
                         <Form.Group controlId="product">
                             <Form.Label>Produto</Form.Label>
                             <Form.Control
-                                defaultValue={props?.nome}
+                                defaultValue={nome}
                                 placeholder="Digite o nome do produto"
                                 {...register("nome", { required: true, minLength: 3, maxLength: 50 })}
                             />
@@ -118,24 +123,29 @@ export default function FormProducts({
                             <Form.Select
                                 style={{ cursor: "pointer" }}
                                 placeholder="Digite o nome da categoria"
-                                {...register("nomeCategoria", { required: true, minLength: 3 })}
+                                value={idCategoria}
+                                {...register("idCategoria", { required: true })}
                             >
-                                <option value=""></option>
+                                <option defaultValue="" disabled></option>
                                 {categories.map((categorie) => {
-                                    return <option key={categorie?.id} value={categorie?.nome} selected={categorie?.id === props.id}>{categorie?.nome}</option>;
+                                    return (
+                                        <option
+                                            key={categorie?.id}
+                                            value={categorie?.id === idCategoria ? categorie.nome : ""}
+                                        >
+                                            {categorie?.nome}
+                                        </option>
+                                    );
                                 })}
                             </Form.Select>
-                            {errors?.nomeCategoria?.type === "required" && (
+                            {errors?.idCategoria?.type === "required" && (
                                 <TextError>Categoria é obrigatório</TextError>
-                            )}
-                            {errors?.nomeCategoria?.type === "minLength" && (
-                                <TextError>Digite 3 ou mais caracteres</TextError>
                             )}
                         </Form.Group>
                         <Form.Group controlId="value">
                             <Form.Label>Valor</Form.Label>
                             <Form.Control
-                                defaultValue={props?.valor}
+                                defaultValue={valor}
                                 placeholder="Digite o valor do produto"
                                 type="number"
                                 {...register("valor", { required: true, min: 0, max: 10000000 })}
