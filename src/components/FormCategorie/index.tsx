@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import { save } from "../../service";
-import * as F from "./styles";
+import { TextError } from "./styles";
 
 interface Iprops {
     id: string
@@ -66,48 +66,45 @@ export default function FormCategorie({
             <Modal.Header closeButton>
                 <Modal.Title>Cadastrar categoria</Modal.Title>
             </Modal.Header>
-            <F.Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Body style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: "16px"
                 }}>
-                    <F.Container>
-                        <F.Label htmlFor="id">ID</F.Label>
-                        <F.Input
-                            id="id"
+                    <Form.Group controlId="id">
+                        <Form.Label>ID</Form.Label>
+                        <Form.Control
                             defaultValue={props?.id}
                             {...register("id")}
                             readOnly
                         />
-                    </F.Container>
-                    <F.Container>
-                        <F.Label htmlFor="categorie">Categoria</F.Label>
-                        <F.Input
-                            id="categorie"
+                    </Form.Group>
+                    <Form.Group controlId="categorie">
+                        <Form.Label>Categoria</Form.Label>
+                        <Form.Control
                             defaultValue={props?.nome}
                             placeholder="Digite o nome da categoria"
                             {...register("nome", { required: true, minLength: 3, maxLength: 50 })}
-                            className={errors?.nome && "input-error"}
                         />
                         {errors?.nome?.type === "required" && (
-                            <F.Error className="error-message">Categoria é obrigatório</F.Error>
+                            <TextError>Categoria é obrigatório</TextError>
                         )}
                         {errors?.nome?.type === "minLength" && (
-                            <F.Error className="error-message">Digite 3 ou mais caracteres</F.Error>
+                            <TextError>Digite 3 ou mais caracteres</TextError>
                         )}
                         {errors?.nome?.type === "maxLength" && (
-                            <F.Error className="error-message">Digite no maximo 50 caracteres</F.Error>
+                            <TextError>Digite no maximo 50 caracteres</TextError>
                         )}
-                    </F.Container>
+                    </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="danger" onClick={() => handleClose()}>
+                    <Button variant="danger" type="button" onClick={() => handleClose()}>
                         Cancelar
                     </Button>
                     <Button variant="success" type="submit">Salvar</Button>
                 </Modal.Footer>
-            </F.Form>
+            </Form>
         </Modal>
     );
 };
