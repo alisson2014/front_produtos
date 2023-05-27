@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { getData, save, useLocalStorage } from "../../service";
 import Swal from "sweetalert2";
 import { Modal, Button, Col, Form } from "react-bootstrap";
-import { getData, save } from "../../service";
 import { TextError } from "./styles";
 
 interface Iprops {
@@ -40,17 +40,19 @@ export default function FormProducts({
         setValue,
         formState: { errors }
     } = useForm<Iprops>();
-    const [categories, setCategories] = useState<Categories[]>([]);
+    const [categories, setCategories] = useLocalStorage<Categories[] | null>("categories", null);
     const [dataPost, setDataPost] = useState({});
     const [idCategorie, setIdCategorie] = useState<number | undefined>(undefined);
 
     const onSubmit = (data: Iprops) => {
-        categories.find((categorie) => {
-            if (categorie.nome === data.nomeCategoria) {
-                setIdCategorie(categorie.id);
-            }
-        });
-        setDataPost(data);
+        if (categories !== null) {
+            categories.find((categorie) => {
+                if (categorie.nome === data.nomeCategoria) {
+                    setIdCategorie(categorie.id);
+                }
+            });
+            setDataPost(data);
+        }
     };
 
     useEffect(() => {
@@ -61,8 +63,10 @@ export default function FormProducts({
     }, [id, nome, nomeCategoria, valor, setValue]);
 
     useEffect(() => {
-        getData("categories").then((result) => setCategories(result));
-    }, []);
+        if (!categories) {
+            getData("categories").then((result) => setCategories(result));
+        }
+    }, [categories, setCategories]);
 
     useEffect(() => {
         if (idCategorie !== undefined) {
@@ -143,16 +147,18 @@ export default function FormProducts({
                                 {...register("nomeCategoria", { required: true })}
                             >
                                 <option defaultValue="" disabled></option>
-                                {categories.map((categorie) => {
-                                    return (
-                                        <option
-                                            key={categorie?.id}
-                                            value={categorie?.nome}
-                                        >
-                                            {categorie?.nome}
-                                        </option>
-                                    );
-                                })}
+                                {categories !== null ? (
+                                    categories.map((categorie) => {
+                                        return (
+                                            <option
+                                                key={categorie?.id}
+                                                value={categorie?.nome}
+                                            >
+                                                {categorie?.nome}
+                                            </option>
+                                        );
+                                    })
+                                ) : <p>Carregando dados...</p>}
                             </Form.Select>
                         </Form.Group>
                         <Form.Group controlId="value">

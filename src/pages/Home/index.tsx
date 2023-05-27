@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
+import { getData, deleteFn, useLocalStorage } from "../../service";
 import { Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Buttons, Title, Box } from "./styles";
-import { getData, deleteFn } from "../../service";
 import FormCategorie from "../../components/FormCategorie";
 
 interface Categories {
@@ -11,8 +11,10 @@ interface Categories {
     nome: string
 }
 
+type localCategories = Categories[] | null;
+
 export default function Home() {
-    const [data, setData] = useState<Categories[]>([]);
+    const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
     const [propsCategorie, setPropsCategorie] = useState<Categories>({
         id: "",
         nome: ""
@@ -38,11 +40,13 @@ export default function Home() {
     };
 
     useEffect(() => {
-        getData("categories")
-            .then((result) => {
-                setData(result);
-            });
-    }, []);
+        if (!categories) {
+            getData("categories")
+                .then((result) => {
+                    setCategories(result);
+                });
+        }
+    }, [categories, setCategories]);
 
     return (
         <Box>
@@ -67,23 +71,25 @@ export default function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((categorie) => {
-                        const { id, nome } = categorie;
-                        return (
-                            <tr key={id}>
-                                <td>{id}</td>
-                                <td>{nome}</td>
-                                <Buttons>
-                                    <Button variant="primary" onClick={() => editCategorie(id, nome)}>
-                                        <BiEdit size="20px" />
-                                    </Button>
-                                    <Button variant="danger" onClick={() => deleteFn(id, nome, "Categoria", "categories")}>
-                                        <RiDeleteBin2Fill size="20px" />
-                                    </Button>
-                                </Buttons>
-                            </tr>
-                        );
-                    })}
+                    {categories !== null ? (
+                        categories.map((categorie) => {
+                            const { id, nome } = categorie;
+                            return (
+                                <tr key={id}>
+                                    <td>{id}</td>
+                                    <td>{nome}</td>
+                                    <Buttons>
+                                        <Button variant="primary" onClick={() => editCategorie(id, nome)}>
+                                            <BiEdit size="20px" />
+                                        </Button>
+                                        <Button variant="danger" onClick={() => deleteFn(id, nome, "Categoria", "categories")}>
+                                            <RiDeleteBin2Fill size="20px" />
+                                        </Button>
+                                    </Buttons>
+                                </tr>
+                            );
+                        })
+                    ) : <p>Carregando dados...</p>}
                 </tbody>
             </Table>
             <Button
