@@ -84,10 +84,7 @@ export default function Products() {
                                 <td>{nomeCategoria}</td>
                                 <td>R$ {valor.toString().replace(".", ",")}</td>
                                 <Buttons>
-                                    <Button variant="primary" onClick={() => {
-                                        editProduct(id, nomeCategoria, nome, valor);
-                                        handleOpen();
-                                    }}>
+                                    <Button variant="primary" onClick={() => editProduct(id, nomeCategoria, nome, valor)}>
                                         <BiEdit size={20} />
                                     </Button>
                                     <Button variant="danger" onClick={() => deleteFn(product.id, product.nome, "Categoria")}>
