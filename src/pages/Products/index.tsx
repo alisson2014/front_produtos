@@ -21,20 +21,18 @@ export default function Products() {
         nomeCategoria: "",
         valor: 0
     });
-    const [idCategoria, setIdCategoria] = useState<string>("");
 
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editProduct = (id: string, categorie: string, idCategorie: string, product: string, value: number) => {
+    const editProduct = (id: string, categorie: string, product: string, value: number) => {
         setPropsProduct({
             id: id,
             nome: product,
             nomeCategoria: categorie,
             valor: value
         });
-        setIdCategoria(idCategoria)
         handleOpen();
     };
 
@@ -50,7 +48,6 @@ export default function Products() {
 
     useEffect(() => {
         getData("products").then((result) => setData(result));
-        getData("categories").then((result) => setIdCategoria(result?.id));
     }, []);
 
     return (
@@ -88,11 +85,12 @@ export default function Products() {
                                 <td>R$ {valor.toString().replace(".", ",")}</td>
                                 <Buttons>
                                     <Button variant="primary" onClick={() => {
-                                        editProduct(id, nomeCategoria, idCategoria, nome, valor);
+                                        editProduct(id, nomeCategoria, nome, valor);
+                                        handleOpen();
                                     }}>
                                         <BiEdit size={20} />
                                     </Button>
-                                    <Button variant="danger" onClick={() => deleteFn(id, nome, "Categoria")}>
+                                    <Button variant="danger" onClick={() => deleteFn(product.id, product.nome, "Categoria")}>
                                         <RiDeleteBin2Fill size={20} />
                                     </Button>
                                 </Buttons>
@@ -112,10 +110,7 @@ export default function Products() {
             <FormProducts
                 show={show}
                 handleClose={handleClose}
-                id={propsProduct.id}
-                nome={propsProduct.nome}
-                valor={propsProduct.valor}
-                idCategoria={idCategoria}
+                {...propsProduct}
             />
         </Box>
     );

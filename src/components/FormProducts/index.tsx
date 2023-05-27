@@ -8,12 +8,12 @@ import { TextError } from "./styles";
 interface Iprops {
     id: string
     nome: string
-    idCategoria: string
+    nomeCategoria: string
     valor: number
 }
 
 interface Categories {
-    id: string
+    id: number
     nome: string
 }
 
@@ -22,7 +22,7 @@ interface IFormProps {
     id: string
     nome: string
     valor: number
-    idCategoria: string
+    nomeCategoria: string
     handleClose: () => void
 }
 
@@ -30,7 +30,7 @@ export default function FormProducts({
     show,
     id,
     nome,
-    idCategoria,
+    nomeCategoria,
     valor,
     handleClose
 }: IFormProps) {
@@ -41,38 +41,54 @@ export default function FormProducts({
         formState: { errors }
     } = useForm<Iprops>();
     const [categories, setCategories] = useState<Categories[]>([]);
+    const [dataPost, setDataPost] = useState({});
+    const [idCategorie, setIdCategorie] = useState<number | undefined>(undefined);
+
+    const onSubmit = (data: Iprops) => {
+        categories.find((categorie) => {
+            if (categorie.nome === data.nomeCategoria) {
+                setIdCategorie(categorie.id);
+            }
+        });
+        setDataPost(data);
+    };
 
     useEffect(() => {
         setValue("id", id);
         setValue("nome", nome);
-        setValue("idCategoria", idCategoria);
+        setValue("nomeCategoria", nomeCategoria);
         setValue("valor", valor);
+    }, [id, nome, nomeCategoria, valor, setValue]);
 
+    useEffect(() => {
         getData("categories").then((result) => setCategories(result));
-    }, [id, nome, idCategoria, valor, setValue]);
+    }, []);
 
-    const onSubmit = (data: Iprops) => {
-        save("products", data)
-            .then((res) => {
-                if (res?.status) {
-                    Swal.fire(
-                        "Sucesso!",
-                        res?.message,
-                        "success"
-                    ).then((res) => {
-                        if (res.isConfirmed) window.location.reload();
-                    });
-                } else {
-                    Swal.fire(
-                        "Erro!",
-                        res?.message,
-                        "error"
-                    ).then((res) => {
-                        if (res.isConfirmed) window.location.reload();
-                    });
-                }
-            });
-    };
+    useEffect(() => {
+        if (idCategorie !== undefined) {
+            const data = { ...dataPost, idCategoria: idCategorie };
+            save("products", data)
+                .then((res) => {
+                    if (res?.status) {
+                        Swal.fire(
+                            "Sucesso!",
+                            res?.message,
+                            "success"
+                        ).then((res) => {
+                            if (res.isConfirmed) window.location.reload();
+                        });
+                    } else {
+                        Swal.fire(
+                            "Erro!",
+                            res?.message,
+                            "error"
+                        ).then((res) => {
+                            if (res.isConfirmed) window.location.reload();
+                        });
+                    }
+                });
+        }
+    }, [idCategorie]);
 
     return (
         <Modal
@@ -123,24 +139,21 @@ export default function FormProducts({
                             <Form.Select
                                 style={{ cursor: "pointer" }}
                                 placeholder="Digite o nome da categoria"
-                                value={idCategoria}
-                                {...register("idCategoria", { required: true })}
+                                defaultValue={nomeCategoria}
+                                {...register("nomeCategoria", { required: true })}
                             >
                                 <option defaultValue="" disabled></option>
                                 {categories.map((categorie) => {
                                     return (
                                         <option
                                             key={categorie?.id}
-                                            value={categorie?.id === idCategoria ? categorie.nome : ""}
+                                            value={categorie?.nome}
                                         >
                                             {categorie?.nome}
                                         </option>
                                     );
                                 })}
                             </Form.Select>
-                            {errors?.idCategoria?.type === "required" && (
-                                <TextError>Categoria é obrigatório</TextError>
-                            )}
                         </Form.Group>
                         <Form.Group controlId="value">
                             <Form.Label>Valor</Form.Label>

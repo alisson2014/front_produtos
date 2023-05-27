@@ -2,7 +2,7 @@ export async function save(file: string, props: any): Promise<any> {
   var method = "POST";
   var action = "register";
 
-  if (props.id !== "") {
+  if (props?.id !== "") {
     method = "UPDATE";
     action = method.toLowerCase();
   }
