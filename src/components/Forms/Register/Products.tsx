@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { getData, save, useLocalStorage } from "../../../service";
+import { getData, save, useLocalStorage } from "service";
 import Swal from "sweetalert2";
 import { Modal, Button, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";

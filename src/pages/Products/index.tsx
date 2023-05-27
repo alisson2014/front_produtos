@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
+import { deleteFn, getData } from "service";
 import { Table, Button } from "react-bootstrap";
-import { deleteFn, getData } from "../../service";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
+import { Products as Form } from "components/Forms";
 import { Box, Title, Buttons } from "./styles";
-import { Products as Form } from "../../components/Forms";
 
 interface IProducts {
     id: string

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { save } from "service";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
-import { save } from "../../../service";
 import { TextError } from "./styles";
 
 interface Iprops {

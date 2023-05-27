@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
-import { getData, deleteFn, useLocalStorage } from "../../service";
+import { getData, deleteFn, useLocalStorage } from "service";
 import { Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
+import { Categories as Form } from "components/Forms";
 import { Buttons, Title, Box } from "./styles";
-import { Categories as Form } from "../../components/Forms";
 
 interface ICategories {
     id: string
