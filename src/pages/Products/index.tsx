@@ -87,7 +87,7 @@ export default function Products() {
                                     <Button variant="primary" onClick={() => editProduct(id, nomeCategoria, nome, valor)}>
                                         <BiEdit size={20} />
                                     </Button>
-                                    <Button variant="danger" onClick={() => deleteFn(product.id, product.nome, "Categoria")}>
+                                    <Button variant="danger" onClick={() => deleteFn(product.id, product.nome, "Produto", "products")}>
                                         <RiDeleteBin2Fill size={20} />
                                     </Button>
                                 </Buttons>

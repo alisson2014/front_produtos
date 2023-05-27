@@ -77,7 +77,7 @@ export default function Home() {
                                     <Button variant="primary" onClick={() => editCategorie(id, nome)}>
                                         <BiEdit size="20px" />
                                     </Button>
-                                    <Button variant="danger" onClick={() => deleteFn(id, nome, "Categoria")}>
+                                    <Button variant="danger" onClick={() => deleteFn(id, nome, "Categoria", "categories")}>
                                         <RiDeleteBin2Fill size="20px" />
                                     </Button>
                                 </Buttons>

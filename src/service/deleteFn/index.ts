@@ -1,7 +1,12 @@
 import Swal from "sweetalert2";
 import { deleteData } from "../delete";
 
-export const deleteFn = (id: string, deleted: string, typeData: string) => {
+export const deleteFn = (
+  id: string,
+  deleted: string,
+  typeData: string,
+  file: string
+) => {
   Swal.fire({
     title: `Deseja excluir ${deleted}?`,
     text: "Você não poderá reverter isso!",
@@ -13,7 +18,7 @@ export const deleteFn = (id: string, deleted: string, typeData: string) => {
     cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
-      deleteData("categories", id).then((res) => {
+      deleteData(file, id).then((res) => {
         if (res?.status) {
           Swal.fire(
             "Deletado!",

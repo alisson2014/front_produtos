@@ -161,16 +161,11 @@ export default function FormProducts({
                                 defaultValue={valor}
                                 placeholder="Digite o valor do produto"
                                 type="number"
-                                {...register("valor", { required: true, min: 0, max: 10000000 })}
+                                step="0.1"
+                                {...register("valor", { required: true })}
                             />
                             {errors?.valor?.type === "required" && (
                                 <TextError>Valor é obrigatório</TextError>
-                            )}
-                            {errors?.valor?.type === "min" && (
-                                <TextError>Digite um valor maior que 0</TextError>
-                            )}
-                            {errors?.valor?.type === "max" && (
-                                <TextError>Digite um valor menor que 10.000.000</TextError>
                             )}
                         </Form.Group>
                     </Col>
