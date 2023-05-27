@@ -1,13 +1,23 @@
 type localStorage<T> = T[] | null;
+
+interface IFormProps<T> {
+  show: boolean;
+  handleClose: () => void;
+  props: T;
+}
+
 export type localCategories = localStorage<ICategories>;
+export type id = number | undefined;
+export type FormCategories = IFormProps<ICategories>;
+export type FormProducts = IFormProps<IProducts>;
 
 export interface ICategories {
-  id: string;
+  id: id;
   nome: string;
 }
 
 export interface IProducts {
-  id: string;
+  id: id;
   nome: string;
   nomeCategoria: string;
   valor: number;

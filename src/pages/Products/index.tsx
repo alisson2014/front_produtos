@@ -5,12 +5,12 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Products as Form } from "components/Forms";
 import { Box, Title, Buttons } from "./styles";
-import { IProducts } from "interface";
+import { IProducts, id } from "interface";
 
 export default function Products() {
     const [data, setData] = useState<IProducts[]>([]);
     const [propsProduct, setPropsProduct] = useState<IProducts>({
-        id: "",
+        id: undefined,
         nome: "",
         nomeCategoria: "",
         valor: 0
@@ -20,7 +20,12 @@ export default function Products() {
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editProduct = (id: string, categorie: string, product: string, value: number) => {
+    const editProduct = (
+        id: id,
+        categorie: string,
+        product: string,
+        value: number
+    ) => {
         setPropsProduct({
             id: id,
             nome: product,
@@ -32,7 +37,7 @@ export default function Products() {
 
     const registerProduct = () => {
         setPropsProduct({
-            id: "",
+            id: undefined,
             nome: "",
             nomeCategoria: "",
             valor: 0
@@ -101,7 +106,7 @@ export default function Products() {
             <Form
                 show={show}
                 handleClose={handleClose}
-                {...propsProduct}
+                props={propsProduct}
             />
         </Box>
     );

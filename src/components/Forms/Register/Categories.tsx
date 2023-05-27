@@ -4,36 +4,24 @@ import { save } from "service";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
 import { TextError } from "./styles";
+import { ICategories, FormCategories } from "interface";
 
-interface Iprops {
-    id: string
-    nome: string
-}
+export default function Categories({ show, props, handleClose }: FormCategories) {
+    const { id, nome } = props;
 
-interface IFormProps {
-    show: boolean
-    props: Iprops
-    handleClose: () => void
-}
-
-export default function Categories({
-    show,
-    props,
-    handleClose
-}: IFormProps) {
     const {
         handleSubmit,
         register,
         setValue,
         formState: { errors }
-    } = useForm<Iprops>();
+    } = useForm<ICategories>();
 
     useEffect(() => {
-        setValue("id", props?.id);
-        setValue("nome", props?.nome);
+        setValue("id", id);
+        setValue("nome", nome);
     }, [props, setValue]);
 
-    const onSubmit = (data: Iprops) => {
+    const onSubmit = (data: ICategories) => {
         save("categories", data)
             .then((res) => {
                 if (res?.status) {
@@ -75,7 +63,7 @@ export default function Categories({
                     <Form.Group controlId="id">
                         <Form.Label>ID</Form.Label>
                         <Form.Control
-                            defaultValue={props?.id}
+                            defaultValue={id}
                             {...register("id")}
                             readOnly
                         />
@@ -83,7 +71,7 @@ export default function Categories({
                     <Form.Group controlId="categorie">
                         <Form.Label>Categoria</Form.Label>
                         <Form.Control
-                            defaultValue={props?.nome}
+                            defaultValue={nome}
                             placeholder="Digite o nome da categoria"
                             {...register("nome", { required: true, minLength: 3, maxLength: 50 })}
                         />

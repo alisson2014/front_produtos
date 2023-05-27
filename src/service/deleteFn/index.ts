@@ -1,8 +1,9 @@
 import Swal from "sweetalert2";
 import { deleteData } from "../delete";
+import { id } from "interface";
 
 export const deleteFn = (
-  id: string,
+  id: id,
   deleted: string,
   typeData: string,
   file: string

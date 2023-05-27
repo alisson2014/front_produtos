@@ -4,25 +4,11 @@ import { getData, save, useLocalStorage } from "service";
 import Swal from "sweetalert2";
 import { Modal, Button, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";
-import { IProducts, localCategories } from "interface";
+import { IProducts, FormProducts, localCategories } from "interface";
 
-interface IFormProps {
-    show: boolean
-    id: string
-    nome: string
-    valor: number
-    nomeCategoria: string
-    handleClose: () => void
-}
+export default function Products({ show, props, handleClose }: FormProducts) {
+    const { id, nome, nomeCategoria, valor } = props;
 
-export default function Products({
-    show,
-    id,
-    nome,
-    nomeCategoria,
-    valor,
-    handleClose
-}: IFormProps) {
     const {
         handleSubmit,
         register,

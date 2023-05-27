@@ -5,19 +5,19 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
 import { Buttons, Title, Box } from "./styles";
-import { ICategories, localCategories } from "interface";
+import { ICategories, localCategories, id } from "interface";
 
 export default function Home() {
     const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
     const [propsCategorie, setPropsCategorie] = useState<ICategories>({
-        id: "",
+        id: undefined,
         nome: ""
     });
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editCategorie = (id: string, categorie: string) => {
+    const editCategorie = (id: id, categorie: string) => {
         setPropsCategorie({
             id: id,
             nome: categorie
@@ -27,7 +27,7 @@ export default function Home() {
 
     const registerCategorie = () => {
         setPropsCategorie({
-            id: "",
+            id: undefined,
             nome: ""
         });
         handleOpen();
