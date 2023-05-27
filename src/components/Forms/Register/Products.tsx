@@ -4,18 +4,7 @@ import { getData, save, useLocalStorage } from "service";
 import Swal from "sweetalert2";
 import { Modal, Button, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";
-
-interface Iprops {
-    id: string
-    nome: string
-    nomeCategoria: string
-    valor: number
-}
-
-interface Categories {
-    id: number
-    nome: string
-}
+import { IProducts, localCategories } from "interface";
 
 interface IFormProps {
     show: boolean
@@ -39,12 +28,12 @@ export default function Products({
         register,
         setValue,
         formState: { errors }
-    } = useForm<Iprops>();
-    const [categories, setCategories] = useLocalStorage<Categories[] | null>("categories", null);
+    } = useForm<IProducts>();
+    const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
     const [dataPost, setDataPost] = useState({});
     const [idCategorie, setIdCategorie] = useState<number | undefined>(undefined);
 
-    const onSubmit = (data: Iprops) => {
+    const onSubmit = (data: IProducts) => {
         if (categories !== null) {
             categories.find((categorie) => {
                 if (categorie.nome === data.nomeCategoria) {

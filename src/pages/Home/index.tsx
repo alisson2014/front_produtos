@@ -5,13 +5,7 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
 import { Buttons, Title, Box } from "./styles";
-
-interface ICategories {
-    id: string
-    nome: string
-}
-
-type localCategories = ICategories[] | null;
+import { ICategories, localCategories } from "interface";
 
 export default function Home() {
     const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);

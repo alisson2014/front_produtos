@@ -5,13 +5,7 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Products as Form } from "components/Forms";
 import { Box, Title, Buttons } from "./styles";
-
-interface IProducts {
-    id: string
-    nome: string
-    nomeCategoria: string
-    valor: number
-}
+import { IProducts } from "interface";
 
 export default function Products() {
     const [data, setData] = useState<IProducts[]>([]);
