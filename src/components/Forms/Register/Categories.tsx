@@ -49,9 +49,9 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                         "Erro!",
                         res?.message,
                         "error"
-                    ).then((res) => {
-                        if (res.isConfirmed) window.location.reload();
-                    });
+                    ).then(
+                        (res) => res.isConfirmed && window.location.reload()
+                    );
                 }
             });
     };

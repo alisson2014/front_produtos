@@ -31,9 +31,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     const onSubmit = (data: IProducts) => {
         if (categories !== null && categories.length !== 0) {
             categories.find((categorie) => {
-                if (categorie.nome === data.nomeCategoria) {
-                    setIdCategorie(categorie.id);
-                }
+                if (categorie.nome === data.nomeCategoria) setIdCategorie(categorie.id);
             });
             setDataPost(data);
         }
@@ -51,6 +49,12 @@ export default function Products({ show, props, handleClose }: FormProducts) {
             getData("categories").then((result) => setCategories(result));
         }
     }, [categories, setCategories]);
+
+    useEffect(() => {
+        if (products === null || products.length === 0) {
+            getData("categories").then((result) => setProducts(result));
+        }
+    }, [products, setProducts]);
 
     useEffect(() => {
         if (idCategorie !== "") {

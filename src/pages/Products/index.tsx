@@ -8,13 +8,15 @@ import { Box, Title, Buttons } from "./styles";
 import { IProducts, localProducts, id } from "interface";
 
 export default function Products() {
-    const [products, setProducts] = useLocalStorage<localProducts>("products", null);
-    const [propsProduct, setPropsProduct] = useState<IProducts>({
+    const initialState: IProducts = {
         id: "",
         nome: "",
         nomeCategoria: "",
         valor: 0
-    });
+    };
+
+    const [products, setProducts] = useLocalStorage<localProducts>("products", null);
+    const [propsProduct, setPropsProduct] = useState<IProducts>(initialState);
 
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
@@ -36,12 +38,7 @@ export default function Products() {
     };
 
     const registerProduct = () => {
-        setPropsProduct({
-            id: "",
-            nome: "",
-            nomeCategoria: "",
-            valor: 0
-        });
+        setPropsProduct(initialState);
         handleOpen();
     };
 

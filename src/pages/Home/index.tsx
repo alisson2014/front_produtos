@@ -10,37 +10,29 @@ import Swal from "sweetalert2";
 import { deleteData } from "service/delete";
 
 export default function Home() {
-    const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
-    const [propsCategorie, setPropsCategorie] = useState<ICategories>({
+    const initialState: ICategories = {
         id: "",
         nome: ""
-    });
+    };
+
+    const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
+    const [propsCategorie, setPropsCategorie] = useState<ICategories>(initialState);
+
     const [show, setShow] = useState<boolean>(false);
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editCategorie = (id: id, categorie: string) => {
-        setPropsCategorie({
-            id: id,
-            nome: categorie
-        });
+    const editCategorie = (id: id, name: string) => {
+        setPropsCategorie({ id: id, nome: name });
         handleOpen();
     };
 
     const registerCategorie = () => {
-        setPropsCategorie({
-            id: "",
-            nome: ""
-        });
+        setPropsCategorie(initialState);
         handleOpen();
     };
 
-    const deleteFn = (
-        id: id,
-        deleted: string,
-        typeData: string,
-        file: string
-    ) => {
+    const deleteFn = (id: id, deleted: string, typeData: string, file: string) => {
         Swal.fire({
             title: `Deseja excluir ${deleted}?`,
             text: "Você não poderá reverter isso!",
@@ -66,9 +58,7 @@ export default function Home() {
                         });
                     } else {
                         Swal.fire("Erro!", "Erro ao deletar na base de dados.", "error").then(
-                            (res) => {
-                                if (res.isConfirmed) window.location.reload();
-                            }
+                            (res) => res.isConfirmed && window.location.reload()
                         );
                     }
                 });

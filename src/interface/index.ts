@@ -8,7 +8,7 @@ interface IFormProps<T> {
 
 export type localCategories = localStorage<ICategories>;
 export type localProducts = localStorage<IProducts>;
-export type id = number | string;
+export type id = number | "";
 export type FormCategories = IFormProps<ICategories>;
 export type FormProducts = IFormProps<IProducts>;
 
