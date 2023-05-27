@@ -4,7 +4,7 @@ import { deleteFn, getData } from "../../service";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Box, Title, Buttons } from "./styles";
-import FormProducts from "../../components/FormProducts";
+import { Products as Form } from "../../components/Forms";
 
 interface IProducts {
     id: string
@@ -104,7 +104,7 @@ export default function Products() {
             >
                 Nova categoria
             </Button>
-            <FormProducts
+            <Form
                 show={show}
                 handleClose={handleClose}
                 {...propsProduct}

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
-import { save } from "../../service";
+import { save } from "../../../service";
 import { TextError } from "./styles";
 
 interface Iprops {
@@ -16,7 +16,7 @@ interface IFormProps {
     handleClose: () => void
 }
 
-export default function FormCategorie({
+export default function Categories({
     show,
     props,
     handleClose

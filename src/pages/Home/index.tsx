@@ -4,18 +4,18 @@ import { Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Buttons, Title, Box } from "./styles";
-import FormCategorie from "../../components/FormCategorie";
+import { Categories as Form } from "../../components/Forms";
 
-interface Categories {
+interface ICategories {
     id: string
     nome: string
 }
 
-type localCategories = Categories[] | null;
+type localCategories = ICategories[] | null;
 
 export default function Home() {
     const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
-    const [propsCategorie, setPropsCategorie] = useState<Categories>({
+    const [propsCategorie, setPropsCategorie] = useState<ICategories>({
         id: "",
         nome: ""
     });
@@ -100,7 +100,7 @@ export default function Home() {
             >
                 Nova categoria
             </Button>
-            <FormCategorie
+            <Form
                 show={show}
                 props={propsCategorie}
                 handleClose={handleClose}
