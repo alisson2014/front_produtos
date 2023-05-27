@@ -4,7 +4,13 @@ import { getData, save, useLocalStorage } from "service";
 import Swal from "sweetalert2";
 import { Modal, Button, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";
-import { IProducts, FormProducts, localCategories } from "interface";
+import {
+    IProducts,
+    FormProducts,
+    localCategories,
+    id,
+    localProducts
+} from "interface";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
     const { id, nome, nomeCategoria, valor } = props;
@@ -15,12 +21,15 @@ export default function Products({ show, props, handleClose }: FormProducts) {
         setValue,
         formState: { errors }
     } = useForm<IProducts>();
+
     const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
+    const [products, setProducts] = useLocalStorage<localProducts>("products", null);
+
     const [dataPost, setDataPost] = useState({});
-    const [idCategorie, setIdCategorie] = useState<number | undefined>(undefined);
+    const [idCategorie, setIdCategorie] = useState<id>("");
 
     const onSubmit = (data: IProducts) => {
-        if (categories !== null) {
+        if (categories !== null && categories.length !== 0) {
             categories.find((categorie) => {
                 if (categorie.nome === data.nomeCategoria) {
                     setIdCategorie(categorie.id);
@@ -38,13 +47,13 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     }, [id, nome, nomeCategoria, valor, setValue]);
 
     useEffect(() => {
-        if (!categories) {
+        if (categories === null || categories.length === 0) {
             getData("categories").then((result) => setCategories(result));
         }
     }, [categories, setCategories]);
 
     useEffect(() => {
-        if (idCategorie !== undefined) {
+        if (idCategorie !== "") {
             const data = { ...dataPost, idCategoria: idCategorie };
             save("products", data)
                 .then((res) => {
@@ -54,7 +63,10 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                             res?.message,
                             "success"
                         ).then((res) => {
-                            if (res.isConfirmed) window.location.reload();
+                            if (res.isConfirmed) {
+                                setProducts(null);
+                                window.location.reload();
+                            }
                         });
                     } else {
                         Swal.fire(

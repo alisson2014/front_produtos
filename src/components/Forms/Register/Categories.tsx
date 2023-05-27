@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { save } from "service";
+import { getData, save, useLocalStorage } from "service";
 import Swal from "sweetalert2";
 import { Modal, Button, Form } from "react-bootstrap";
 import { TextError } from "./styles";
-import { ICategories, FormCategories } from "interface";
+import { ICategories, FormCategories, localCategories } from "interface";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
     const { id, nome } = props;
+    const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
 
     const {
         handleSubmit,
@@ -21,6 +22,14 @@ export default function Categories({ show, props, handleClose }: FormCategories)
         setValue("nome", nome);
     }, [props, setValue]);
 
+    useEffect(() => {
+        if (categories === null || categories?.length === 0) {
+            getData("categories").then((res) => {
+                setCategories(res);
+            });
+        }
+    }, [categories, setCategories]);
+
     const onSubmit = (data: ICategories) => {
         save("categories", data)
             .then((res) => {
@@ -30,7 +39,10 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                         res?.message,
                         "success"
                     ).then((res) => {
-                        if (res.isConfirmed) window.location.reload();
+                        if (res.isConfirmed) {
+                            setCategories(null);
+                            window.location.reload();
+                        };
                     });
                 } else {
                     Swal.fire(

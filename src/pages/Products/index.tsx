@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { deleteFn, getData } from "service";
+import { deleteFn, getData, useLocalStorage } from "service";
 import { Table, Button } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Products as Form } from "components/Forms";
 import { Box, Title, Buttons } from "./styles";
-import { IProducts, id } from "interface";
+import { IProducts, localProducts, id } from "interface";
 
 export default function Products() {
-    const [data, setData] = useState<IProducts[]>([]);
+    const [products, setProducts] = useLocalStorage<localProducts>("products", null);
     const [propsProduct, setPropsProduct] = useState<IProducts>({
-        id: undefined,
+        id: "",
         nome: "",
         nomeCategoria: "",
         valor: 0
@@ -37,7 +37,7 @@ export default function Products() {
 
     const registerProduct = () => {
         setPropsProduct({
-            id: undefined,
+            id: "",
             nome: "",
             nomeCategoria: "",
             valor: 0
@@ -46,8 +46,11 @@ export default function Products() {
     };
 
     useEffect(() => {
-        getData("products").then((result) => setData(result));
-    }, []);
+        if (products === null || products.length === 0) {
+            getData("products")
+                .then((result) => setProducts(result));
+        }
+    }, [products, setProducts]);
 
     return (
         <Box>
@@ -74,25 +77,27 @@ export default function Products() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((product) => {
-                        const { id, nome, nomeCategoria, valor } = product;
-                        return (
-                            <tr key={id}>
-                                <td>{id}</td>
-                                <td>{nome}</td>
-                                <td>{nomeCategoria}</td>
-                                <td>R$ {valor.toString().replace(".", ",")}</td>
-                                <Buttons>
-                                    <Button variant="primary" onClick={() => editProduct(id, nomeCategoria, nome, valor)}>
-                                        <BiEdit size={20} />
-                                    </Button>
-                                    <Button variant="danger" onClick={() => deleteFn(product.id, product.nome, "Produto", "products")}>
-                                        <RiDeleteBin2Fill size={20} />
-                                    </Button>
-                                </Buttons>
-                            </tr>
-                        );
-                    })}
+                    {products !== null ? (
+                        products.map((product) => {
+                            const { id, nome, nomeCategoria, valor } = product;
+                            return (
+                                <tr key={id}>
+                                    <td>{id}</td>
+                                    <td>{nome}</td>
+                                    <td>{nomeCategoria}</td>
+                                    <td>R$ {valor.toString().replace(".", ",")}</td>
+                                    <Buttons>
+                                        <Button variant="primary" onClick={() => editProduct(id, nomeCategoria, nome, valor)}>
+                                            <BiEdit size={20} />
+                                        </Button>
+                                        <Button variant="danger" onClick={() => deleteFn(product.id, product.nome, "Produto", "products")}>
+                                            <RiDeleteBin2Fill size={20} />
+                                        </Button>
+                                    </Buttons>
+                                </tr>
+                            );
+                        })
+                    ) : <p>Caregando...</p>}
                 </tbody>
             </Table>
             <Button

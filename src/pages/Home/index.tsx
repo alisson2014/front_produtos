@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react"
-import { getData, deleteFn, useLocalStorage } from "service";
+import { getData, useLocalStorage } from "service";
 import { Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
 import { Buttons, Title, Box } from "./styles";
 import { ICategories, localCategories, id } from "interface";
+import Swal from "sweetalert2";
+import { deleteData } from "service/delete";
 
 export default function Home() {
     const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
     const [propsCategorie, setPropsCategorie] = useState<ICategories>({
-        id: undefined,
+        id: "",
         nome: ""
     });
     const [show, setShow] = useState<boolean>(false);
@@ -27,18 +29,58 @@ export default function Home() {
 
     const registerCategorie = () => {
         setPropsCategorie({
-            id: undefined,
+            id: "",
             nome: ""
         });
         handleOpen();
     };
 
-    useEffect(() => {
-        if (!categories) {
-            getData("categories")
-                .then((result) => {
-                    setCategories(result);
+    const deleteFn = (
+        id: id,
+        deleted: string,
+        typeData: string,
+        file: string
+    ) => {
+        Swal.fire({
+            title: `Deseja excluir ${deleted}?`,
+            text: "Você não poderá reverter isso!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Sim, Deletar!",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteData(file, id).then((res) => {
+                    if (res?.status) {
+                        Swal.fire(
+                            "Deletado!",
+                            `${typeData} deletada da base de dados.`,
+                            "success"
+                        ).then((res) => {
+                            if (res.isConfirmed) {
+                                setCategories(null);
+                                window.location.reload()
+                            }
+                        });
+                    } else {
+                        Swal.fire("Erro!", "Erro ao deletar na base de dados.", "error").then(
+                            (res) => {
+                                if (res.isConfirmed) window.location.reload();
+                            }
+                        );
+                    }
                 });
+            }
+        });
+    };
+
+
+    useEffect(() => {
+        if (categories === null || categories?.length === 0) {
+            getData("categories")
+                .then((result) => setCategories(result));
         }
     }, [categories, setCategories]);
 

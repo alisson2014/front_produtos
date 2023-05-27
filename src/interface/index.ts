@@ -7,7 +7,8 @@ interface IFormProps<T> {
 }
 
 export type localCategories = localStorage<ICategories>;
-export type id = number | undefined;
+export type localProducts = localStorage<IProducts>;
+export type id = number | string;
 export type FormCategories = IFormProps<ICategories>;
 export type FormProducts = IFormProps<IProducts>;
 
