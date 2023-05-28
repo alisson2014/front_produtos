@@ -32,6 +32,6 @@ export interface ILinkTo {
 export interface IDeleteFunction {
   id: id;
   deleted: string;
-  typeData?: string;
-  file?: string;
+  typeData: string;
+  file: string;
 }

@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { getData, deleteData, useLocalStorage } from "service";
+import { getData, deleteFn, useLocalStorage } from "service";
 import { Table, Button } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Products as Form } from "components/Forms";
 import { Box, Title, Buttons } from "./styles";
-import { IProducts, localProducts, IDeleteFunction } from "interface";
-import Swal from "sweetalert2";
+import { IProducts, localProducts } from "interface";
 
 export default function Products() {
     const initialState: IProducts = {
@@ -32,48 +31,6 @@ export default function Products() {
         setPropsProduct(initialState);
         handleOpen();
     };
-
-    const deleteFn = (props: IDeleteFunction): void => {
-        const {
-            deleted,
-            id,
-            file = "products",
-            typeData = "Produto"
-        } = props;
-
-        Swal.fire({
-            title: `Deseja excluir ${deleted}?`,
-            text: "Você não poderá reverter isso!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Sim, Deletar!",
-            cancelButtonText: "Cancelar",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                deleteData(file, id).then((res) => {
-                    if (res?.status) {
-                        Swal.fire(
-                            "Deletado!",
-                            `${typeData} deletada da base de dados.`,
-                            "success"
-                        ).then((res) => {
-                            if (res.isConfirmed) {
-                                setProducts(null);
-                                window.location.reload()
-                            };
-                        });
-                    } else {
-                        Swal.fire("Erro!", "Erro ao deletar na base de dados.", "error").then(
-                            (res) => res.isConfirmed && window.location.reload()
-                        );
-                    }
-                });
-            }
-        });
-    };
-
 
     useEffect(() => {
         if (products === null || products.length === 0) {
@@ -122,7 +79,14 @@ export default function Products() {
                                         <Button variant="primary" onClick={() => editProduct(product)}>
                                             <BiEdit size={20} />
                                         </Button>
-                                        <Button variant="danger" onClick={() => deleteFn({ id: id, deleted: nome })}>
+                                        <Button variant="danger" onClick={() => {
+                                            deleteFn({
+                                                id: id,
+                                                deleted: nome,
+                                                typeData: "Produto",
+                                                file: "products"
+                                            }, setProducts);
+                                        }}>
                                             <RiDeleteBin2Fill size={20} />
                                         </Button>
                                     </Buttons>

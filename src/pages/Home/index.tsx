@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react"
-import { getData, deleteData, useLocalStorage } from "service";
+import { getData, deleteFn, useLocalStorage } from "service";
 import { Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
 import { Buttons, Title, Box } from "./styles";
-import { ICategories, localCategories, IDeleteFunction } from "interface";
-import Swal from "sweetalert2";
+import { ICategories, localCategories } from "interface";
 
 export default function Home() {
     const initialState: ICategories = {
@@ -30,48 +29,6 @@ export default function Home() {
         setPropsCategorie(initialState);
         handleOpen();
     };
-
-    const deleteFn = (props: IDeleteFunction): void => {
-        const {
-            id,
-            deleted,
-            typeData = "Categoria",
-            file = "categories"
-        } = props;
-
-        Swal.fire({
-            title: `Deseja excluir ${deleted}?`,
-            text: "Você não poderá reverter isso!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Sim, Deletar!",
-            cancelButtonText: "Cancelar",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                deleteData(file, id).then((res) => {
-                    if (res?.status) {
-                        Swal.fire(
-                            "Deletado!",
-                            `${typeData} deletada da base de dados.`,
-                            "success"
-                        ).then((res) => {
-                            if (res.isConfirmed) {
-                                setCategories(null);
-                                window.location.reload()
-                            }
-                        });
-                    } else {
-                        Swal.fire("Erro!", "Erro ao deletar na base de dados.", "error").then(
-                            (res) => res.isConfirmed && window.location.reload()
-                        );
-                    }
-                });
-            }
-        });
-    };
-
 
     useEffect(() => {
         if (categories === null || categories?.length === 0) {
@@ -114,7 +71,14 @@ export default function Home() {
                                         <Button variant="primary" onClick={() => editCategorie(categorie)}>
                                             <BiEdit size="20px" />
                                         </Button>
-                                        <Button variant="danger" onClick={() => deleteFn({ id: id, deleted: nome })}>
+                                        <Button variant="danger" onClick={() => {
+                                            deleteFn({
+                                                id: id,
+                                                deleted: nome,
+                                                typeData: "Categoria",
+                                                file: "categories"
+                                            }, setCategories);
+                                        }}>
                                             <RiDeleteBin2Fill size="20px" />
                                         </Button>
                                     </Buttons>
@@ -137,6 +101,6 @@ export default function Home() {
                 props={propsCategorie}
                 handleClose={handleClose}
             />
-        </Box>
+        </Box >
     );
 };
