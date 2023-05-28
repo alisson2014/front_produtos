@@ -5,12 +5,7 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
 import { Buttons, Title, Box } from "./styles";
-import {
-    id,
-    ICategories,
-    localCategories,
-    IDeleteFunction
-} from "interface";
+import { ICategories, localCategories, IDeleteFunction } from "interface";
 import Swal from "sweetalert2";
 
 export default function Home() {

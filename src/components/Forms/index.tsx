@@ -1,4 +1,4 @@
-import Categories from "./Register/Categories";
-import Products from "./Register/Products";
+import Categories from "./Categories";
+import Products from "./Products";
 
 export { Categories, Products };

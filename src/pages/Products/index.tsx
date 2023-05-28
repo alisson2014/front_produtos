@@ -5,7 +5,7 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Products as Form } from "components/Forms";
 import { Box, Title, Buttons } from "./styles";
-import { IProducts, localProducts, id, IDeleteFunction } from "interface";
+import { IProducts, localProducts, IDeleteFunction } from "interface";
 import Swal from "sweetalert2";
 
 export default function Products() {
