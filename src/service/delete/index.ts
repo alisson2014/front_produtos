@@ -1,4 +1,7 @@
-export async function deleteData(file: string, id: any): Promise<any> {
+export async function deleteData(
+  file: string,
+  id: any
+): Promise<any | never[]> {
   const url = `http://localhost/produtosLike/delete/${file}.php?id=${id}`;
   try {
     const response = await fetch(url);

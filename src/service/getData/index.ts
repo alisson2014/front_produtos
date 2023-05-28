@@ -1,4 +1,4 @@
-export async function getData(file: string): Promise<any> {
+export async function getData<T>(file: string): Promise<T[] | never[]> {
   try {
     const response = await fetch(
       `http://localhost/produtosLike/list/${file}.php`

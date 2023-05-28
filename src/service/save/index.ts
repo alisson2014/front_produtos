@@ -1,13 +1,16 @@
-export async function save(file: string, props: any): Promise<any> {
-  var method = "POST";
-  var action = "register";
+export async function save<T>(
+  file: string,
+  props: any
+): Promise<any | never[]> {
+  let method = "POST";
+  let action = "register";
 
   if (props?.id !== "") {
     method = "UPDATE";
     action = method.toLowerCase();
   }
 
-  let url = `http://localhost/produtosLike/${action}/${file}.php`;
+  const url = `http://localhost/produtosLike/${action}/${file}.php`;
 
   const requester = {
     method: method,
@@ -25,7 +28,5 @@ export async function save(file: string, props: any): Promise<any> {
   } catch (error) {
     console.error(error);
     return [];
-  } finally {
-    console.info("Fim da requisição");
   }
 }

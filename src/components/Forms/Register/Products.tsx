@@ -9,7 +9,8 @@ import {
     FormProducts,
     localCategories,
     id,
-    localProducts
+    localProducts,
+    ICategories
 } from "interface";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
@@ -46,13 +47,15 @@ export default function Products({ show, props, handleClose }: FormProducts) {
 
     useEffect(() => {
         if (categories === null || categories.length === 0) {
-            getData("categories").then((result) => setCategories(result));
+            getData<ICategories>("categories")
+                .then((result) => setCategories(result));
         }
     }, [categories, setCategories]);
 
     useEffect(() => {
         if (products === null || products.length === 0) {
-            getData("categories").then((result) => setProducts(result));
+            getData<IProducts>("products")
+                .then((result) => setProducts(result));
         }
     }, [products, setProducts]);
 

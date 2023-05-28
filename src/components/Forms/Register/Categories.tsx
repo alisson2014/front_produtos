@@ -24,7 +24,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
 
     useEffect(() => {
         if (categories === null || categories?.length === 0) {
-            getData("categories").then((res) => {
+            getData<ICategories>("categories").then((res) => {
                 setCategories(res);
             });
         }

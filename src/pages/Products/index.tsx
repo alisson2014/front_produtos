@@ -77,7 +77,7 @@ export default function Products() {
 
     useEffect(() => {
         if (products === null || products.length === 0) {
-            getData("products")
+            getData<IProducts>("products")
                 .then((result) => setProducts(result));
         }
     }, [products, setProducts]);

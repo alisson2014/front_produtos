@@ -80,7 +80,7 @@ export default function Home() {
 
     useEffect(() => {
         if (categories === null || categories?.length === 0) {
-            getData("categories")
+            getData<ICategories>("categories")
                 .then((result) => setCategories(result));
         }
     }, [categories, setCategories]);
