@@ -4,12 +4,12 @@ export const Item = styled.li`
   a {
     text-decoration: none;
     transition: all 0.3s linear;
-    color: #222;
+    color: var(--link-color);
     font-weight: 500;
     font-size: 1.1rem;
 
     &:hover {
-      color: #ae19aa;
+      color: var(--link-hover-color);
     }
   }
 `;
