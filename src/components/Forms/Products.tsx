@@ -23,8 +23,8 @@ export default function Products({ show, props, handleClose }: FormProducts) {
         formState: { errors }
     } = useForm<IProducts>();
 
-    const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
-    const [products, setProducts] = useLocalStorage<localProducts>("products", null);
+    const [categories, setCategories] = useLocalStorage<localCategories>("categories", []);
+    const [products, setProducts] = useLocalStorage<localProducts>("products", []);
 
     const [dataPost, setDataPost] = useState({});
     const [idCategorie, setIdCategorie] = useState<id>("");
@@ -46,14 +46,14 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     }, [id, nome, nomeCategoria, valor, setValue]);
 
     useEffect(() => {
-        if (categories === null || categories.length === 0) {
+        if (categories.length === 0) {
             getData<ICategories>("categories")
                 .then((result) => setCategories(result));
         }
     }, [categories, setCategories]);
 
     useEffect(() => {
-        if (products === null || products.length === 0) {
+        if (products.length === 0) {
             getData<IProducts>("products")
                 .then((result) => setProducts(result));
         }
@@ -71,7 +71,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                             "success"
                         ).then((res) => {
                             if (res.isConfirmed) {
-                                setProducts(null);
+                                setProducts([]);
                                 window.location.reload();
                             }
                         });
@@ -141,7 +141,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                                 {...register("nomeCategoria", { required: true })}
                             >
                                 <option defaultValue="" disabled></option>
-                                {categories !== null ? (
+                                {categories.length !== 0 ? (
                                     categories.map((categorie) => {
                                         return (
                                             <option

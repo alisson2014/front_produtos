@@ -8,7 +8,7 @@ import { ICategories, FormCategories, localCategories } from "interface";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
     const { id, nome } = props;
-    const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
+    const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
 
     const {
         handleSubmit,
@@ -23,7 +23,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
     }, [props, setValue]);
 
     useEffect(() => {
-        if (categories === null || categories?.length === 0) {
+        if (categories.length === 0) {
             getData<ICategories>("categories").then((res) => {
                 setCategories(res);
             });
@@ -40,7 +40,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                         "success"
                     ).then((res) => {
                         if (res.isConfirmed) {
-                            setCategories(null);
+                            clearStorage();
                             window.location.reload();
                         };
                     });

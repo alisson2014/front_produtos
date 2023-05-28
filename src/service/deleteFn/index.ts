@@ -1,4 +1,4 @@
-import { deleteData } from "service/delete";
+import { deleteData } from "service/deleteData";
 import Swal, { SweetAlertOptions } from "sweetalert2";
 import { IDeleteFunction } from "interface";
 
@@ -34,7 +34,7 @@ export const deleteFn = (props: IDeleteFunction, setter: any): void => {
         if (res?.status) {
           Swal.fire(isOk).then((res) => {
             if (res.isConfirmed) {
-              setter(null);
+              setter();
               window.location.reload();
             }
           });

@@ -1,4 +1,4 @@
-type localStorage<T> = T[] | null;
+type localStorage<T> = T[] | [];
 
 interface IFormProps<T> {
   show: boolean;

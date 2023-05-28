@@ -1,7 +1,4 @@
-export async function save<T>(
-  file: string,
-  props: any
-): Promise<any | never[]> {
+export async function save(file: string, props: any): Promise<any | never[]> {
   let method = "POST";
   let action = "register";
 
@@ -10,9 +7,9 @@ export async function save<T>(
     action = method.toLowerCase();
   }
 
-  const url = `http://localhost/produtosLike/${action}/${file}.php`;
+  const uri = `http://localhost/produtosLike/${action}/${file}.php`;
 
-  const requester = {
+  const requester: RequestInit = {
     method: method,
     headers: {
       "Content-Type": "applications/json; charset=UTF-8",
@@ -22,7 +19,7 @@ export async function save<T>(
   };
 
   try {
-    const response = await fetch(url, requester);
+    const response = await fetch(uri, requester);
     const data = await response.json();
     return data;
   } catch (error) {

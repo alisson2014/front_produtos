@@ -13,7 +13,7 @@ export default function Home() {
         nome: ""
     };
 
-    const [categories, setCategories] = useLocalStorage<localCategories>("categories", null);
+    const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
     const [propsCategorie, setPropsCategorie] = useState<ICategories>(initialState);
 
     const [show, setShow] = useState<boolean>(false);
@@ -31,7 +31,7 @@ export default function Home() {
     };
 
     useEffect(() => {
-        if (categories === null || categories?.length === 0) {
+        if (categories.length === 0) {
             getData<ICategories>("categories")
                 .then((result) => setCategories(result));
         }
@@ -60,7 +60,7 @@ export default function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                    {categories !== null ? (
+                    {categories.length !== 0 ? (
                         categories.map((categorie) => {
                             const { id, nome } = categorie;
                             return (
@@ -77,7 +77,7 @@ export default function Home() {
                                                 deleted: nome,
                                                 typeData: "Categoria",
                                                 file: "categories"
-                                            }, setCategories);
+                                            }, clearStorage);
                                         }}>
                                             <RiDeleteBin2Fill size="20px" />
                                         </Button>

@@ -15,7 +15,7 @@ export default function Products() {
         valor: 0
     };
 
-    const [products, setProducts] = useLocalStorage<localProducts>("products", null);
+    const [products, setProducts, clearStorage] = useLocalStorage<localProducts>("products", []);
     const [propsProduct, setPropsProduct] = useState<IProducts>(initialState);
 
     const [show, setShow] = useState<boolean>(false);
@@ -33,7 +33,7 @@ export default function Products() {
     };
 
     useEffect(() => {
-        if (products === null || products.length === 0) {
+        if (products.length === 0) {
             getData<IProducts>("products")
                 .then((result) => setProducts(result));
         }
@@ -64,7 +64,7 @@ export default function Products() {
                     </tr>
                 </thead>
                 <tbody>
-                    {products !== null ? (
+                    {products.length !== 0 ? (
                         products.map((product) => {
                             const { id, nome, nomeCategoria, valor } = product;
                             const formatedValue = valor.toString().replace(".", ",");
@@ -85,7 +85,7 @@ export default function Products() {
                                                 deleted: nome,
                                                 typeData: "Produto",
                                                 file: "products"
-                                            }, setProducts);
+                                            }, clearStorage);
                                         }}>
                                             <RiDeleteBin2Fill size={20} />
                                         </Button>

@@ -3,7 +3,7 @@ import React from "react";
 export function useLocalStorage<T>(
   key: string,
   initialValue: T
-): [T, React.Dispatch<React.SetStateAction<T>>] {
+): [T, React.Dispatch<React.SetStateAction<T>>, () => void] {
   const [value, setValue] = React.useState<T>(() => {
     const storedValue = localStorage.getItem(key);
     return storedValue ? JSON.parse(storedValue) : initialValue;
@@ -13,5 +13,10 @@ export function useLocalStorage<T>(
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
 
-  return [value, setValue];
+  const clearStorage = () => {
+    localStorage.removeItem(key);
+    setValue(initialValue);
+  };
+
+  return [value, setValue, clearStorage];
 }
