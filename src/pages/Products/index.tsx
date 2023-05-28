@@ -23,17 +23,17 @@ export default function Products() {
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editProduct = (props: IProducts) => {
+    const editProduct = (props: IProducts): void => {
         setPropsProduct(props);
         handleOpen();
     };
 
-    const registerProduct = () => {
+    const registerProduct = (): void => {
         setPropsProduct(initialState);
         handleOpen();
     };
 
-    const deleteFn = (props: IDeleteFunction) => {
+    const deleteFn = (props: IDeleteFunction): void => {
         const {
             deleted,
             id,

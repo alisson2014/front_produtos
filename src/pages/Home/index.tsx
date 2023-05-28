@@ -21,17 +21,17 @@ export default function Home() {
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editCategorie = (props: ICategories) => {
+    const editCategorie = (props: ICategories): void => {
         setPropsCategorie(props);
         handleOpen();
     };
 
-    const registerCategorie = () => {
+    const registerCategorie = (): void => {
         setPropsCategorie(initialState);
         handleOpen();
     };
 
-    const deleteFn = (props: IDeleteFunction) => {
+    const deleteFn = (props: IDeleteFunction): void => {
         const {
             id,
             deleted,

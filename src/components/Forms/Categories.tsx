@@ -30,7 +30,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
         }
     }, [categories, setCategories]);
 
-    const onSubmit = (data: ICategories) => {
+    const onSubmit = (data: ICategories): void => {
         save("categories", data)
             .then((res) => {
                 if (res?.status) {

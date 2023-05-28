@@ -29,7 +29,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     const [dataPost, setDataPost] = useState({});
     const [idCategorie, setIdCategorie] = useState<id>("");
 
-    const onSubmit = (data: IProducts) => {
+    const onSubmit = (data: IProducts): void => {
         if (categories !== null && categories.length !== 0) {
             categories.find((categorie) => {
                 if (categorie.nome === data.nomeCategoria) setIdCategorie(categorie.id);
