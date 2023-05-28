@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react"
-import { getData, useLocalStorage } from "service";
+import { getData, deleteData, useLocalStorage } from "service";
 import { Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
 import { Buttons, Title, Box } from "./styles";
-import { ICategories, localCategories, id } from "interface";
+import {
+    id,
+    ICategories,
+    localCategories,
+    IDeleteFunction
+} from "interface";
 import Swal from "sweetalert2";
-import { deleteData } from "service/delete";
 
 export default function Home() {
     const initialState: ICategories = {
@@ -22,8 +26,8 @@ export default function Home() {
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editCategorie = (id: id, name: string) => {
-        setPropsCategorie({ id: id, nome: name });
+    const editCategorie = (props: ICategories) => {
+        setPropsCategorie(props);
         handleOpen();
     };
 
@@ -32,7 +36,14 @@ export default function Home() {
         handleOpen();
     };
 
-    const deleteFn = (id: id, deleted: string, typeData: string, file: string) => {
+    const deleteFn = (props: IDeleteFunction) => {
+        const {
+            id,
+            deleted,
+            typeData = "Categoria",
+            file = "categories"
+        } = props;
+
         Swal.fire({
             title: `Deseja excluir ${deleted}?`,
             text: "Você não poderá reverter isso!",
@@ -105,10 +116,10 @@ export default function Home() {
                                     <td>{id}</td>
                                     <td>{nome}</td>
                                     <Buttons>
-                                        <Button variant="primary" onClick={() => editCategorie(id, nome)}>
+                                        <Button variant="primary" onClick={() => editCategorie(categorie)}>
                                             <BiEdit size="20px" />
                                         </Button>
-                                        <Button variant="danger" onClick={() => deleteFn(id, nome, "Categoria", "categories")}>
+                                        <Button variant="danger" onClick={() => deleteFn({ id: id, deleted: nome })}>
                                             <RiDeleteBin2Fill size="20px" />
                                         </Button>
                                     </Buttons>

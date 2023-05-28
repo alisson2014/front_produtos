@@ -28,3 +28,10 @@ export interface ILinkTo {
   route: string;
   routeName: string;
 }
+
+export interface IDeleteFunction {
+  id: id;
+  deleted: string;
+  typeData?: string;
+  file?: string;
+}

@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import { getData, useLocalStorage } from "service";
+import { getData, deleteData, useLocalStorage } from "service";
 import { Table, Button } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Products as Form } from "components/Forms";
 import { Box, Title, Buttons } from "./styles";
-import { IProducts, localProducts, id } from "interface";
+import { IProducts, localProducts, id, IDeleteFunction } from "interface";
 import Swal from "sweetalert2";
-import { deleteData } from "service/delete";
 
 export default function Products() {
     const initialState: IProducts = {
@@ -24,18 +23,8 @@ export default function Products() {
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editProduct = (
-        id: id,
-        categorie: string,
-        product: string,
-        value: number
-    ) => {
-        setPropsProduct({
-            id: id,
-            nome: product,
-            nomeCategoria: categorie,
-            valor: value
-        });
+    const editProduct = (props: IProducts) => {
+        setPropsProduct(props);
         handleOpen();
     };
 
@@ -44,12 +33,14 @@ export default function Products() {
         handleOpen();
     };
 
-    const deleteFn = (
-        id: id,
-        deleted: string,
-        typeData: string,
-        file: string
-    ) => {
+    const deleteFn = (props: IDeleteFunction) => {
+        const {
+            deleted,
+            id,
+            file = "products",
+            typeData = "Produto"
+        } = props;
+
         Swal.fire({
             title: `Deseja excluir ${deleted}?`,
             text: "Você não poderá reverter isso!",
@@ -119,17 +110,19 @@ export default function Products() {
                     {products !== null ? (
                         products.map((product) => {
                             const { id, nome, nomeCategoria, valor } = product;
+                            const formatedValue = valor.toString().replace(".", ",");
+
                             return (
                                 <tr key={id}>
                                     <td>{id}</td>
                                     <td>{nome}</td>
                                     <td>{nomeCategoria}</td>
-                                    <td>R$ {valor.toString().replace(".", ",")}</td>
+                                    <td>R$ {formatedValue}</td>
                                     <Buttons>
-                                        <Button variant="primary" onClick={() => editProduct(id, nomeCategoria, nome, valor)}>
+                                        <Button variant="primary" onClick={() => editProduct(product)}>
                                             <BiEdit size={20} />
                                         </Button>
-                                        <Button variant="danger" onClick={() => deleteFn(product.id, product.nome, "Produto", "products")}>
+                                        <Button variant="danger" onClick={() => deleteFn({ id: id, deleted: nome })}>
                                             <RiDeleteBin2Fill size={20} />
                                         </Button>
                                     </Buttons>
