@@ -76,10 +76,10 @@ export default function Products() {
                                     <td>{nomeCategoria}</td>
                                     <td>R$ {formatedValue}</td>
                                     <Buttons>
-                                        <Button variant="primary" onClick={() => editProduct(product)}>
+                                        <Button title={`Editar ${nome}`} variant="primary" onClick={() => editProduct(product)}>
                                             <BiEdit size={20} />
                                         </Button>
-                                        <Button variant="danger" onClick={() => {
+                                        <Button title={`Excluir ${nome}`} variant="danger" onClick={() => {
                                             deleteFn({
                                                 id: id,
                                                 deleted: nome,
@@ -97,6 +97,7 @@ export default function Products() {
                 </tbody>
             </Table>
             <Button
+                title="Cadastrar"
                 variant="info"
                 size="lg"
                 onClick={registerProduct}
@@ -109,6 +110,6 @@ export default function Products() {
                 handleClose={handleClose}
                 props={propsProduct}
             />
-        </Box>
+        </Box >
     );
 };

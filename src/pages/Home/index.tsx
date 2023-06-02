@@ -68,10 +68,10 @@ export default function Home() {
                                     <td>{id}</td>
                                     <td>{nome}</td>
                                     <Buttons>
-                                        <Button variant="primary" onClick={() => editCategorie(categorie)}>
-                                            <BiEdit size="20px" />
+                                        <Button title={`Editar ${nome}`} variant="primary" onClick={() => editCategorie(categorie)}>
+                                            <BiEdit size={20} />
                                         </Button>
-                                        <Button variant="danger" onClick={() => {
+                                        <Button title={`Excluir ${nome}`} variant="danger" onClick={() => {
                                             deleteFn({
                                                 id: id,
                                                 deleted: nome,
@@ -79,7 +79,7 @@ export default function Home() {
                                                 file: "categories"
                                             }, clearStorage);
                                         }}>
-                                            <RiDeleteBin2Fill size="20px" />
+                                            <RiDeleteBin2Fill size={20} />
                                         </Button>
                                     </Buttons>
                                 </tr>
@@ -89,6 +89,7 @@ export default function Home() {
                 </tbody>
             </Table>
             <Button
+                title="Cadastrar"
                 variant="info"
                 size="lg"
                 onClick={registerCategorie}
