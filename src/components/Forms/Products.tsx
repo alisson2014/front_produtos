@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { getData, save, useLocalStorage } from "service";
 import Swal from "sweetalert2";
-import { Modal, Button, Col, Form } from "react-bootstrap";
+import { Modal, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import {
     IProducts,
@@ -12,6 +12,7 @@ import {
     localProducts,
     ICategories
 } from "interface";
+import { MFooter } from "./ModalFooter";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
     const { id, nome, nomeCategoria, valor } = props;
@@ -170,12 +171,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                         </Form.Group>
                     </Col>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="danger" type="button" onClick={() => handleClose()}>
-                        Cancelar
-                    </Button>
-                    <Button variant="success" type="submit">Salvar</Button>
-                </Modal.Footer>
+                <MFooter onClick={() => handleClose()} />
             </Form>
         </Modal>
     );

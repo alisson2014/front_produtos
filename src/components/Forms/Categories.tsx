@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { getData, save, useLocalStorage } from "service";
 import Swal from "sweetalert2";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import { ICategories, FormCategories, localCategories } from "interface";
+import { MFooter } from "./ModalFooter";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
     const { id, nome } = props;
@@ -98,12 +99,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                         )}
                     </Form.Group>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="danger" type="button" onClick={() => handleClose()}>
-                        Cancelar
-                    </Button>
-                    <Button variant="success" type="submit">Salvar</Button>
-                </Modal.Footer>
+                <MFooter onClick={() => handleClose()} />
             </Form>
         </Modal>
     );
