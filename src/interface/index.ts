@@ -35,3 +35,11 @@ export interface IDeleteFunction {
   typeData: string;
   file: string;
 }
+
+export interface IHandlerErrors {
+  field: string;
+  minLength?: number;
+  maxLength?: number;
+  min?: number;
+  max?: number;
+}

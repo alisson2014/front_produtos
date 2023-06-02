@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { getData, save, useLocalStorage } from "service";
+import { errorHandler, getData, save, useLocalStorage } from "service";
 import Swal from "sweetalert2";
 import { Modal, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";
@@ -13,6 +13,7 @@ import {
     ICategories
 } from "interface";
 import { MFooter } from "./ModalFooter";
+import { optionsInputProducts } from "./optionsHanlder";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
     const { id, nome, nomeCategoria, valor } = props;
@@ -119,16 +120,10 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                             <Form.Control
                                 defaultValue={nome}
                                 placeholder="Digite o nome do produto"
-                                {...register("nome", { required: true, minLength: 3, maxLength: 50 })}
+                                {...register("nome", optionsInputProducts)}
                             />
-                            {errors?.nome?.type === "required" && (
-                                <TextError>Nome do produto é obrigatório</TextError>
-                            )}
-                            {errors?.nome?.type === "minLength" && (
-                                <TextError>Digite 3 ou mais caracteres</TextError>
-                            )}
-                            {errors?.nome?.type === "maxLength" && (
-                                <TextError>Digite no maximo 50 caracteres</TextError>
+                            {errors?.nome && (
+                                <TextError>{errorHandler(errors.nome.type, { field: "Produto", minLength: 3, maxLength: 5 })}</TextError>
                             )}
                         </Form.Group>
                     </Col>
@@ -155,6 +150,9 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                                     })
                                 ) : <p>Carregando dados...</p>}
                             </Form.Select>
+                            {errors?.nomeCategoria?.type === "required" && (
+                                <TextError>Categoria é obrigatório</TextError>
+                            )}
                         </Form.Group>
                         <Form.Group controlId="value">
                             <Form.Label>Valor</Form.Label>

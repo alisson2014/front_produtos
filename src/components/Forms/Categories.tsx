@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { getData, save, useLocalStorage } from "service";
+import { errorHandler, getData, save, useLocalStorage } from "service";
 import Swal from "sweetalert2";
 import { Modal, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import { ICategories, FormCategories, localCategories } from "interface";
 import { MFooter } from "./ModalFooter";
+import { optionsInputCategorie } from "./optionsHanlder";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
     const { id, nome } = props;
@@ -86,16 +87,12 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                         <Form.Control
                             defaultValue={nome}
                             placeholder="Digite o nome da categoria"
-                            {...register("nome", { required: true, minLength: 3, maxLength: 50 })}
+                            {...register("nome", optionsInputCategorie)}
                         />
-                        {errors?.nome?.type === "required" && (
-                            <TextError>Categoria é obrigatório</TextError>
-                        )}
-                        {errors?.nome?.type === "minLength" && (
-                            <TextError>Digite 3 ou mais caracteres</TextError>
-                        )}
-                        {errors?.nome?.type === "maxLength" && (
-                            <TextError>Digite no maximo 50 caracteres</TextError>
+                        {errors?.nome && (
+                            <TextError>
+                                {errorHandler(errors?.nome?.type, { field: "Categoria", minLength: 3, maxLength: 50 })}
+                            </TextError>
                         )}
                     </Form.Group>
                 </Modal.Body>
