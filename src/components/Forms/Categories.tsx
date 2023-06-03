@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { errorHandler, getData, useLocalStorage } from "service";
+import { errorHandler, getData, saveFn, useLocalStorage } from "service";
 import { Modal, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import { ICategories, FormCategories, localCategories } from "interface";
 import MFooter from "./ModalFooter";
 import MHeader from "./ModalHeader";
 import { optionsInputCategorie } from "./optionsHanlder";
-import { saveFn } from "service/saveFn";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
     const { id, nome } = props;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { errorHandler, getData, useLocalStorage } from "service";
+import { errorHandler, getData, saveFn, useLocalStorage } from "service";
 import { Modal, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import {
@@ -14,7 +14,6 @@ import {
 import { optionsInputProducts } from "./optionsHanlder";
 import MHeader from "./ModalHeader";
 import MFooter from "./ModalFooter";
-import { saveFn } from "service/saveFn";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
     const { id, nome, nomeCategoria, valor } = props;
@@ -33,7 +32,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     const [idCategorie, setIdCategorie] = useState<id>("");
 
     const onSubmit = (data: IProducts): void => {
-        if (categories !== null && categories.length !== 0) {
+        if (categories.length !== 0) {
             categories.find((categorie) => {
                 if (categorie.nome === data.nomeCategoria) setIdCategorie(categorie.id);
             });
