@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getData, deleteFn, useLocalStorage } from "service";
+import { deleteFn, useLocalStorage, httpRequester } from "service";
 import { Button, Table } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
@@ -35,7 +35,7 @@ export default function Home() {
 
     useEffect(() => {
         if (categories.length === 0) {
-            getData<ICategories>("categories")
+            httpRequester({ method: "GET", file: "categories" })
                 .then((result) => setCategories(result));
         }
     }, [categories, setCategories]);

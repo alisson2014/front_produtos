@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { errorHandler, getData, saveFn, useLocalStorage } from "service";
+import { errorHandler, saveFn, useLocalStorage, httpRequester } from "service";
 import { Modal, Form } from "react-bootstrap";
 import { TextError } from "./styles";
-import { ICategories, FormCategories, localCategories } from "interface";
+import { ICategories, FormCategories, localCategories, method } from "interface";
 import MFooter from "./ModalFooter";
 import MHeader from "./ModalHeader";
 import { optionsInputCategorie } from "./optionsHanlder";
@@ -26,14 +26,16 @@ export default function Categories({ show, props, handleClose }: FormCategories)
 
     useEffect(() => {
         if (categories.length === 0) {
-            getData<ICategories>("categories").then((res) => {
+            httpRequester({ method: "GET", file: "categories" }).then((res) => {
                 setCategories(res);
             });
         }
     }, [categories, setCategories]);
 
     const onSubmit = (data: ICategories) => {
-        saveFn("categories", data, clearStorage)
+        let method: method = "POST";
+        if (data.id !== "") method = "UPDATE";
+        saveFn("categories", data, clearStorage, method);
     };
 
     return (

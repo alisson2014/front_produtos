@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { errorHandler, getData, saveFn, useLocalStorage } from "service";
+import {
+    errorHandler,
+    httpRequester,
+    saveFn,
+    useLocalStorage
+} from "service";
 import { Modal, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import {
@@ -9,7 +14,7 @@ import {
     localCategories,
     id,
     localProducts,
-    ICategories
+    method
 } from "interface";
 import { optionsInputProducts } from "./optionsHanlder";
 import MHeader from "./ModalHeader";
@@ -28,7 +33,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     const [categories, setCategories] = useLocalStorage<localCategories>("categories", []);
     const [products, setProducts, clearLocalStorage] = useLocalStorage<localProducts>("products", []);
 
-    const [dataPost, setDataPost] = useState({});
+    const [dataPost, setDataPost] = useState<any>({});
     const [idCategorie, setIdCategorie] = useState<id>("");
 
     const onSubmit = (data: IProducts): void => {
@@ -49,14 +54,14 @@ export default function Products({ show, props, handleClose }: FormProducts) {
 
     useEffect(() => {
         if (categories.length === 0) {
-            getData<ICategories>("categories")
+            httpRequester({ method: "GET", file: "categories" })
                 .then((result) => setCategories(result));
         }
     }, [categories, setCategories]);
 
     useEffect(() => {
         if (products.length === 0) {
-            getData<IProducts>("products")
+            httpRequester({ method: "GET", file: "products" })
                 .then((result) => setProducts(result));
         }
     }, [products, setProducts]);
@@ -64,7 +69,9 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     useEffect(() => {
         if (idCategorie !== "") {
             const data = { ...dataPost, idCategoria: idCategorie };
-            saveFn("products", data, clearLocalStorage);
+            let method: method = "POST";
+            if (dataPost.id !== "") method = "UPDATE";
+            saveFn("products", data, clearLocalStorage, method);
         }
     }, [idCategorie]);
 

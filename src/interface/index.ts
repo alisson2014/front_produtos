@@ -11,6 +11,7 @@ export type localProducts = localStorage<IProducts>;
 export type id = number | "";
 export type FormCategories = IFormProps<ICategories>;
 export type FormProducts = IFormProps<IProducts>;
+export type method = "GET" | "POST" | "UPDATE" | "DELETE";
 
 export interface ICategories {
   id: id;
@@ -34,6 +35,13 @@ export interface IDeleteFunction {
   deleted: string;
   typeData: string;
   file: string;
+}
+
+export interface IHttpReq {
+  method: method;
+  file: string;
+  id?: id;
+  data?: any;
 }
 
 export interface IHandlerErrors {

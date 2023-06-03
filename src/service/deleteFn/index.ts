@@ -1,6 +1,6 @@
-import { deleteData } from "service/deleteData";
 import Swal, { SweetAlertOptions } from "sweetalert2";
 import { IDeleteFunction } from "interface";
+import { httpRequester } from "service/httpRequester";
 
 export const deleteFn = (props: IDeleteFunction, setter: any): void => {
   const { id, deleted, typeData, file } = props;
@@ -30,7 +30,7 @@ export const deleteFn = (props: IDeleteFunction, setter: any): void => {
 
   Swal.fire(options).then((result) => {
     if (result.isConfirmed) {
-      deleteData(file, id).then((res) => {
+      httpRequester({ method: "DELETE", file: file, id: id }).then((res) => {
         if (res?.status) {
           Swal.fire(isOk).then((res) => {
             if (res.isConfirmed) {

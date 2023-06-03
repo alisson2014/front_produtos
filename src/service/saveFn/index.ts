@@ -1,8 +1,14 @@
-import { save } from "service/save";
+import { method } from "interface";
+import { httpRequester } from "service/httpRequester";
 import Swal from "sweetalert2";
 
-export function saveFn<T>(file: string, data: T, setter: any): void {
-  save(file, data).then((res) => {
+export function saveFn<T>(
+  file: string,
+  data: T,
+  setter: any,
+  method: method
+): void {
+  httpRequester({ method: method, file: file, data: data }).then((res) => {
     if (res?.message) {
       Swal.fire("Sucesso!", res?.message, "success").then((res) => {
         if (res.isConfirmed) {
