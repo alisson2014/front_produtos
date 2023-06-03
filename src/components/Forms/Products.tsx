@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-    errorHandler,
-    httpRequester,
-    saveFn,
-    useLocalStorage
-} from "service";
+import { errorHandler, httpRequester, useLocalStorage } from "service";
+import { saveFn } from "controller";
 import { Modal, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import {

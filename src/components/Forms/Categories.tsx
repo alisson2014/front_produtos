@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { errorHandler, saveFn, useLocalStorage, httpRequester } from "service";
+import { errorHandler, useLocalStorage, httpRequester } from "service";
+import { saveFn } from "controller";
 import { Modal, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import { ICategories, FormCategories, localCategories, method } from "interface";

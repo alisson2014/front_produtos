@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { deleteFn, useLocalStorage, httpRequester } from "service";
+import { useLocalStorage, httpRequester } from "service";
+import { deleteFn } from "controller";
 import { Table, Button } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
