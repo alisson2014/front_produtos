@@ -38,10 +38,11 @@ export const deleteFn = (props: IDeleteFunction, setter: any): void => {
               window.location.reload();
             }
           });
-        } else
+        } else {
           Swal.fire(notOk).then((res) => {
             res.isConfirmed && window.location.reload();
           });
+        }
       });
     }
   });

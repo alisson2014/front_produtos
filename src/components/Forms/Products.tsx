@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { errorHandler, getData, save, useLocalStorage } from "service";
-import Swal from "sweetalert2";
+import { errorHandler, getData, useLocalStorage } from "service";
 import { Modal, Col, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import {
@@ -15,6 +14,7 @@ import {
 import { optionsInputProducts } from "./optionsHanlder";
 import MHeader from "./ModalHeader";
 import MFooter from "./ModalFooter";
+import { saveFn } from "service/saveFn";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
     const { id, nome, nomeCategoria, valor } = props;
@@ -27,7 +27,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     } = useForm<IProducts>();
 
     const [categories, setCategories] = useLocalStorage<localCategories>("categories", []);
-    const [products, setProducts] = useLocalStorage<localProducts>("products", []);
+    const [products, setProducts, clearLocalStorage] = useLocalStorage<localProducts>("products", []);
 
     const [dataPost, setDataPost] = useState({});
     const [idCategorie, setIdCategorie] = useState<id>("");
@@ -65,29 +65,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     useEffect(() => {
         if (idCategorie !== "") {
             const data = { ...dataPost, idCategoria: idCategorie };
-            save("products", data)
-                .then((res) => {
-                    if (res?.status) {
-                        Swal.fire(
-                            "Sucesso!",
-                            res?.message,
-                            "success"
-                        ).then((res) => {
-                            if (res.isConfirmed) {
-                                setProducts([]);
-                                window.location.reload();
-                            }
-                        });
-                    } else {
-                        Swal.fire(
-                            "Erro!",
-                            res?.message,
-                            "error"
-                        ).then((res) => {
-                            if (res.isConfirmed) window.location.reload();
-                        });
-                    }
-                });
+            saveFn("products", data, clearLocalStorage);
         }
     }, [idCategorie]);
 
