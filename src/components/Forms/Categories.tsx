@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { errorHandler, useLocalStorage, httpRequester } from "service";
-import { saveFn } from "controller";
+import { saveFn, getCategories } from "controller";
 import { Modal, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import { ICategories, FormCategories, localCategories, method } from "interface";
@@ -27,7 +27,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
 
     useEffect(() => {
         if (categories.length === 0) {
-            httpRequester({ method: "GET", file: "categories" }).then((res) => {
+            httpRequester(getCategories).then((res) => {
                 setCategories(res);
             });
         }

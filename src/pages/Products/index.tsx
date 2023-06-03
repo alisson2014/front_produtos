@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocalStorage, httpRequester } from "service";
-import { deleteFn } from "controller";
+import { deleteFn, getProducts } from "controller";
 import { Table, Button } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
@@ -38,7 +38,7 @@ export default function Products() {
 
     useEffect(() => {
         if (products.length === 0) {
-            httpRequester({ method: "GET", file: "products" })
+            httpRequester(getProducts)
                 .then((result) => setProducts(result));
         }
     }, [products, setProducts]);

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { errorHandler, httpRequester, useLocalStorage } from "service";
-import { saveFn } from "controller";
+import { saveFn, getCategories, getProducts } from "controller";
 import { Modal, Col, Form } from "react-bootstrap";
+import MHeader from "./ModalHeader";
+import MFooter from "./ModalFooter";
 import { TextError } from "./styles";
 import {
     IProducts,
@@ -13,8 +15,6 @@ import {
     method
 } from "interface";
 import { optionsInputProducts } from "./optionsHanlder";
-import MHeader from "./ModalHeader";
-import MFooter from "./ModalFooter";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
     const { id, nome, nomeCategoria, valor } = props;
@@ -50,14 +50,14 @@ export default function Products({ show, props, handleClose }: FormProducts) {
 
     useEffect(() => {
         if (categories.length === 0) {
-            httpRequester({ method: "GET", file: "categories" })
+            httpRequester(getCategories)
                 .then((result) => setCategories(result));
         }
     }, [categories, setCategories]);
 
     useEffect(() => {
         if (products.length === 0) {
-            httpRequester({ method: "GET", file: "products" })
+            httpRequester(getProducts)
                 .then((result) => setProducts(result));
         }
     }, [products, setProducts]);
