@@ -8,7 +8,7 @@ export default function MFooter({ onClick }: any) {
                 title="Cancelar"
                 variant="danger"
                 type="button"
-                onClick={onClick}
+                onClick={() => onClick()}
             >
                 Cancelar
             </Button>

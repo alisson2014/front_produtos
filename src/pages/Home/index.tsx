@@ -17,7 +17,10 @@ export default function Home() {
     const [propsCategorie, setPropsCategorie] = useState<ICategories>(initialState);
 
     const [show, setShow] = useState<boolean>(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setPropsCategorie(initialState);
+        setShow(false)
+    };
     const handleOpen = () => setShow(true);
 
     const editCategorie = (props: ICategories): void => {
@@ -68,17 +71,25 @@ export default function Home() {
                                     <td>{id}</td>
                                     <td>{nome}</td>
                                     <Buttons>
-                                        <Button title={`Editar ${nome}`} variant="primary" onClick={() => editCategorie(categorie)}>
+                                        <Button
+                                            title={`Editar ${nome}`}
+                                            variant="primary"
+                                            onClick={() => editCategorie(categorie)}
+                                        >
                                             <BiEdit size={20} />
                                         </Button>
-                                        <Button title={`Excluir ${nome}`} variant="danger" onClick={() => {
-                                            deleteFn({
-                                                id: id,
-                                                deleted: nome,
-                                                typeData: "Categoria",
-                                                file: "categories"
-                                            }, clearStorage);
-                                        }}>
+                                        <Button
+                                            title={`Excluir ${nome}`}
+                                            variant="danger"
+                                            onClick={() => {
+                                                deleteFn({
+                                                    id: id,
+                                                    deleted: nome,
+                                                    typeData: "Categoria",
+                                                    file: "categories"
+                                                }, clearStorage);
+                                            }}
+                                        >
                                             <RiDeleteBin2Fill size={20} />
                                         </Button>
                                     </Buttons>

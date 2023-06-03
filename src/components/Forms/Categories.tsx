@@ -95,7 +95,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                         )}
                     </Form.Group>
                 </Modal.Body>
-                <MFooter onClick={() => handleClose()} />
+                <MFooter onClick={handleClose} />
             </Form>
         </Modal>
     );

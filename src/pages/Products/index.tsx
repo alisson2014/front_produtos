@@ -19,7 +19,10 @@ export default function Products() {
     const [propsProduct, setPropsProduct] = useState<IProducts>(initialState);
 
     const [show, setShow] = useState<boolean>(false);
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setPropsProduct(initialState);
+        setShow(false)
+    };
     const handleOpen = () => setShow(true);
 
     const editProduct = (props: IProducts): void => {
