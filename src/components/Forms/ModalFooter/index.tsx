@@ -1,7 +1,7 @@
 import ModalFooter from "react-bootstrap/ModalFooter";
 import Button from "react-bootstrap/Button";
 
-export function MFooter({ onClick }: any) {
+export default function MFooter({ onClick }: any) {
     return (
         <ModalFooter>
             <Button

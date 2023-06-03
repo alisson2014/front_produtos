@@ -12,8 +12,9 @@ import {
     localProducts,
     ICategories
 } from "interface";
-import { MFooter } from "./ModalFooter";
 import { optionsInputProducts } from "./optionsHanlder";
+import MHeader from "./ModalHeader";
+import MFooter from "./ModalFooter";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
     const { id, nome, nomeCategoria, valor } = props;
@@ -98,9 +99,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
             keyboard={false}
             size="lg"
         >
-            <Modal.Header closeButton>
-                <Modal.Title>Cadastrar produto</Modal.Title>
-            </Modal.Header>
+            <MHeader title="Cadastrar produto" />
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Body style={{
                     display: "flex",

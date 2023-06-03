@@ -5,7 +5,8 @@ import Swal from "sweetalert2";
 import { Modal, Form } from "react-bootstrap";
 import { TextError } from "./styles";
 import { ICategories, FormCategories, localCategories } from "interface";
-import { MFooter } from "./ModalFooter";
+import MFooter from "./ModalFooter";
+import MHeader from "./ModalHeader";
 import { optionsInputCategorie } from "./optionsHanlder";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
@@ -65,9 +66,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
             backdrop="static"
             keyboard={false}
         >
-            <Modal.Header closeButton>
-                <Modal.Title>Cadastrar categoria</Modal.Title>
-            </Modal.Header>
+            <MHeader title="Cadastrar categoria" />
             <Form onSubmit={handleSubmit(onSubmit)}>
                 <Modal.Body style={{
                     display: "flex",
