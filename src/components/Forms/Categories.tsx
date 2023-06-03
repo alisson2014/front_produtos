@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { errorHandler, useLocalStorage, httpRequester } from "service";
 import { saveFn, getCategories } from "controller";
 import { Modal, Form } from "react-bootstrap";
-import { TextError } from "./styles";
+import { MBody, TextError } from "./styles";
 import { ICategories, FormCategories, localCategories, method } from "interface";
 import MFooter from "./ModalFooter";
 import MHeader from "./ModalHeader";
@@ -48,11 +48,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
         >
             <MHeader title="Cadastrar categoria" />
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Modal.Body style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "16px"
-                }}>
+                <MBody>
                     <Form.Group controlId="id">
                         <Form.Label>ID</Form.Label>
                         <Form.Control
@@ -74,7 +70,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                             </TextError>
                         )}
                     </Form.Group>
-                </Modal.Body>
+                </MBody>
                 <MFooter onClick={handleClose} />
             </Form>
         </Modal>

@@ -7,6 +7,7 @@ import { BiEdit } from "react-icons/bi"
 import { Products as Form } from "components/Forms";
 import { Box, Title, Buttons } from "./styles";
 import { IProducts, localProducts } from "interface";
+import { Actions } from "pages/styles";
 
 export default function Products() {
     const initialState: IProducts = {
@@ -59,12 +60,7 @@ export default function Products() {
                         <th>Produto</th>
                         <th>Categoria</th>
                         <th>Valor</th>
-                        <th style={{
-                            textAlign: "center",
-                            width: "256px",
-                        }}>
-                            Editar/Deletar
-                        </th>
+                        <Actions>Editar/Deletar</Actions>
                     </tr>
                 </thead>
                 <tbody>

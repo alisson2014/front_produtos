@@ -5,7 +5,7 @@ import { ILinkTo } from "interface";
 export default function LinkTo({ route, routeName }: ILinkTo) {
     return (
         <Item>
-            <Link to={route}>{routeName}</Link>
+            <Link to={route} title={routeName}>{routeName}</Link>
         </Item>
     );
 };

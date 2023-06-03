@@ -7,6 +7,7 @@ import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
 import { Buttons, Title, Box } from "./styles";
 import { ICategories, localCategories } from "interface";
+import { Actions } from "pages/styles";
 
 export default function Home() {
     const initialState: ICategories = {
@@ -55,12 +56,7 @@ export default function Home() {
                     <tr>
                         <th>#</th>
                         <th>Categoria</th>
-                        <th style={{
-                            textAlign: "center",
-                            width: "256px",
-                        }}>
-                            Editar/Deletar
-                        </th>
+                        <Actions>Editar/Deletar</Actions>
                     </tr>
                 </thead>
                 <tbody>

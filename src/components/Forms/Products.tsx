@@ -5,7 +5,7 @@ import { saveFn, getCategories, getProducts } from "controller";
 import { Modal, Col, Form } from "react-bootstrap";
 import MHeader from "./ModalHeader";
 import MFooter from "./ModalFooter";
-import { TextError } from "./styles";
+import { MBody, TextError } from "./styles";
 import {
     IProducts,
     FormProducts,
@@ -81,10 +81,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
         >
             <MHeader title="Cadastrar produto" />
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Modal.Body style={{
-                    display: "flex",
-                    gap: "16px"
-                }}>
+                <MBody>
                     <Col>
                         <Form.Group controlId="id">
                             <Form.Label>ID</Form.Label>
@@ -147,7 +144,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                             )}
                         </Form.Group>
                     </Col>
-                </Modal.Body>
+                </MBody>
                 <MFooter onClick={() => handleClose()} />
             </Form>
         </Modal>
