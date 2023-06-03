@@ -1,8 +1,8 @@
-import { IHandlerErrors } from "interface";
+import { IErrorHandler } from "interface";
 
 export const errorHandler = (
   inputError: string,
-  props: IHandlerErrors
+  props: IErrorHandler
 ): string => {
   const { field, minLength, maxLength, min, max } = props;
   let errorMessage: string = "";

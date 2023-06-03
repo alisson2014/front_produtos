@@ -44,7 +44,7 @@ export interface IHttpReq {
   data?: any;
 }
 
-export interface IHandlerErrors {
+export interface IErrorHandler {
   field: string;
   minLength?: number;
   maxLength?: number;

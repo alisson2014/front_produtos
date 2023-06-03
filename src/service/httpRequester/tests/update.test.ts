@@ -3,7 +3,7 @@ import { httpRequester } from "..";
 describe("HTTP METHOD UPDATE", () => {
   test("Deve trazer status true da api", async () => {
     const mockData = {
-      id: 200,
+      id: 250,
       nome: "teste jest update",
     };
     const response = await httpRequester({
@@ -11,7 +11,7 @@ describe("HTTP METHOD UPDATE", () => {
       file: "categories",
       data: mockData,
     });
-    expect(response?.status).toBeTruthy();
+    expect(response.status).toBeTruthy();
   });
 
   test("Deve trazer status false da api", async () => {
@@ -25,7 +25,7 @@ describe("HTTP METHOD UPDATE", () => {
 
   test("Deve retornar um array vazio em caso de erro", async () => {
     const mockData = {
-      id: 18,
+      id: 237,
       nome: "teste erro",
     };
     const response = await httpRequester({

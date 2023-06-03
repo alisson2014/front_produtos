@@ -5,7 +5,7 @@ describe("HTTP METHOD DELETE", () => {
     const response = await httpRequester({
       method: "DELETE",
       file: "categories",
-      id: 205,
+      id: 249,
     });
     expect(response.status).toBeTruthy();
   });
