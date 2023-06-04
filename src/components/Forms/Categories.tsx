@@ -11,7 +11,7 @@ import { optionsInputCategorie } from "./optionsHanlder";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
     const { id, nome } = props;
-    const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
+    const [categories, setCategories, removeCategories] = useLocalStorage<localCategories>("categories", []);
 
     const {
         handleSubmit,
@@ -36,7 +36,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
     const onSubmit = (data: ICategories) => {
         let method: method = "POST";
         if (data.id !== "") method = "UPDATE";
-        saveFn("categories", data, clearStorage, method);
+        saveFn("categories", data, removeCategories, method);
     };
 
     return (

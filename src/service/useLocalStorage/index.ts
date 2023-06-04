@@ -13,10 +13,10 @@ export function useLocalStorage<T>(
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
 
-  const clearStorage = () => {
+  const removeItems = () => {
     localStorage.removeItem(key);
     setValue(initialValue);
   };
 
-  return [value, setValue, clearStorage];
+  return [value, setValue, removeItems];
 }

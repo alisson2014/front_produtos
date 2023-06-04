@@ -17,7 +17,7 @@ export default function Products() {
         valor: 0
     };
 
-    const [products, setProducts, clearStorage] = useLocalStorage<localProducts>("products", []);
+    const [products, setProducts, removeProducts] = useLocalStorage<localProducts>("products", []);
     const [propsProduct, setPropsProduct] = useState<IProducts>(initialState);
 
     const [show, setShow] = useState<boolean>(false);
@@ -85,7 +85,7 @@ export default function Products() {
                                                 deleted: nome,
                                                 typeData: "Produto",
                                                 file: "products"
-                                            }, clearStorage);
+                                            }, removeProducts);
                                         }}>
                                             <RiDeleteBin2Fill size={20} />
                                         </Button>

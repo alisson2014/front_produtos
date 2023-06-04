@@ -9,7 +9,7 @@ export function saveFn<T>(
   method: method
 ): void {
   httpRequester({ method: method, file: file, data: data }).then((res) => {
-    if (res?.message) {
+    if (res?.status) {
       Swal.fire("Sucesso!", res?.message, "success").then((res) => {
         if (res.isConfirmed) {
           setter();
@@ -17,9 +17,11 @@ export function saveFn<T>(
         }
       });
     } else {
-      Swal.fire("Erro!", res?.message, "error").then(
-        (res) => res.isConfirmed && window.location.reload()
-      );
+      Swal.fire(
+        "Erro!",
+        res?.message ?? "Erro ao acessar o servidor",
+        "error"
+      ).then((res) => res.isConfirmed && window.location.reload());
     }
   });
 }

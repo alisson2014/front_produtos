@@ -27,7 +27,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     } = useForm<IProducts>();
 
     const [categories, setCategories] = useLocalStorage<localCategories>("categories", []);
-    const [products, setProducts, clearLocalStorage] = useLocalStorage<localProducts>("products", []);
+    const [products, setProducts, removeProducts] = useLocalStorage<localProducts>("products", []);
 
     const [dataPost, setDataPost] = useState<any>({});
     const [idCategorie, setIdCategorie] = useState<id>("");
@@ -67,7 +67,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
             const data = { ...dataPost, idCategoria: idCategorie };
             let method: method = "POST";
             if (dataPost.id !== "") method = "UPDATE";
-            saveFn("products", data, clearLocalStorage, method);
+            saveFn("products", data, removeProducts, method);
         }
     }, [idCategorie]);
 

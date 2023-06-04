@@ -5,7 +5,7 @@ export default function Header() {
     return (
         <H.Header>
             <nav>
-                <H.Menu role="menu">
+                <H.Menu>
                     <LinkTo route="/categories" routeName="Categorias" />
                     <LinkTo route="/products" routeName="Produtos" />
                     <LinkTo route="/budgets" routeName="Clientes" />
