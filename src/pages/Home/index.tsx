@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useLocalStorage, httpRequester } from "service";
 import { deleteFn, getCategories } from "controller";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Spinner } from "react-bootstrap";
 import { MdAddCircle } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
@@ -39,7 +39,11 @@ export default function Home() {
     useEffect(() => {
         if (categories.length === 0) {
             httpRequester(getCategories)
-                .then((result) => setCategories(result));
+                .then((result) => {
+                    setInterval(() => {
+                        setCategories(result)
+                    }, 5000);
+                });
         }
     }, [categories, setCategories]);
 
@@ -94,7 +98,9 @@ export default function Home() {
                                 </tr>
                             );
                         })
-                    ) : <p>Carregando dados...</p>}
+                    ) : (
+                        <Spinner variant="primary" />
+                    )}
                 </tbody>
             </Table>
             <Button

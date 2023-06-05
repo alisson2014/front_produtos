@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocalStorage, httpRequester } from "service";
 import { deleteFn, getProducts } from "controller";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Spinner } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Products as Form } from "components/Forms";
@@ -106,7 +106,7 @@ export default function Products() {
                                 </tr>
                             );
                         })
-                    ) : <p>Caregando...</p>}
+                    ) : <Spinner variant="primary" />}
                 </tbody>
             </Table>
             <Button
