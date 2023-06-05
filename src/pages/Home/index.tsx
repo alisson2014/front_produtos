@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useLocalStorage, httpRequester } from "service";
 import { deleteFn, getCategories } from "controller";
 import { Button, Table } from "react-bootstrap";
+import { MdAddCircle } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
@@ -56,7 +57,7 @@ export default function Home() {
                     <tr>
                         <th>#</th>
                         <th>Categoria</th>
-                        <Actions>Editar/Deletar</Actions>
+                        <Actions>Ações</Actions>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,7 +74,7 @@ export default function Home() {
                                             variant="primary"
                                             onClick={() => editCategorie(categorie)}
                                         >
-                                            <BiEdit size={20} />
+                                            <BiEdit size={20} /><span>Editar</span>
                                         </Button>
                                         <Button
                                             title={`Excluir ${nome}`}
@@ -87,7 +88,7 @@ export default function Home() {
                                                 }, clearStorage);
                                             }}
                                         >
-                                            <RiDeleteBin2Fill size={20} />
+                                            <RiDeleteBin2Fill size={20} /><span>Excluir</span>
                                         </Button>
                                     </Buttons>
                                 </tr>
@@ -98,12 +99,14 @@ export default function Home() {
             </Table>
             <Button
                 title="Cadastrar"
+                type="button"
                 variant="info"
                 size="lg"
                 onClick={registerCategorie}
                 style={{ alignSelf: "center" }}
             >
-                Nova categoria
+                <MdAddCircle size={20} />
+                <span>Cadastrar</span>
             </Button>
             <Form
                 show={show}

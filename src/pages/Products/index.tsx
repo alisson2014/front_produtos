@@ -8,6 +8,7 @@ import { Products as Form } from "components/Forms";
 import { Box, Title, Buttons } from "./styles";
 import { IProducts, localProducts } from "interface";
 import { Actions } from "pages/styles";
+import { MdAddCircle } from "react-icons/md";
 
 export default function Products() {
     const initialState: IProducts = {
@@ -60,7 +61,7 @@ export default function Products() {
                         <th>Produto</th>
                         <th>Categoria</th>
                         <th>Valor</th>
-                        <Actions>Editar/Deletar</Actions>
+                        <Actions>Ações</Actions>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,18 +77,30 @@ export default function Products() {
                                     <td>{nomeCategoria}</td>
                                     <td>R$ {formatedValue}</td>
                                     <Buttons>
-                                        <Button title={`Editar ${nome}`} variant="primary" onClick={() => editProduct(product)}>
+                                        <Button
+                                            title={`Editar ${nome}`}
+                                            variant="primary"
+                                            onClick={() => editProduct(product)}
+                                            type="button"
+                                        >
                                             <BiEdit size={20} />
+                                            <span>Editar</span>
                                         </Button>
-                                        <Button title={`Excluir ${nome}`} variant="danger" onClick={() => {
-                                            deleteFn({
-                                                id: id,
-                                                deleted: nome,
-                                                typeData: "Produto",
-                                                file: "products"
-                                            }, removeProducts);
-                                        }}>
+                                        <Button
+                                            title={`Excluir ${nome}`}
+                                            variant="danger"
+                                            type="button"
+                                            onClick={() => {
+                                                deleteFn({
+                                                    id: id,
+                                                    deleted: nome,
+                                                    typeData: "Produto",
+                                                    file: "products"
+                                                }, removeProducts);
+                                            }}
+                                        >
                                             <RiDeleteBin2Fill size={20} />
+                                            <span>Excluir</span>
                                         </Button>
                                     </Buttons>
                                 </tr>
@@ -103,7 +116,8 @@ export default function Products() {
                 onClick={registerProduct}
                 style={{ alignSelf: "center" }}
             >
-                Nova categoria
+                <MdAddCircle size={20} />
+                <span>Cadastrar</span>
             </Button>
             <Form
                 show={show}
