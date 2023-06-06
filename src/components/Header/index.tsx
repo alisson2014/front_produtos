@@ -8,8 +8,6 @@ export default function Header() {
                 <H.Menu>
                     <LinkTo route="/categories" routeName="Categorias" />
                     <LinkTo route="/products" routeName="Produtos" />
-                    <LinkTo route="/budgets" routeName="Clientes" />
-                    <LinkTo route="/productsBudgets" routeName="Orçamentos" />
                 </H.Menu>
             </nav>
         </H.Header>

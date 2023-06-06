@@ -9,8 +9,6 @@ export default function AppRouter() {
                 <Route index element={<Home />} />
                 <Route path="categories" element={<Home />} />
                 <Route path="products" element={<Products />} />
-                <Route path="budgets" element={<div>Clientes</div>} />
-                <Route path="productsBudgets" element={<div>Orçamentos</div>} />
             </Route>
             <Route path="*" element={<span>404 ERROR</span>} />
         </Routes>

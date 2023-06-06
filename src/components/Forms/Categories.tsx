@@ -8,6 +8,7 @@ import { ICategories, FormCategories, localCategories, method } from "interface"
 import MFooter from "./ModalFooter";
 import MHeader from "./ModalHeader";
 import { optionsInputCategorie } from "./optionsHanlder";
+import { useParams } from "react-router-dom";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
     const { id, nome } = props;

@@ -40,9 +40,7 @@ export default function Home() {
         if (categories.length === 0) {
             httpRequester(getCategories)
                 .then((result) => {
-                    setInterval(() => {
-                        setCategories(result)
-                    }, 5000);
+                    setCategories(result);
                 });
         }
     }, [categories, setCategories]);
