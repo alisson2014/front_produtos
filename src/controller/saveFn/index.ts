@@ -1,8 +1,11 @@
-import { method } from "interface";
+import { HasId, method } from "interface";
 import { httpRequester } from "service/httpRequester";
 import Swal from "sweetalert2";
 
-export function saveFn<T>(file: string, data: T, method: method): void {
+export function saveFn<T extends HasId>(file: string, data: T): void {
+  let method: method = "POST";
+  if (data.id) method = "UPDATE";
+
   httpRequester({ method: method, file: file, data: data }).then((res) => {
     if (res?.status) {
       Swal.fire("Sucesso!", res?.message, "success").then((res) => {

@@ -43,9 +43,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
     }, [buscador]);
 
     const onSubmit = (data: ICategories) => {
-        let method: method = "POST";
-        if (data.id !== "") method = "UPDATE";
-        saveFn("categories", data, method);
+        saveFn("categories", data);
     };
 
     return (

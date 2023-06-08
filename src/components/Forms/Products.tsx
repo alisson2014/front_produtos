@@ -6,12 +6,7 @@ import { Modal, Col, Form } from "react-bootstrap";
 import MHeader from "./ModalHeader";
 import MFooter from "./ModalFooter";
 import { MBody, TextError } from "./styles";
-import {
-    IProducts,
-    FormProducts,
-    id,
-    method
-} from "interface";
+import { IProducts, FormProducts, id } from "interface";
 import { optionsInputProducts } from "./optionsHanlder";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
@@ -46,7 +41,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     const [idCategorie, setIdCategorie] = useState<id>("");
 
     const onSubmit = (data: IProducts): void => {
-        if (categories.length !== 0) {
+        if (categories !== null && categories.length !== 0) {
             categories.find((categorie: any) => {
                 if (categorie.nome === data.nomeCategoria) setIdCategorie(categorie.id);
             });
@@ -81,9 +76,7 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     useEffect(() => {
         if (idCategorie !== "") {
             const data = { ...dataPost, idCategoria: idCategorie };
-            let method: method = "POST";
-            if (dataPost.id !== "") method = "UPDATE";
-            saveFn("products", data, method);
+            saveFn("products", data);
         }
     }, [idCategorie]);
 

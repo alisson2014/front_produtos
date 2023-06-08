@@ -13,6 +13,10 @@ export type FormCategories = IFormProps<ICategories>;
 export type FormProducts = IFormProps<IProducts>;
 export type method = "GET" | "POST" | "UPDATE" | "DELETE";
 
+export interface HasId {
+  id: id;
+}
+
 export interface ICategories {
   id: id;
   nome: string;
