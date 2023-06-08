@@ -9,14 +9,30 @@ import { MBody, TextError } from "./styles";
 import {
     IProducts,
     FormProducts,
-    localCategories,
     id,
-    localProducts,
     method
 } from "interface";
 import { optionsInputProducts } from "./optionsHanlder";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
+    var categories: any = localStorage.getItem("categories");
+    var products: any = localStorage.getItem("products");
+
+    const [buscaCategorias, setBuscaCategorias] = useState<boolean>(false);
+    const [buscaProdutos, setBuscaProduto] = useState<boolean>(false);
+
+    if (categories !== null) {
+        categories = JSON.parse(categories);
+    } else if (!buscaCategorias) {
+        setBuscaCategorias(true);
+    }
+
+    if (products !== null) {
+        products = JSON.parse(products);
+    } else if (!buscaProdutos) {
+        setBuscaProduto(true);
+    }
+
     const { id, nome, nomeCategoria, valor } = props;
 
     const {
@@ -26,20 +42,34 @@ export default function Products({ show, props, handleClose }: FormProducts) {
         formState: { errors }
     } = useForm<IProducts>();
 
-    const [categories, setCategories] = useLocalStorage<localCategories>("categories", []);
-    const [products, setProducts, removeProducts] = useLocalStorage<localProducts>("products", []);
-
     const [dataPost, setDataPost] = useState<any>({});
     const [idCategorie, setIdCategorie] = useState<id>("");
 
     const onSubmit = (data: IProducts): void => {
         if (categories.length !== 0) {
-            categories.find((categorie) => {
+            categories.find((categorie: any) => {
                 if (categorie.nome === data.nomeCategoria) setIdCategorie(categorie.id);
             });
             setDataPost(data);
         }
     };
+
+    useEffect(() => {
+        if (buscaCategorias) {
+            httpRequester(getCategories).then((res) => {
+                localStorage.setItem("categories", JSON.stringify(res));
+            })
+            setBuscaCategorias(false);
+        }
+
+        if (buscaProdutos) {
+            httpRequester(getProducts).then((res) => {
+                localStorage.setItem("products", JSON.stringify(res));
+            })
+            setBuscaProduto(false);
+        }
+
+    }, [buscaCategorias, buscaProdutos]);
 
     useEffect(() => {
         setValue("id", id);
@@ -49,25 +79,11 @@ export default function Products({ show, props, handleClose }: FormProducts) {
     }, [id, nome, nomeCategoria, valor, setValue]);
 
     useEffect(() => {
-        if (categories.length === 0) {
-            httpRequester(getCategories)
-                .then((result) => setCategories(result));
-        }
-    }, [categories, setCategories]);
-
-    useEffect(() => {
-        if (products.length === 0) {
-            httpRequester(getProducts)
-                .then((result) => setProducts(result));
-        }
-    }, [products, setProducts]);
-
-    useEffect(() => {
         if (idCategorie !== "") {
             const data = { ...dataPost, idCategoria: idCategorie };
             let method: method = "POST";
             if (dataPost.id !== "") method = "UPDATE";
-            saveFn("products", data, removeProducts, method);
+            saveFn("products", data, method);
         }
     }, [idCategorie]);
 
@@ -113,8 +129,8 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                                 {...register("nomeCategoria", { required: true })}
                             >
                                 <option defaultValue="" disabled></option>
-                                {categories.length !== 0 ? (
-                                    categories.map((categorie) => {
+                                {categories !== null && categories.length !== 0 ? (
+                                    categories.map((categorie: any) => {
                                         return (
                                             <option
                                                 key={categorie?.id}

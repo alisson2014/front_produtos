@@ -1,18 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { errorHandler, useLocalStorage, httpRequester } from "service";
+import { errorHandler, httpRequester } from "service";
 import { saveFn, getCategories } from "controller";
 import { Modal, Form } from "react-bootstrap";
 import { MBody, TextError } from "./styles";
-import { ICategories, FormCategories, localCategories, method } from "interface";
+import { ICategories, FormCategories, method, localCategories } from "interface";
 import MFooter from "./ModalFooter";
 import MHeader from "./ModalHeader";
 import { optionsInputCategorie } from "./optionsHanlder";
-import { useParams } from "react-router-dom";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
+    var categories = localStorage.getItem("categories");
+    const [buscador, setBuscador] = useState<boolean>(false);
+
+    if (categories !== null) {
+        categories = JSON.parse(categories)
+    } else if (!buscador) {
+        setBuscador(true)
+    };
+
     const { id, nome } = props;
-    const [categories, setCategories, removeCategories] = useLocalStorage<localCategories>("categories", []);
 
     const {
         handleSubmit,
@@ -27,17 +34,18 @@ export default function Categories({ show, props, handleClose }: FormCategories)
     }, [props, setValue]);
 
     useEffect(() => {
-        if (categories.length === 0) {
+        if (buscador) {
             httpRequester(getCategories).then((res) => {
-                setCategories(res);
+                localStorage.setItem("categories", JSON.stringify(res));
             });
         }
-    }, [categories, setCategories]);
+        setBuscador(false);
+    }, [buscador]);
 
     const onSubmit = (data: ICategories) => {
         let method: method = "POST";
         if (data.id !== "") method = "UPDATE";
-        saveFn("categories", data, removeCategories, method);
+        saveFn("categories", data, method);
     };
 
     return (
