@@ -11,7 +11,7 @@ export type localProducts = localStorage<IProducts>;
 export type id = number | "";
 export type FormCategories = IFormProps<ICategories>;
 export type FormProducts = IFormProps<IProducts>;
-export type method = "GET" | "POST" | "UPDATE" | "DELETE";
+export type method = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 export interface HasId {
   id: id;
