@@ -19,7 +19,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
         setBuscador(true)
     };
 
-    const { id, nome } = props;
+    const { id, nomeCategoria } = props;
 
     const {
         handleSubmit,
@@ -30,7 +30,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
 
     useEffect(() => {
         setValue("id", id);
-        setValue("nome", nome);
+        setValue("nomeCategoria", nomeCategoria);
     }, [props, setValue]);
 
     useEffect(() => {
@@ -43,7 +43,7 @@ export default function Categories({ show, props, handleClose }: FormCategories)
     }, [buscador]);
 
     const onSubmit = (data: ICategories) => {
-        saveFn("categories", data);
+        saveFn("/categorias", data);
     };
 
     return (
@@ -67,13 +67,13 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                     <Form.Group controlId="categorie">
                         <Form.Label>Categoria</Form.Label>
                         <Form.Control
-                            defaultValue={nome}
+                            defaultValue={nomeCategoria}
                             placeholder="Digite o nome da categoria"
-                            {...register("nome", optionsInputCategorie)}
+                            {...register("nomeCategoria", optionsInputCategorie)}
                         />
-                        {errors?.nome && (
+                        {errors?.nomeCategoria && (
                             <TextError>
-                                {errorHandler(errors?.nome?.type, { field: "Categoria", minLength: 3, maxLength: 50 })}
+                                {errorHandler(errors?.nomeCategoria?.type, { field: "Categoria", minLength: 3, maxLength: 50 })}
                             </TextError>
                         )}
                     </Form.Group>

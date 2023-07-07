@@ -19,7 +19,7 @@ export interface HasId {
 
 export interface ICategories {
   id: id;
-  nome: string;
+  nomeCategoria: string;
 }
 
 export interface IProducts {

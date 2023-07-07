@@ -1,37 +1,20 @@
 import { IHttpReq } from "interface";
 
 export async function httpRequester(props: IHttpReq): Promise<any | never[]> {
-  const { method, file, id, data } = props;
-  let action: string = "";
-  let uri: string = "";
-  let requester: RequestInit = {};
+  const { method, file, id = "", data } = props;
+  let requester: RequestInit = {
+    method: method,
+  };
 
-  switch (method) {
-    case "GET":
-      action = "list";
-      break;
-    case "POST":
-      action = "register";
-      break;
-    case "UPDATE":
-      action = method.toLowerCase();
-      break;
-    case "DELETE":
-      action = method.toLowerCase();
-      break;
-    default:
-      throw new Error("Método não encontrado!");
+  let queryParam = "";
+
+  if (id !== "") {
+    queryParam = "?id=" + id;
   }
 
-  if (method !== "DELETE")
-    uri = `http://localhost/produtosLike/${action}/${file}.php`;
-  else uri = `http://localhost/produtosLike/${action}/${file}.php?id=${id}`;
+  const uri = "http://localhost:8080" + file + queryParam;
 
-  if (method === "GET" || method === "DELETE") {
-    requester = {
-      method: method,
-    };
-  } else {
+  if (method === "PUT" || method === "POST") {
     requester = {
       method: method,
       mode: "cors",
@@ -41,7 +24,7 @@ export async function httpRequester(props: IHttpReq): Promise<any | never[]> {
       },
       body: JSON.stringify(data),
     };
-  }
+  } 
 
   try {
     const response = await fetch(uri, requester);

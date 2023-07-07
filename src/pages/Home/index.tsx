@@ -13,7 +13,7 @@ import { Actions } from "pages/styles";
 export default function Home() {
     const initialState: ICategories = {
         id: "",
-        nome: ""
+        nomeCategoria: ""
     };
 
     const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
@@ -65,26 +65,26 @@ export default function Home() {
                 <tbody>
                     {categories !== null && categories.length !== 0 ? (
                         categories.map((categorie) => {
-                            const { id, nome } = categorie;
+                            const { id, nomeCategoria } = categorie;
                             return (
                                 <tr key={id}>
                                     <td>{id}</td>
-                                    <td>{nome}</td>
+                                    <td>{nomeCategoria}</td>
                                     <Buttons>
                                         <Button
-                                            title={`Editar ${nome}`}
+                                            title={`Editar ${nomeCategoria}`}
                                             variant="primary"
                                             onClick={() => editCategorie(categorie)}
                                         >
                                             <BiEdit size={20} /><span>Editar</span>
                                         </Button>
                                         <Button
-                                            title={`Excluir ${nome}`}
+                                            title={`Excluir ${nomeCategoria}`}
                                             variant="danger"
                                             onClick={() => {
                                                 deleteFn({
                                                     id: id,
-                                                    deleted: nome,
+                                                    deleted: nomeCategoria,
                                                     typeData: "Categoria",
                                                     file: "categories"
                                                 }, clearStorage);

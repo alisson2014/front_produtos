@@ -1,7 +1,7 @@
 import { ICategories, IProducts } from "interface";
 import { RegisterOptions } from "react-hook-form";
 
-export const optionsInputCategorie: RegisterOptions<ICategories, "nome"> = {
+export const optionsInputCategorie: RegisterOptions<ICategories, "nomeCategoria"> = {
   required: true,
   minLength: 3,
   maxLength: 50,

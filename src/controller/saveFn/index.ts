@@ -4,10 +4,10 @@ import Swal from "sweetalert2";
 
 export function saveFn<T extends HasId>(file: string, data: T): void {
   let method: method = "POST";
-  if (data.id) method = "PUT";
+  if (data.id !== "") method = "PUT";
 
   httpRequester({ method: method, file: file, data: data }).then((res) => {
-    if (res?.status) {
+    if (res?.status === "success") {
       Swal.fire("Sucesso!", res?.message, "success").then((res) => {
         if (res.isConfirmed) {
           localStorage.setItem(file, JSON.stringify([]));
