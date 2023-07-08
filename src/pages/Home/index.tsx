@@ -72,6 +72,7 @@ export default function Home() {
                                     <td>{nomeCategoria}</td>
                                     <TableButtons>
                                         <Button
+                                            type="button"
                                             title={`Editar ${nomeCategoria}`}
                                             variant="primary"
                                             onClick={() => editCategorie(id)}
@@ -79,6 +80,7 @@ export default function Home() {
                                             <BiEdit size={20} /><span>Editar</span>
                                         </Button>
                                         <Button
+                                            type="button"
                                             title={`Excluir ${nomeCategoria}`}
                                             variant="danger"
                                             onClick={() => {

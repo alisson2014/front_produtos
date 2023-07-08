@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { errorHandler, httpRequester } from "service";
 import { saveFn, getCategories } from "controller";
-import { Modal, Form } from "react-bootstrap";
-import { MBody, TextError } from "./styles";
-import { ICategories, FormCategories, method, localCategories } from "interface";
-import MFooter from "./ModalFooter";
-import MHeader from "./ModalHeader";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import * as M from "components/Modal";
+import { TextError } from "./styles";
+import { ICategories, FormCategories } from "interface";
 import { optionsInputCategorie } from "./optionsHanlder";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
@@ -51,11 +51,10 @@ export default function Categories({ show, props, handleClose }: FormCategories)
             show={show}
             onHide={handleClose}
             backdrop="static"
-            keyboard={false}
         >
-            <MHeader title="Cadastrar categoria" />
+            <M.Header title="Cadastrar categoria" />
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <MBody>
+                <M.Body>
                     <Form.Group controlId="id">
                         <Form.Label>ID</Form.Label>
                         <Form.Control
@@ -77,8 +76,8 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                             </TextError>
                         )}
                     </Form.Group>
-                </MBody>
-                <MFooter onClick={handleClose} />
+                </M.Body>
+                <M.Footer onClick={handleClose} />
             </Form>
         </Modal>
     );

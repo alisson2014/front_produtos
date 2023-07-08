@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { errorHandler, httpRequester, useLocalStorage } from "service";
+import { errorHandler, httpRequester } from "service";
 import { saveFn, getCategories, getProducts } from "controller";
 import { Modal, Col, Form } from "react-bootstrap";
-import MHeader from "./ModalHeader";
-import MFooter from "./ModalFooter";
-import { MBody, TextError } from "./styles";
+import * as M from "../Modal";
+import { TextError } from "./styles";
 import { IProducts, FormProducts, id } from "interface";
 import { optionsInputProducts } from "./optionsHanlder";
 
@@ -88,9 +87,9 @@ export default function Products({ show, props, handleClose }: FormProducts) {
             keyboard={false}
             size="lg"
         >
-            <MHeader title="Cadastrar produto" />
+            <M.Header title="Cadastrar produto" />
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <MBody>
+                <M.Body>
                     <Col>
                         <Form.Group controlId="id">
                             <Form.Label>ID</Form.Label>
@@ -153,8 +152,8 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                             )}
                         </Form.Group>
                     </Col>
-                </MBody>
-                <MFooter onClick={() => handleClose()} />
+                </M.Body>
+                <M.Footer onClick={() => handleClose()} />
             </Form>
         </Modal>
     );
