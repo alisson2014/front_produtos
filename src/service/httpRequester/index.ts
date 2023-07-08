@@ -19,8 +19,10 @@ export async function httpRequester(props: IHttpReq): Promise<any | never[]> {
       method: method,
       mode: "cors",
       headers: {
+        "Access-Control-Allow-Methods": "OPTIONS, GET, POST, PUT, DELETE",
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Origin": "http://localhost:8080",
         "Content-Type": "applications/json; charset=UTF-8",
-        "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(data),
     };

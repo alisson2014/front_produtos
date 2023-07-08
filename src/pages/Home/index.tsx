@@ -7,32 +7,33 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
 import { Buttons, Title, Box } from "./styles";
-import { ICategories, localCategories } from "interface";
+import { ICategories, id, localCategories } from "interface";
 import { Actions } from "pages/styles";
 
 export default function Home() {
-    const initialState: ICategories = {
+    const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
+    const [propsCategorie, setPropsCategorie] = useState<ICategories>({
         id: "",
         nomeCategoria: ""
-    };
-
-    const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
-    const [propsCategorie, setPropsCategorie] = useState<ICategories>(initialState);
+    });
 
     const [show, setShow] = useState<boolean>(false);
-    const handleClose = () => {
-        setPropsCategorie(initialState);
-        setShow(false)
-    };
+    const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editCategorie = (props: ICategories): void => {
-        setPropsCategorie(props);
+    const editCategorie = (id: id): void => {
+        httpRequester({ ...getCategories, id: id })
+            .then((res) => {
+                setPropsCategorie(res);
+            });
         handleOpen();
     };
 
     const registerCategorie = (): void => {
-        setPropsCategorie(initialState);
+        setPropsCategorie({
+            id: "",
+            nomeCategoria: ""
+        });
         handleOpen();
     };
 
@@ -43,7 +44,7 @@ export default function Home() {
                     setCategories(result);
                 });
         }
-    }, [categories, setCategories]);
+    }, []);
 
     return (
         <Box>
@@ -74,7 +75,7 @@ export default function Home() {
                                         <Button
                                             title={`Editar ${nomeCategoria}`}
                                             variant="primary"
-                                            onClick={() => editCategorie(categorie)}
+                                            onClick={() => editCategorie(id)}
                                         >
                                             <BiEdit size={20} /><span>Editar</span>
                                         </Button>
@@ -86,7 +87,7 @@ export default function Home() {
                                                     id: id,
                                                     deleted: nomeCategoria,
                                                     typeData: "Categoria",
-                                                    file: "categories"
+                                                    file: "/categorias"
                                                 }, clearStorage);
                                             }}
                                         >
@@ -97,7 +98,9 @@ export default function Home() {
                             );
                         })
                     ) : (
-                        <Spinner variant="primary" />
+                        <tr>
+                            <td><Spinner variant="primary" /></td>
+                        </tr>
                     )}
                 </tbody>
             </Table>

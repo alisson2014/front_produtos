@@ -31,7 +31,7 @@ export const deleteFn = (props: IDeleteFunction, setter: any): void => {
   Swal.fire(options).then((result) => {
     if (result.isConfirmed) {
       httpRequester({ method: "DELETE", file: file, id: id }).then((res) => {
-        if (res?.status) {
+        if (res?.status === "success") {
           Swal.fire(isOk).then((res) => {
             if (res.isConfirmed) {
               setter();
