@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Item } from "./styles";
+import { Item } from "./atoms";
 import { ILinkTo } from "interface";
 
 export default function LinkTo({ route, routeName }: ILinkTo) {

@@ -3,17 +3,17 @@ import {
     BsInstagram,
     BsTwitter
 } from "react-icons/bs";
-import * as F from "./styles";
+import * as S from "./atoms";
 
 export default function Footer() {
     return (
-        <F.Footer>
-            <F.SocialIcons>
+        <S.Footer>
+            <S.SocialIcons>
                 <BsFacebook size={32} />
                 <BsInstagram size={32} />
                 <BsTwitter size={32} />
-            </F.SocialIcons>
-            <F.Credits>Desenvolvido por Alisson</F.Credits>
-        </F.Footer>
+            </S.SocialIcons>
+            <S.Credits>Desenvolvido por Alisson</S.Credits>
+        </S.Footer>
     );
 };

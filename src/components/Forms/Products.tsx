@@ -6,7 +6,6 @@ import { Modal, Col, Form } from "react-bootstrap";
 import * as M from "../Modal";
 import { TextError } from "./styles";
 import { IProducts, FormProducts, id } from "interface";
-import { optionsInputProducts } from "./optionsHanlder";
 
 export default function Products({ show, props, handleClose }: FormProducts) {
     var categories: any = localStorage.getItem("categories");
@@ -104,7 +103,11 @@ export default function Products({ show, props, handleClose }: FormProducts) {
                             <Form.Control
                                 defaultValue={nome}
                                 placeholder="Digite o nome do produto"
-                                {...register("nome", optionsInputProducts)}
+                                {...register("nome", {
+                                    required: true,
+                                    minLength: 3,
+                                    maxLength: 50,
+                                })}
                             />
                             {errors?.nome && (
                                 <TextError>{errorHandler(errors.nome.type, { field: "Produto", minLength: 3, maxLength: 5 })}</TextError>

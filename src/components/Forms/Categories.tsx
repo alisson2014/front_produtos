@@ -7,7 +7,6 @@ import Form from "react-bootstrap/Form";
 import * as M from "components/Modal";
 import { TextError } from "./styles";
 import { ICategories, FormCategories } from "interface";
-import { optionsInputCategorie } from "./optionsHanlder";
 
 export default function Categories({ show, props, handleClose }: FormCategories) {
     var categories = localStorage.getItem("categories");
@@ -68,7 +67,11 @@ export default function Categories({ show, props, handleClose }: FormCategories)
                         <Form.Control
                             defaultValue={nomeCategoria}
                             placeholder="Digite o nome da categoria"
-                            {...register("nomeCategoria", optionsInputCategorie)}
+                            {...register("nomeCategoria", {
+                                required: true,
+                                minLength: 3,
+                                maxLength: 50,
+                            })}
                         />
                         {errors?.nomeCategoria && (
                             <TextError>

@@ -19,6 +19,8 @@ export const Header = styled.header`
   border-bottom: 2px solid #111;
 `;
 
+export const Nav = styled.nav``;
+
 export const Menu = styled.ul`
   list-style: none;
   width: 100vw;
