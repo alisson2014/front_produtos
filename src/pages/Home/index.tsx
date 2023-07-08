@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import { useLocalStorage, httpRequester } from "service";
 import { deleteFn, getCategories } from "controller";
 import { Button, Table, Spinner } from "react-bootstrap";
@@ -8,8 +8,10 @@ import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
 import { TableActions, TableButtons, Title, Page } from "styles/basics";
 import { ICategories, id, localCategories } from "interface";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Home() {
+    const navigate = useNavigate();
     const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
     const [propsCategorie, setPropsCategorie] = useState<ICategories>({
         id: "",
@@ -21,11 +23,12 @@ export default function Home() {
     const handleOpen = () => setShow(true);
 
     const editCategorie = (id: id): void => {
-        httpRequester({ ...getCategories, id: id })
-            .then((res) => {
-                setPropsCategorie(res);
-            });
-        handleOpen();
+        navigate(`/categorias/${id}`);
+        // httpRequester({ ...getCategories, id: id })
+        //     .then((res) => {
+        //         setPropsCategorie(res);
+        //     });
+        // handleOpen();
     };
 
     const registerCategorie = (): void => {

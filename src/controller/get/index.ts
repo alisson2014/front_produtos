@@ -7,5 +7,5 @@ export const getCategories: IHttpReq = {
 
 export const getProducts: IHttpReq = {
   method: "GET",
-  file: "products",
+  file: "/produtos",
 };
