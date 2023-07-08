@@ -6,9 +6,8 @@ import { MdAddCircle } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { Categories as Form } from "components/Forms";
-import { Buttons, Title, Box } from "./styles";
+import { TableActions, TableButtons, Title, Page } from "styles/basics";
 import { ICategories, id, localCategories } from "interface";
-import { Actions } from "pages/styles";
 
 export default function Home() {
     const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
@@ -47,7 +46,7 @@ export default function Home() {
     }, []);
 
     return (
-        <Box>
+        <Page>
             <Title>Categorias</Title>
             <Table
                 striped
@@ -60,7 +59,7 @@ export default function Home() {
                     <tr>
                         <th>#</th>
                         <th>Categoria</th>
-                        <Actions>Ações</Actions>
+                        <TableActions>Ações</TableActions>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,7 +70,7 @@ export default function Home() {
                                 <tr key={id}>
                                     <td>{id}</td>
                                     <td>{nomeCategoria}</td>
-                                    <Buttons>
+                                    <TableButtons>
                                         <Button
                                             title={`Editar ${nomeCategoria}`}
                                             variant="primary"
@@ -93,7 +92,7 @@ export default function Home() {
                                         >
                                             <RiDeleteBin2Fill size={20} /><span>Excluir</span>
                                         </Button>
-                                    </Buttons>
+                                    </TableButtons>
                                 </tr>
                             );
                         })
@@ -120,6 +119,6 @@ export default function Home() {
                 props={propsCategorie}
                 handleClose={handleClose}
             />
-        </Box >
+        </Page >
     );
 };

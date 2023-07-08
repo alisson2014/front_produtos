@@ -3,10 +3,11 @@ import { createGlobalStyle } from "styled-components";
 export const ResetCss = createGlobalStyle`
     :root {
         --link-color: #222;
+        --whithe: #f5f5ff;
         --link-hover-color: #ae1;
     }
 
-    * {
+    *, *::after, *::before {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -15,7 +16,20 @@ export const ResetCss = createGlobalStyle`
 
     html,
     body {
-        font-family: 'Roboto Slab', serif;
+        font-family: "Roboto Slab", serif;
         background-color: antiquewhite;
+    }
+
+    th, td {
+        color: var(--whithe);
+    }
+
+    th {
+        font-size: 1.05em;
+        font-weight: 500;
+    }
+
+    td {
+        font-weight: 400;
     }
 `;

@@ -4,11 +4,10 @@ import { deleteFn, getProducts } from "controller";
 import { Table, Button, Spinner } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
-import { Products as Form } from "components/Forms";
-import { Box, Title, Buttons } from "./styles";
-import { IProducts, localProducts } from "interface";
-import { Actions } from "pages/styles";
 import { MdAddCircle } from "react-icons/md";
+import { Products as Form } from "components/Forms";
+import { Page, Title, TableButtons, TableActions } from "styles/basics";
+import { IProducts, localProducts } from "interface";
 
 export default function Products() {
     const initialState: IProducts = {
@@ -46,7 +45,7 @@ export default function Products() {
     }, [products, setProducts]);
 
     return (
-        <Box>
+        <Page>
             <Title>Produtos</Title>
             <Table
                 striped
@@ -61,7 +60,7 @@ export default function Products() {
                         <th>Produto</th>
                         <th>Categoria</th>
                         <th>Valor</th>
-                        <Actions>Ações</Actions>
+                        <TableActions>Ações</TableActions>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,7 +75,7 @@ export default function Products() {
                                     <td>{nome}</td>
                                     <td>{nomeCategoria}</td>
                                     <td>R$ {formatedValue}</td>
-                                    <Buttons>
+                                    <TableButtons>
                                         <Button
                                             title={`Editar ${nome}`}
                                             variant="primary"
@@ -102,7 +101,7 @@ export default function Products() {
                                             <RiDeleteBin2Fill size={20} />
                                             <span>Excluir</span>
                                         </Button>
-                                    </Buttons>
+                                    </TableButtons>
                                 </tr>
                             );
                         })
@@ -124,6 +123,6 @@ export default function Products() {
                 handleClose={handleClose}
                 props={propsProduct}
             />
-        </Box >
+        </Page >
     );
 };
