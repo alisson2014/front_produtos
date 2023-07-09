@@ -9,6 +9,7 @@ import { Categories as Form } from "components/Forms";
 import { TableActions, TableButtons, Title, Page } from "styles/basics";
 import { ICategories, id, localCategories } from "interface";
 import { useLocation, useNavigate } from "react-router-dom";
+import { normalize } from "path";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -22,21 +23,10 @@ export default function Home() {
     const handleClose = () => setShow(false);
     const handleOpen = () => setShow(true);
 
-    const editCategorie = (id: id): void => {
-        navigate(`/categorias/${id}`);
-        // httpRequester({ ...getCategories, id: id })
-        //     .then((res) => {
-        //         setPropsCategorie(res);
-        //     });
-        // handleOpen();
-    };
+    const editCategorie = (id: id): void => navigate(`/categorias/${id}`);
 
     const registerCategorie = (): void => {
-        setPropsCategorie({
-            id: "",
-            nomeCategoria: ""
-        });
-        handleOpen();
+        navigate("/categorias/cadastrar");
     };
 
     useEffect(() => {

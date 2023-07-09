@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 export const ResetCss = createGlobalStyle`
     :root {
         --link-color: #222;
+        --bg-form-color: #252525;
         --whithe: #f5f5ff;
         --link-hover-color: #ae1;
     }
@@ -17,7 +18,7 @@ export const ResetCss = createGlobalStyle`
     html,
     body {
         font-family: "Roboto Slab", serif;
-        background-color: antiquewhite;
+        background-color: var(--whithe);
     }
 
     th, td {
