@@ -14,10 +14,6 @@ import { normalize } from "path";
 export default function Home() {
     const navigate = useNavigate();
     const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
-    const [propsCategorie, setPropsCategorie] = useState<ICategories>({
-        id: "",
-        nomeCategoria: ""
-    });
 
     const editCategorie = (id: id): void => navigate(`/categorias/${id}`);
 
