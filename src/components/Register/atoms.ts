@@ -2,8 +2,8 @@ import Form from "react-bootstrap/Form";
 import styled from "styled-components";
 
 export const Forms = styled(Form)`
-    width: 640px;
-    padding: 48px;
+    width: fit-content;
+    padding: 48px 32px;
     margin: 6em auto;
     display: flex;
     flex-flow: column nowrap;
@@ -26,4 +26,8 @@ export const Input = styled(Form.Control)`
     &.error {
         box-shadow: 0 0 0 0.12em rgba(255, 72, 72, 0.72);
     }
+`;
+
+export const Feedback = styled(Form.Text)`
+  color: rgb(255, 72, 72);
 `;

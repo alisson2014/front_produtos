@@ -6,8 +6,8 @@ export default function Header() {
         <S.Header>
             <S.Nav>
                 <S.Menu>
-                    <LinkTo route="/categories" routeName="Categorias" />
-                    <LinkTo route="/products" routeName="Produtos" />
+                    <LinkTo route="/categorias" routeName="Categorias" />
+                    <LinkTo route="/produtos" routeName="Produtos" />
                 </S.Menu>
             </S.Nav>
         </S.Header>

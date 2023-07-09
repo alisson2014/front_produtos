@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { errorHandler, httpRequester } from "service";
 import { getCategories, saveFn } from "controller";
@@ -7,12 +7,11 @@ import { ICategories } from "interface";
 import Button from "react-bootstrap/Button";
 import { AiOutlineClear } from "react-icons/ai";
 import * as S from "./atoms";
-import { TextError } from "components/Forms/styles";
-import { Forms } from "./atoms";
 import { Title } from "styles/basics";
 
 export default function Register() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [formProps, setFormProps] = useState<ICategories>({
         id: "",
         nomeCategoria: ""
@@ -31,6 +30,13 @@ export default function Register() {
     }, [formProps, setValue]);
 
     useEffect(() => {
+        if (id === "cadastrar") {
+            setFormProps({
+                id: "",
+                nomeCategoria: ""
+            });
+        }
+
         if (id !== undefined && id !== "cadastrar") {
             const idNumber = parseInt(id);
             httpRequester({ ...getCategories, id: idNumber })
@@ -38,10 +44,13 @@ export default function Register() {
         }
     }, []);
 
-    const onSubmit = (data: ICategories) => saveFn("/categorias", data);
+    const onSubmit = (data: ICategories) => {
+        saveFn("categorias", data);
+        navigate("/categorias/cadastrar");
+    };
 
     return (
-        <Forms onSubmit={handleSubmit(onSubmit)}>
+        <S.Forms onSubmit={handleSubmit(onSubmit)}>
             <Title>Cadastro de categorias</Title>
             <S.Group controlId="id">
                 <S.Label>ID</S.Label>
@@ -64,9 +73,9 @@ export default function Register() {
                     placeholder="Digite o nome da categoria"
                 />
                 {errors?.nomeCategoria && (
-                    <TextError>
+                    <S.Feedback>
                         {errorHandler(errors?.nomeCategoria?.type, { field: "Categoria", minLength: 3, maxLength: 50 })}
-                    </TextError>
+                    </S.Feedback>
                 )}
             </S.Group>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -75,6 +84,6 @@ export default function Register() {
                 </Button>
                 <Button variant="success" type="submit" title="Salvar">Salvar</Button>
             </div>
-        </Forms>
+        </S.Forms>
     );
 };

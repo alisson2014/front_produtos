@@ -5,18 +5,15 @@ import { Button, Table, Spinner } from "react-bootstrap";
 import { MdAddCircle } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
-import { Categories as Form } from "components/Forms";
 import { TableActions, TableButtons, Title, Page } from "styles/basics";
-import { ICategories, id, localCategories } from "interface";
-import { useLocation, useNavigate } from "react-router-dom";
-import { normalize } from "path";
+import { id, localCategories } from "interface";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
     const navigate = useNavigate();
-    const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categories", []);
+    const [categories, setCategories, clearStorage] = useLocalStorage<localCategories>("categorias", []);
 
     const editCategorie = (id: id): void => navigate(`/categorias/${id}`);
-
     const registerCategorie = (): void => navigate("/categorias/cadastrar");
 
     useEffect(() => {

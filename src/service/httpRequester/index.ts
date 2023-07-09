@@ -12,7 +12,7 @@ export async function httpRequester(props: IHttpReq): Promise<any | never[]> {
     queryParam = "?id=" + id;
   }
 
-  const uri = "http://localhost:8080" + file + queryParam;
+  const uri = "http://localhost:8080/" + file + queryParam;
 
   if (method === "PUT" || method === "POST") {
     requester = {

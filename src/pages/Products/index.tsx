@@ -5,7 +5,6 @@ import { Table, Button, Spinner } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { MdAddCircle } from "react-icons/md";
-import { Products as Form } from "components/Forms";
 import { Page, Title, TableButtons, TableActions } from "styles/basics";
 import { IProducts, localProducts } from "interface";
 
@@ -40,7 +39,7 @@ export default function Products() {
     useEffect(() => {
         if (products.length === 0) {
             httpRequester(getProducts)
-                .then((result) => setProducts(result.data));
+                .then((result) => setProducts(result));
         }
     }, [products, setProducts]);
 
@@ -118,11 +117,6 @@ export default function Products() {
                 <MdAddCircle size={20} />
                 <span>Cadastrar</span>
             </Button>
-            <Form
-                show={show}
-                handleClose={handleClose}
-                props={propsProduct}
-            />
         </Page >
     );
 };

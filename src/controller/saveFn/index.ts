@@ -11,7 +11,6 @@ export function saveFn<T extends HasId>(file: string, data: T): void {
       Swal.fire("Sucesso!", res?.message, "success").then((res) => {
         if (res.isConfirmed) {
           localStorage.setItem(file, JSON.stringify([]));
-          window.location.reload();
         }
       });
     } else {
