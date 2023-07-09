@@ -32,7 +32,7 @@ export default function Register() {
 
     useEffect(() => {
         if (id !== undefined && id !== "cadastrar") {
-            const idNumber = Number.parseInt(id);
+            const idNumber = parseInt(id);
             httpRequester({ ...getCategories, id: idNumber })
                 .then((res) => setFormProps(res));
         }

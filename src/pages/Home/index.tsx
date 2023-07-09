@@ -19,15 +19,9 @@ export default function Home() {
         nomeCategoria: ""
     });
 
-    const [show, setShow] = useState<boolean>(false);
-    const handleClose = () => setShow(false);
-    const handleOpen = () => setShow(true);
-
     const editCategorie = (id: id): void => navigate(`/categorias/${id}`);
 
-    const registerCategorie = (): void => {
-        navigate("/categorias/cadastrar");
-    };
+    const registerCategorie = (): void => navigate("/categorias/cadastrar");
 
     useEffect(() => {
         if (categories.length === 0) {
@@ -41,6 +35,16 @@ export default function Home() {
     return (
         <Page>
             <Title>Categorias</Title>
+            <Button
+                title="Cadastrar"
+                type="button"
+                variant="info"
+                size="lg"
+                onClick={registerCategorie}
+            >
+                <MdAddCircle size={20} />
+                <span>Cadastrar</span>
+            </Button>
             <Table
                 striped
                 bordered
@@ -98,22 +102,6 @@ export default function Home() {
                     )}
                 </tbody>
             </Table>
-            <Button
-                title="Cadastrar"
-                type="button"
-                variant="info"
-                size="lg"
-                onClick={registerCategorie}
-                style={{ alignSelf: "center" }}
-            >
-                <MdAddCircle size={20} />
-                <span>Cadastrar</span>
-            </Button>
-            <Form
-                show={show}
-                props={propsCategorie}
-                handleClose={handleClose}
-            />
         </Page >
     );
 };

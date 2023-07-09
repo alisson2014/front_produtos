@@ -40,7 +40,7 @@ export default function Products() {
     useEffect(() => {
         if (products.length === 0) {
             httpRequester(getProducts)
-                .then((result) => setProducts(result));
+                .then((result) => setProducts(result.data));
         }
     }, [products, setProducts]);
 

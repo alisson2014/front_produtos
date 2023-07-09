@@ -30,6 +30,9 @@ export async function httpRequester(props: IHttpReq): Promise<any | never[]> {
 
   try {
     const response = await fetch(uri, requester);
+    if (response.status === 204) {
+      return response.status;
+    }
     const data = await response.json();
     return data;
   } catch (error) {
