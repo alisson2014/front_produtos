@@ -24,8 +24,8 @@ export interface ICategories {
 
 export interface IProducts {
   id: id;
-  nome: string;
-  nomeCategoria: string;
+  nomeProduto: string;
+  categoria: string | id;
   valor: number;
 }
 

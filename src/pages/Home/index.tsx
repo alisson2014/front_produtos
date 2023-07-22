@@ -53,7 +53,7 @@ export default function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                    {categories !== null && categories.length !== 0 ? (
+                    {categories.length !== 0 ? (
                         categories.map((categorie) => {
                             const { id, nomeCategoria } = categorie;
                             return (

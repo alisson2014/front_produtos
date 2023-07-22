@@ -19,7 +19,6 @@ export const Group = styled(Form.Group)``;
 export const Label = styled(Form.Label)`
     font-size: 1.1em; 
     font-weight: 400;
-    font-style: oblique;
 `;
 
 export const Input = styled(Form.Control)`
@@ -27,6 +26,8 @@ export const Input = styled(Form.Control)`
         box-shadow: 0 0 0 0.12em rgba(255, 72, 72, 0.72);
     }
 `;
+
+export const Select = styled(Form.Select)``;
 
 export const Feedback = styled(Form.Text)`
   color: rgb(255, 72, 72);

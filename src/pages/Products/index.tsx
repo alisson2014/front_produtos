@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useLocalStorage, httpRequester } from "service";
 import { deleteFn, getProducts } from "controller";
 import { Table, Button, Spinner } from "react-bootstrap";
@@ -6,35 +6,16 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { MdAddCircle } from "react-icons/md";
 import { Page, Title, TableButtons, TableActions } from "styles/basics";
-import { IProducts, localProducts } from "interface";
+import { localProducts, id } from "interface";
+import { useNavigate } from "react-router-dom";
 
 export default function Products() {
-    const initialState: IProducts = {
-        id: "",
-        nome: "",
-        nomeCategoria: "",
-        valor: 0
-    };
+    const navigate = useNavigate();
 
     const [products, setProducts, removeProducts] = useLocalStorage<localProducts>("products", []);
-    const [propsProduct, setPropsProduct] = useState<IProducts>(initialState);
 
-    const [show, setShow] = useState<boolean>(false);
-    const handleClose = () => {
-        setPropsProduct(initialState);
-        setShow(false)
-    };
-    const handleOpen = () => setShow(true);
-
-    const editProduct = (props: IProducts): void => {
-        setPropsProduct(props);
-        handleOpen();
-    };
-
-    const registerProduct = (): void => {
-        setPropsProduct(initialState);
-        handleOpen();
-    };
+    const editProduct = (id: id): void => navigate(`/produtos/${id}`);
+    const registerProduct = (): void => navigate("/produtos/cadastrar");
 
     useEffect(() => {
         if (products.length === 0) {
@@ -45,6 +26,16 @@ export default function Products() {
 
     return (
         <Page>
+            <Button
+                title="Cadastrar"
+                variant="info"
+                size="lg"
+                onClick={registerProduct}
+                style={{ alignSelf: "center" }}
+            >
+                <MdAddCircle size={20} />
+                <span>Cadastrar</span>
+            </Button>
             <Title>Produtos</Title>
             <Table
                 striped
@@ -65,33 +56,33 @@ export default function Products() {
                 <tbody>
                     {products.length !== 0 ? (
                         products.map((product) => {
-                            const { id, nome, nomeCategoria, valor } = product;
+                            const { id, nomeProduto, categoria, valor } = product;
                             const formatedValue = valor.toString().replace(".", ",");
 
                             return (
                                 <tr key={id}>
                                     <td>{id}</td>
-                                    <td>{nome}</td>
-                                    <td>{nomeCategoria}</td>
+                                    <td>{nomeProduto}</td>
+                                    <td>{categoria}</td>
                                     <td>R$ {formatedValue}</td>
                                     <TableButtons>
                                         <Button
-                                            title={`Editar ${nome}`}
+                                            title={`Editar ${nomeProduto}`}
                                             variant="primary"
-                                            onClick={() => editProduct(product)}
+                                            onClick={() => editProduct(id)}
                                             type="button"
                                         >
                                             <BiEdit size={20} />
                                             <span>Editar</span>
                                         </Button>
                                         <Button
-                                            title={`Excluir ${nome}`}
+                                            title={`Excluir ${nomeProduto}`}
                                             variant="danger"
                                             type="button"
                                             onClick={() => {
                                                 deleteFn({
                                                     id: id,
-                                                    deleted: nome,
+                                                    deleted: nomeProduto,
                                                     typeData: "Produto",
                                                     file: "products"
                                                 }, removeProducts);
@@ -107,16 +98,6 @@ export default function Products() {
                     ) : <Spinner variant="primary" />}
                 </tbody>
             </Table>
-            <Button
-                title="Cadastrar"
-                variant="info"
-                size="lg"
-                onClick={registerProduct}
-                style={{ alignSelf: "center" }}
-            >
-                <MdAddCircle size={20} />
-                <span>Cadastrar</span>
-            </Button>
         </Page >
     );
 };

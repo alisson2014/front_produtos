@@ -9,7 +9,7 @@ import { AiOutlineClear } from "react-icons/ai";
 import * as S from "./atoms";
 import { Title } from "styles/basics";
 
-export default function Register() {
+export default function FormCategorie() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [formProps, setFormProps] = useState<ICategories>({
