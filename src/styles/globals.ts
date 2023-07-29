@@ -4,7 +4,9 @@ export const ResetCss = createGlobalStyle`
     :root {
         --link-color: #222;
         --bg-form-color: #252525;
-        --whithe: #f5f5ff;
+        --bg-header-footer: #1A202C;
+        --bg-sidebar: #171923;
+        --white: #f5f5ff;
         --link-hover-color: #ae1;
     }
 

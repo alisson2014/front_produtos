@@ -5,12 +5,18 @@ interface SidebarItem {
     Icon: IconType;
     text: string;
     route?: string;
+    onClick?: () => void;
 }
 
-export default function SidebarItem({ Icon, text, route = "" }: SidebarItem) {
+export default function SidebarItem({
+    Icon,
+    text,
+    route = "",
+    onClick
+}: SidebarItem) {
     return (
         <Container>
-            <LinkTo to={route}>
+            <LinkTo to={route} onClick={onClick}>
                 <Icon />
                 {text}
             </LinkTo>

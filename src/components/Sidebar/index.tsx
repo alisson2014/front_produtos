@@ -3,12 +3,10 @@ import { Container, Content } from "./atoms";
 import {
     FaTimes,
     FaHome,
-    FaEnvelope,
+    FaBoxes,
     FaRegSun,
     FaUserAlt,
-    FaIdCardAlt,
     FaRegFileAlt,
-    FaRegCalendarAlt,
     FaChartBar
 } from "react-icons/fa";
 import { Active } from "interface";
@@ -20,14 +18,30 @@ export default function Sidebar({ active, setActive }: Active) {
         <Container sidebar={active}>
             <FaTimes onClick={closeSidebar} />
             <Content>
-                <SidebarItem Icon={FaHome} text="Categorias" route="categorias" />
-                <SidebarItem Icon={FaChartBar} text="Produtos" route="produtos" />
-                <SidebarItem Icon={FaUserAlt} text="Users" />
-                <SidebarItem Icon={FaEnvelope} text="Mail" />
-                <SidebarItem Icon={FaRegCalendarAlt} text="Calendar" />
-                <SidebarItem Icon={FaIdCardAlt} text="Employees" />
-                <SidebarItem Icon={FaRegFileAlt} text="Reports" />
-                <SidebarItem Icon={FaRegSun} text="Settings" />
+                <SidebarItem
+                    Icon={FaHome}
+                    text="Categorias"
+                    route="categorias"
+                    onClick={closeSidebar}
+                />
+                <SidebarItem
+                    Icon={FaBoxes}
+                    text="Produtos"
+                    route="produtos"
+                    onClick={closeSidebar}
+                />
+                <SidebarItem
+                    Icon={FaUserAlt}
+                    text="Clientes"
+                />
+                <SidebarItem
+                    Icon={FaRegFileAlt}
+                    text="Orçamentos"
+                />
+                <SidebarItem
+                    Icon={FaRegSun}
+                    text="Configurações"
+                />
             </Content>
         </Container>
     );

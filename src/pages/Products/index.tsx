@@ -5,7 +5,7 @@ import { Table, Button, Spinner } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { MdAddCircle } from "react-icons/md";
-import { Page, Title, TableButtons, TableActions } from "styles/basics";
+import { Page, Title, TableButtons, TableActions, Top } from "styles/basics";
 import { localProducts, id } from "interface";
 import { useNavigate } from "react-router-dom";
 
@@ -26,17 +26,19 @@ export default function Products() {
 
     return (
         <Page>
-            <Button
-                title="Cadastrar"
-                variant="info"
-                size="lg"
-                onClick={registerProduct}
-                style={{ alignSelf: "center" }}
-            >
-                <MdAddCircle size={20} />
-                <span>Cadastrar</span>
-            </Button>
-            <Title>Produtos</Title>
+            <Top>
+                <Title>Lista de produtos</Title>
+                <Button
+                    title="Cadastrar"
+                    variant="info"
+                    size="lg"
+                    onClick={registerProduct}
+                    style={{ alignSelf: "center" }}
+                >
+                    <MdAddCircle size={20} />
+                    <span>Cadastrar</span>
+                </Button>
+            </Top>
             <Table
                 striped
                 bordered
@@ -95,7 +97,11 @@ export default function Products() {
                                 </tr>
                             );
                         })
-                    ) : <Spinner variant="primary" />}
+                    ) : (
+                        <tr>
+                            <td><Spinner variant="primary" /></td>
+                        </tr>
+                    )}
                 </tbody>
             </Table>
         </Page >

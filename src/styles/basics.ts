@@ -11,6 +11,7 @@ export const Title = styled.h2`
     font-size: 2em;
     font-weight: 500;
     text-align: center;
+    margin-left: calc(35vh - 32px);
 `;
 
 export const SubTitle = styled.h3`
@@ -35,6 +36,16 @@ export const TableButtons = styled.td`
 export const Page = styled(Container)`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 90px;
+  gap: 16px;
+  margin-top: 8px;
+`;
+
+export const Top = styled.div`
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  place-items: center;
+
+  > button {
+    justify-self: right;
+  }
 `;

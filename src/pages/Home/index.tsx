@@ -5,7 +5,7 @@ import { Button, Table, Spinner } from "react-bootstrap";
 import { MdAddCircle } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
-import { TableActions, TableButtons, Title, Page } from "styles/basics";
+import { TableActions, TableButtons, Title, Page, Top } from "styles/basics";
 import { id, localCategories } from "interface";
 import { useNavigate } from "react-router-dom";
 
@@ -27,17 +27,19 @@ export default function Home() {
 
     return (
         <Page>
-            <Title>Categorias</Title>
-            <Button
-                title="Cadastrar"
-                type="button"
-                variant="info"
-                size="lg"
-                onClick={registerCategorie}
-            >
-                <MdAddCircle size={20} />
-                <span>Cadastrar</span>
-            </Button>
+            <Top>
+                <Title>Lista de categorias</Title>
+                <Button
+                    title="Cadastrar"
+                    type="button"
+                    variant="info"
+                    size="lg"
+                    onClick={registerCategorie}
+                >
+                    <MdAddCircle size={20} />
+                    <span>Cadastrar</span>
+                </Button>
+            </Top>
             <Table
                 striped
                 bordered
