@@ -56,3 +56,8 @@ export interface IErrorHandler {
   min?: number;
   max?: number;
 }
+
+export interface Active {
+  active: boolean;
+  setActive: (value: React.SetStateAction<boolean>) => void;
+}

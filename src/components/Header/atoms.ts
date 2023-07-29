@@ -1,30 +1,18 @@
 import styled from "styled-components";
 
-export const Header = styled.header`
+export const Container = styled.div`
+  height: 100px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+  background-color: #1A202C; 
+  box-shadow: 0 0 20px 3px;
 
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-  height: 10vh;
-  padding: 8px;
-
-  background: rgba(256, 255, 256, 0.1);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-bottom: 2px solid #111;
-`;
-
-export const Nav = styled.nav``;
-
-export const Menu = styled.ul`
-  list-style: none;
-  width: 100vw;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  > svg {
+    position: fixed;
+    color: white;
+    width: 30px;
+    height: 30px;
+    margin-top: 32px;
+    margin-left: 32px;
+    cursor: pointer;
+  }
 `;

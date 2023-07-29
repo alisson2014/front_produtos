@@ -1,15 +1,16 @@
-import * as S from "./atoms";
-import LinkTo from "../LinkTo";
+import { useState } from "react";
+import { Container } from "./atoms";
+import { FaBars } from "react-icons/fa";
+import Sidebar from "components/Sidebar";
 
 export default function Header() {
+    const [sidebar, setSidebar] = useState<boolean>(false);
+    const showSiderbar = () => setSidebar(!sidebar);
+
     return (
-        <S.Header>
-            <S.Nav>
-                <S.Menu>
-                    <LinkTo route="/categorias" routeName="Categorias" />
-                    <LinkTo route="/produtos" routeName="Produtos" />
-                </S.Menu>
-            </S.Nav>
-        </S.Header>
+        <Container>
+            <FaBars onClick={showSiderbar} />
+            {sidebar && <Sidebar active={sidebar} setActive={setSidebar} />}
+        </Container>
     );
 };
