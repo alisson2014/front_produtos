@@ -25,7 +25,8 @@ export interface ICategories {
 export interface IProducts {
   id: id;
   nomeProduto: string;
-  categoria: string | id;
+  categoria: string;
+  idCategoria: id;
   valor: number;
 }
 

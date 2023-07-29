@@ -17,10 +17,10 @@ export default function FormProduct() {
         id: "",
         nomeProduto: "",
         categoria: "",
+        idCategoria: "",
         valor: 0
     });
     const [categorias, setCategorias] = useState<ICategories[]>([]);
-    const [selectDefault, setSelectDefault] = useState<id>("");
 
     const {
         handleSubmit,
@@ -32,9 +32,9 @@ export default function FormProduct() {
     useEffect(() => {
         setValue("id", formProps.id);
         setValue("nomeProduto", formProps.nomeProduto);
-        setValue("categoria", selectDefault);
+        setValue("idCategoria", formProps.idCategoria);
         setValue("valor", formProps.valor);
-    }, [formProps, selectDefault, setValue]);
+    }, [formProps, setValue]);
 
     useEffect(() => {
         if (categorias.length === 0) {
@@ -42,32 +42,12 @@ export default function FormProduct() {
                 .then((res) => setCategorias(res));
         }
 
-        if (id === "cadastrar") {
-            setFormProps({
-                id: "",
-                nomeProduto: "",
-                categoria: "",
-                valor: 0
-            });
-        }
-
         if (id !== undefined && id !== "cadastrar") {
             const idNumber = parseInt(id);
             httpRequester({ ...getProducts, id: idNumber })
                 .then((res) => setFormProps(res));
         }
-
-        console.log(selectDefault);
     }, []);
-
-    useEffect(() => {
-        if (categorias.length > 0) {
-            const find = categorias.find((categoria) => categoria.nomeCategoria === formProps.categoria);
-            if (find) {
-                setSelectDefault(find.id);
-            }
-        }
-    }, [categorias]);
 
     const onSubmit = (data: IProducts) => {
         saveFn("produtos", data);
@@ -99,19 +79,17 @@ export default function FormProduct() {
             </S.Group>
             <S.Group controlId="categoria">
                 <S.Label>Selecione a categoria</S.Label>
-                {selectDefault !== "" && (
-                    <S.Select
-                        className={errors?.categoria && "error"}
-                        defaultValue={formProps.categoria}
-                        {...register("categoria", { required: true })}
-                    >
-                        <option value="" disabled>Selecione...</option>
-                        {categorias.length > 0 && categorias.map((categoria) => {
-                            const { id, nomeCategoria } = categoria;
-                            return <option key={id} value={id}>{nomeCategoria}</option>;
-                        })}
-                    </S.Select>
-                )}
+                <S.Select
+                    className={errors?.categoria && "error"}
+                    defaultValue={formProps.idCategoria}
+                    {...register("idCategoria", { required: true })}
+                >
+                    <option value="" disabled>Selecione...</option>
+                    {categorias.length > 0 && categorias.map((categoria) => {
+                        const { id, nomeCategoria } = categoria;
+                        return <option key={id} value={id}>{nomeCategoria}</option>;
+                    })}
+                </S.Select>
                 {errors?.categoria && (
                     <S.Feedback>
                         {errorHandler(errors?.categoria?.type, { field: "Categoria" })}

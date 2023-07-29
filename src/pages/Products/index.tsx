@@ -84,7 +84,7 @@ export default function Products() {
                                                     id: id,
                                                     deleted: nomeProduto,
                                                     typeData: "Produto",
-                                                    file: "products"
+                                                    file: "produtos"
                                                 }, removeProducts);
                                             }}
                                         >
