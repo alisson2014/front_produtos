@@ -7,8 +7,10 @@ import { ICategories, IProducts, id } from "interface";
 import Button from "react-bootstrap/Button";
 import { AiOutlineClear } from "react-icons/ai";
 import * as S from "./atoms";
-import { Title } from "styles/basics";
-import { Spinner } from "react-bootstrap";
+import { SubTitle } from "styles/basics";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
 export default function FormProduct() {
     const { id } = useParams();
@@ -56,65 +58,75 @@ export default function FormProduct() {
 
     return (
         <S.Forms onSubmit={handleSubmit(onSubmit)}>
-            <Title>Cadastro de produtos</Title>
-            <S.Group controlId="id">
-                <S.Label>ID</S.Label>
-                <S.Input
-                    defaultValue={formProps.id}
-                    {...register("id")}
-                    readOnly
-                />
-            </S.Group>
-            <S.Group controlId="nomeProduto">
-                <S.Label>Nome do produto</S.Label>
-                <S.Input
-                    defaultValue={formProps.nomeProduto}
-                    placeholder="Digite o nome do produto"
-                    {...register("nomeProduto", {
-                        required: true,
-                        minLength: 3,
-                        maxLength: 50
-                    })}
-                />
-            </S.Group>
-            <S.Group controlId="categoria">
-                <S.Label>Selecione a categoria</S.Label>
-                <S.Select
-                    className={errors?.categoria && "error"}
-                    defaultValue={formProps.idCategoria}
-                    {...register("idCategoria", { required: true })}
-                >
-                    <option value="" disabled>Selecione...</option>
-                    {categorias.length > 0 && categorias.map((categoria) => {
-                        const { id, nomeCategoria } = categoria;
-                        return <option key={id} value={id}>{nomeCategoria}</option>;
-                    })}
-                </S.Select>
-                {errors?.categoria && (
-                    <S.Feedback>
-                        {errorHandler(errors?.categoria?.type, { field: "Categoria" })}
-                    </S.Feedback>
-                )}
-            </S.Group>
-            <S.Group controlId="valor">
-                <S.Label>Valor do produto</S.Label>
-                <S.Input
-                    type="number"
-                    defaultValue={formProps.valor}
-                    placeholder="Digite o valor do produto"
-                    {...register("valor", {
-                        required: true,
-                        min: 1,
-                        max: 1000000
-                    })}
-                />
-            </S.Group>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <Button variant="warning" type="reset" title="Limpar">
-                    <AiOutlineClear />
-                </Button>
-                <Button variant="success" type="submit" title="Salvar">Salvar</Button>
-            </div>
+            <SubTitle>Cadastro de produtos</SubTitle>
+            <Container>
+                <Row>
+                    <S.Group as={Col} sm={2}>
+                        <S.Label htmlFor="id">ID</S.Label>
+                        <S.Input
+                            id="id"
+                            defaultValue={formProps.id}
+                            {...register("id")}
+                            readOnly
+                        />
+                    </S.Group>
+                    <S.Group as={Col} sm={10}>
+                        <S.Label htmlFor="nomeProduto">Nome do produto</S.Label>
+                        <S.Input
+                            id="nomeProduto"
+                            defaultValue={formProps.nomeProduto}
+                            placeholder="Digite o nome do produto"
+                            {...register("nomeProduto", {
+                                required: true,
+                                minLength: 3,
+                                maxLength: 50
+                            })}
+                        />
+                    </S.Group>
+                </Row>
+                <Row>
+                    <S.Group as={Col} sm={8}>
+                        <S.Label htmlFor="categoria">Selecione a categoria</S.Label>
+                        <S.Select
+                            id="categoria"
+                            className={errors?.categoria && "error"}
+                            defaultValue={formProps.idCategoria}
+                            {...register("idCategoria", { required: true })}
+                        >
+                            <option value="" disabled>Selecione...</option>
+                            {categorias.length > 0 && categorias.map((categoria) => {
+                                const { id, nomeCategoria } = categoria;
+                                return <option key={id} value={id}>{nomeCategoria}</option>;
+                            })}
+                        </S.Select>
+                        {errors?.categoria && (
+                            <S.Feedback>
+                                {errorHandler(errors?.categoria?.type, { field: "Categoria" })}
+                            </S.Feedback>
+                        )}
+                    </S.Group>
+                    <S.Group as={Col} sm={4}>
+                        <S.Label htmlFor="valor">Valor do produto</S.Label>
+                        <S.Input
+                            id="valor"
+                            type="number"
+                            defaultValue={formProps.valor}
+                            placeholder="Digite o valor do produto"
+                            {...register("valor", {
+                                required: true,
+                                min: 1,
+                                max: 1000000
+                            })}
+                        />
+                    </S.Group>
+                </Row>
+                <S.Footer>
+                    <Button variant="warning" type="reset" title="Limpar">
+                        <AiOutlineClear />
+                    </Button>
+                    <Button variant="success" type="submit" title="Salvar">Salvar</Button>
+                </S.Footer>
+            </Container>
         </S.Forms>
     );
 

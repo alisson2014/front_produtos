@@ -7,7 +7,7 @@ import { ICategories } from "interface";
 import Button from "react-bootstrap/Button";
 import { AiOutlineClear } from "react-icons/ai";
 import * as S from "./atoms";
-import { Title } from "styles/basics";
+import { SubTitle } from "styles/basics";
 
 export default function FormCategorie() {
     const { id } = useParams();
@@ -51,7 +51,7 @@ export default function FormCategorie() {
 
     return (
         <S.Forms onSubmit={handleSubmit(onSubmit)}>
-            <Title>Cadastro de categorias</Title>
+            <SubTitle>Cadastro de categorias</SubTitle>
             <S.Group controlId="id">
                 <S.Label>ID</S.Label>
                 <S.Input
@@ -78,12 +78,12 @@ export default function FormCategorie() {
                     </S.Feedback>
                 )}
             </S.Group>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <S.Footer>
                 <Button variant="warning" type="reset" title="Limpar">
                     <AiOutlineClear />
                 </Button>
                 <Button variant="success" type="submit" title="Salvar">Salvar</Button>
-            </div>
+            </S.Footer>
         </S.Forms>
     );
 };

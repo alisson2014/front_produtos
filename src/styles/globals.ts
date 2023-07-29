@@ -18,11 +18,11 @@ export const ResetCss = createGlobalStyle`
     html,
     body {
         font-family: "Roboto Slab", serif;
-        background-color: var(--whithe);
+        background-color: var(--white);
     }
 
-    th, td {
-        color: var(--whithe);
+    th, td, h3 {
+        color: var(--white);
     }
 
     th {

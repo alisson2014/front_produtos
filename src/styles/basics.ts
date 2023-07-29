@@ -8,16 +8,16 @@ export const MainTitle = styled.h1`
 `;
 
 export const Title = styled.h2`
-    font-size: 2em;
-    font-weight: 500;
-    text-align: center;
-    margin-left: calc(35vh - 32px);
+  font-size: 2em;
+  font-weight: 500;
+  text-align: center;
+  margin-left: calc(35vh - 32px);
 `;
 
 export const SubTitle = styled.h3`
-    font-size: 1.5em;
-    font-weight: 400;
-    text-align: center;
+  font-size: 1.75em;
+  font-weight: 400;
+  text-align: center;
 `;
 
 export const TableActions = styled.th`

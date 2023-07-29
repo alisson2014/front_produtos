@@ -7,7 +7,6 @@ import {
     FaRegSun,
     FaUserAlt,
     FaRegFileAlt,
-    FaChartBar
 } from "react-icons/fa";
 import { Active } from "interface";
 
@@ -33,14 +32,17 @@ export default function Sidebar({ active, setActive }: Active) {
                 <SidebarItem
                     Icon={FaUserAlt}
                     text="Clientes"
+                    onClick={closeSidebar}
                 />
                 <SidebarItem
                     Icon={FaRegFileAlt}
                     text="Orçamentos"
+                    onClick={closeSidebar}
                 />
                 <SidebarItem
                     Icon={FaRegSun}
                     text="Configurações"
+                    onClick={closeSidebar}
                 />
             </Content>
         </Container>

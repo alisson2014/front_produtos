@@ -2,9 +2,9 @@ import Form from "react-bootstrap/Form";
 import styled from "styled-components";
 
 export const Forms = styled(Form)`
-    width: fit-content;
-    padding: 48px 32px;
-    margin: 6em auto;
+    width: max-content;
+    padding: 44px 32px;
+    margin: 3em auto;
     display: flex;
     flex-flow: column nowrap;
     gap: 16px;
@@ -17,6 +17,7 @@ export const Forms = styled(Form)`
 export const Group = styled(Form.Group)``;
 
 export const Label = styled(Form.Label)`
+    color: var(--white);
     font-size: 1.1em; 
     font-weight: 400;
 `;
@@ -31,4 +32,11 @@ export const Select = styled(Form.Select)``;
 
 export const Feedback = styled(Form.Text)`
   color: rgb(255, 72, 72);
+`;
+
+export const Footer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 16px;
 `;
