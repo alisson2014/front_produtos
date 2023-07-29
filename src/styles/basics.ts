@@ -31,6 +31,17 @@ export const TableButtons = styled.td`
   align-items: center;
   justify-content: center;
   gap: 18px;
+
+  > button {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    transition: all .75s ease-in-out;
+
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
 `;
 
 export const Page = styled(Container)`
