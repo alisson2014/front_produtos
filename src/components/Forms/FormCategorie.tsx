@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { errorHandler, httpRequester } from "service";
-import { getCategories, saveFn } from "controller";
+import {
+    errorHandler,
+    httpRequester,
+    getCategories,
+    saveFn
+} from "service";
 import { ICategories } from "interface";
 import Button from "react-bootstrap/Button";
 import { AiOutlineClear } from "react-icons/ai";

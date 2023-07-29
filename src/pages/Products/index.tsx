@@ -1,13 +1,23 @@
 import { useEffect } from "react";
-import { useLocalStorage, httpRequester } from "service";
-import { deleteFn, getProducts } from "controller";
+import { useNavigate } from "react-router-dom";
+import {
+    useLocalStorage,
+    httpRequester,
+    deleteFn,
+    getProducts
+} from "service";
 import { Table, Button, Spinner } from "react-bootstrap";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { MdAddCircle } from "react-icons/md";
-import { Page, Title, TableButtons, TableActions, Top } from "styles/basics";
+import {
+    Page,
+    Title,
+    TableButtons,
+    TableActions,
+    Top
+} from "styles/basics";
 import { localProducts, id } from "interface";
-import { useNavigate } from "react-router-dom";
 
 export default function Products() {
     const navigate = useNavigate();

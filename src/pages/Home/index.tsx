@@ -1,13 +1,17 @@
-import { useState, useEffect } from "react";
-import { useLocalStorage, httpRequester } from "service";
-import { deleteFn, getCategories } from "controller";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+    useLocalStorage,
+    httpRequester,
+    deleteFn,
+    getCategories
+} from "service";
 import { Button, Table, Spinner } from "react-bootstrap";
 import { MdAddCircle } from "react-icons/md";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi"
 import { TableActions, TableButtons, Title, Page, Top } from "styles/basics";
 import { id, localCategories } from "interface";
-import { useNavigate } from "react-router-dom";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -19,9 +23,7 @@ export default function Home() {
     useEffect(() => {
         if (categories.length === 0) {
             httpRequester(getCategories)
-                .then((result) => {
-                    setCategories(result);
-                });
+                .then((result) => setCategories(result));
         }
     }, []);
 
