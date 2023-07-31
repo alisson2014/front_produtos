@@ -38,6 +38,14 @@ export const deleteFn = (props: IDeleteFunction, setter: any): void => {
               window.location.reload();
             }
           });
+        } else if (res.status === "error") {
+          Swal.fire({
+            title: "Erro!",
+            html: res.message,
+            icon: "error"
+          }).then((res) => {
+            res.isConfirmed && window.location.reload();
+          });
         } else {
           Swal.fire(notOk).then((res) => {
             res.isConfirmed && window.location.reload();
