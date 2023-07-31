@@ -1,10 +1,11 @@
+import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import styled from "styled-components";
 
 export const Forms = styled(Form)`
     width: max-content;
     padding: 44px 32px;
-    margin: 3em auto;
+    margin: 0.85em auto;
     display: flex;
     flex-flow: column nowrap;
     gap: 16px;
@@ -39,4 +40,10 @@ export const Footer = styled.div`
     justify-content: flex-end;
     gap: 16px;
     margin-top: 16px;
+`;
+
+export const BackButton = styled(Button)`
+    margin-left: 32px;
+    width: 72px;
+    text-align: center;
 `;
