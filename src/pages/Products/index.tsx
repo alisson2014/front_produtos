@@ -22,7 +22,7 @@ import { localProducts, id } from "interface";
 export default function Products() {
     const navigate = useNavigate();
 
-    const [products, setProducts, removeProducts] = useLocalStorage<localProducts>("products", []);
+    const [products, setProducts, removeProducts] = useLocalStorage<localProducts>("produtos", []);
 
     const editProduct = (id: id): void => navigate(`/produtos/${id}`);
     const registerProduct = (): void => navigate("/produtos/cadastrar");
